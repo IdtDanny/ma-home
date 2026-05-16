@@ -47,9 +47,12 @@ export async function POST(req: Request) {
           unitId,
           rentAmount,
           startDate: new Date()
-        }
-      }
-    }
+        },
+      },
+    },
+    include: {
+      tenantProfile: true,
+    },
   })
 
   return NextResponse.json({ success: true, tenantId: user.tenantProfile?.id })

@@ -5,7 +5,8 @@ import StatCard from "@/components/StatCard";
 
 export default async function AdminDashboard() {
   const session = await auth();
-  if (!session || session.user.role !== "ADMIN") redirect("/login");
+  if (!session || !session.user || session.user.role !== "ADMIN") redirect("/login");
+  // if (!session || session.user.role !== "ADMIN") redirect("/login");
 
   const totalCollected = await prisma.payment.aggregate({
     where: { status: "SUCCESSFUL" },

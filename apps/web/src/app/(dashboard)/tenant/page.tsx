@@ -6,7 +6,8 @@ import TenantBillsList from "@/components/TenantBillsList";
 
 export default async function TenantDashboard() {
   const session = await auth();
-  if (!session || session.user.role !== "TENANT") redirect("/login");
+  if (!session || !session.user || session.user.role !== "TENANT") redirect("/login");
+  // if (!session || session.user.role !== "TENANT") redirect("/login");
 
   const tenant = await prisma.tenant.findFirst({
     where: { userId: session.user.id },
