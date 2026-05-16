@@ -181,6 +181,23 @@ exports.Prisma.PaymentScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.AnnouncementScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  body: 'body',
+  createdAt: 'createdAt',
+  authorId: 'authorId'
+};
+
+exports.Prisma.ContactMessageScalarFieldEnum = {
+  id: 'id',
+  subject: 'subject',
+  message: 'message',
+  tenantId: 'tenantId',
+  createdAt: 'createdAt',
+  isRead: 'isRead'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -236,7 +253,9 @@ exports.Prisma.ModelName = {
   Unit: 'Unit',
   Tenant: 'Tenant',
   Bill: 'Bill',
-  Payment: 'Payment'
+  Payment: 'Payment',
+  Announcement: 'Announcement',
+  ContactMessage: 'ContactMessage'
 };
 
 /**
