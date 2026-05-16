@@ -1,0 +1,11 @@
+{
+  "name": "ma-home",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "dependencies": {
+    "framer-motion": "^12.38.0"
+  }
+}

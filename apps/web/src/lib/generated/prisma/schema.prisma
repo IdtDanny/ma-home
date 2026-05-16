@@ -1,0 +1,109 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  ADMIN
+  TENANT
+}
+
+enum BillType {
+  RENT
+  ELECTRICITY
+  WATER
+  CUSTOM
+}
+
+enum PaymentMethod {
+  MOMO
+  AIRTEL
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCESSFUL
+  FAILED
+  EXPIRED
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  role         Role     @default(TENANT)
+  phone        String? // required for tenants to receive MoMo prompts
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  tenantProfile   Tenant?
+  adminProperties Property[] // only for ADMIN
+}
+
+model Property {
+  id        String   @id @default(cuid())
+  name      String
+  address   String?
+  adminId   String
+  admin     User     @relation(fields: [adminId], references: [id])
+  units     Unit[]
+  createdAt DateTime @default(now())
+}
+
+model Unit {
+  id         String   @id @default(cuid())
+  propertyId String
+  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  name       String // e.g., "Room A", "Apartment 1"
+  tenants    Tenant[]
+  bills      Bill[]
+  createdAt  DateTime @default(now())
+}
+
+model Tenant {
+  id         String   @id @default(cuid())
+  userId     String   @unique
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  unitId     String
+  unit       Unit     @relation(fields: [unitId], references: [id])
+  rentAmount Float // monthly base rent
+  startDate  DateTime // move-in date
+  bills      Bill[]
+  isActive   Boolean  @default(true)
+  createdAt  DateTime @default(now())
+}
+
+model Bill {
+  id        String        @id @default(cuid())
+  tenantId  String
+  tenant    Tenant        @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  unitId    String
+  unit      Unit          @relation(fields: [unitId], references: [id])
+  type      BillType
+  amount    Float
+  period    String // format: YYYY-MM
+  dueDate   DateTime
+  paidAt    DateTime?
+  status    PaymentStatus @default(PENDING)
+  createdAt DateTime      @default(now())
+
+  payment Payment?
+}
+
+model Payment {
+  id            String        @id @default(cuid())
+  billId        String        @unique
+  bill          Bill          @relation(fields: [billId], references: [id])
+  amount        Float
+  method        PaymentMethod
+  transactionId String? // external MoMo transaction ID
+  status        PaymentStatus @default(PENDING)
+  meta          Json? // store full response from provider
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+}
