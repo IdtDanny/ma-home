@@ -2,7 +2,8 @@
 
 import { motion } from "framer-motion";
 import PayButton from "./PayButton";
-import type { Bill } from "@prisma/client";
+import type { Bill } from "@/lib/generated/prisma/client";
+// import type { Bill } from "@prisma/client";
 
 interface TenantBillsListProps {
   bills: Bill[];
