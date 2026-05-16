@@ -37,12 +37,15 @@ model User {
   passwordHash String
   name         String
   role         Role     @default(TENANT)
-  phone        String? // required for tenants to receive MoMo prompts
+  phone        String?
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
   tenantProfile   Tenant?
-  adminProperties Property[] // only for ADMIN
+  adminProperties Property[]
+
+  announcements   Announcement[]   @relation("Announcements")
+  contactMessages ContactMessage[] @relation("ContactMessages")
 }
 
 model Property {
@@ -106,4 +109,23 @@ model Payment {
   meta          Json? // store full response from provider
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
+}
+
+model Announcement {
+  id        String   @id @default(cuid())
+  title     String
+  body      String
+  createdAt DateTime @default(now())
+  authorId  String
+  author    User     @relation("Announcements", fields: [authorId], references: [id])
+}
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  subject   String
+  message   String
+  tenantId  String
+  tenant    User     @relation("ContactMessages", fields: [tenantId], references: [id])
+  createdAt DateTime @default(now())
+  isRead    Boolean  @default(false)
 }
