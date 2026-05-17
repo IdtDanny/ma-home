@@ -18,7 +18,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
     {/* <html lang="en" className={cn("font-sans", geist.variable)}> */}
       <body className={inter.className}>
-        <ThemeProvider>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <SessionProvider>
             {children}
             {/* <Toaster position="top-right" /> */}

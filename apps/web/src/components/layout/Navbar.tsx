@@ -55,8 +55,10 @@ export default function Navbar() {
   const links = role === "ADMIN" ? adminLinks : tenantLinks;
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-white/80 backdrop-blur-lg">
-      <div className="flex h-16 items-center px-4 md:px-6">
+    <header className="sticky top-0 z-50 w-full border-b bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 backdrop-blur-lg">
+    {/* <header className="sticky top-0 z-50 w-full border-b bg-white/80 backdrop-blur-lg"> */}
+      <div className="max-w-7xl mx-auto flex h-16 items-center px-4 md:px-6">
+      {/* <div className="flex h-16 items-center px-4 md:px-6"> */}
         {/* Mobile menu */}
         <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
           <SheetTrigger asChild className="md:hidden">
@@ -87,9 +89,9 @@ export default function Navbar() {
 
         {/* Logo */}
         <Link href={role === "ADMIN" ? "/admin" : "/tenant"} className="flex items-center gap-2 mr-6">
-          <div className="h-8 w-8 rounded-lg bg-primary-600 text-white flex items-center justify-center font-bold">
-            M
-          </div>
+          {/* <div className="h-8 w-8 rounded-lg bg-primary-600 text-white flex items-center justify-center font-bold">
+            MA
+          </div> */}
           <span className="font-bold hidden sm:inline">MA Home</span>
         </Link>
 

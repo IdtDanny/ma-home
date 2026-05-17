@@ -17,7 +17,7 @@ export default async function AdminDashboard() {
 
   return (
     <div className="space-y-8">
-      <h1 className="text-2xl font-bold text-gray-800">Admin Dashboard</h1>
+      <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-300">Admin Dashboard</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <StatCard title="Total Collected" value={totalCollected._sum.amount || 0} icon="💰" color="bg-green-100 text-green-600" />
         <StatCard title="Pending Payments" value={pending} icon="⏳" color="bg-yellow-100 text-yellow-600" />

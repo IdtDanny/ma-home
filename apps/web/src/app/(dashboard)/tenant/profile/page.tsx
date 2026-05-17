@@ -27,7 +27,7 @@ export default async function TenantProfilePage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-gray-800 mb-6">My Profile</h1>
+      <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-300 mb-6">My Profile</h1>
       <TenantProfileCard tenant={tenant} />
     </div>
   );

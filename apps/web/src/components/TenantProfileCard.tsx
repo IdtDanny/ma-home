@@ -21,15 +21,15 @@ export default function TenantProfileCard({ tenant }: TenantProfileCardProps) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
-      className="bg-white rounded-xl shadow p-6 max-w-2xl"
+      className="bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-xl shadow p-6 max-w-2xl"
     >
       <div className="flex items-center gap-4 mb-6">
-        <div className="h-16 w-16 rounded-full bg-primary-100 flex items-center justify-center text-2xl font-bold text-primary-700">
+        <div className="h-16 w-16 rounded-full bg-gray-200 dark:bg-gray-600 flex items-center justify-center text-2xl font-bold text-primary-700">
           {user.name.charAt(0).toUpperCase()}
         </div>
         <div>
           <h2 className="text-xl font-semibold">{user.name}</h2>
-          <p className="text-gray-500">{user.email}</p>
+          <p className="text-gray-500 dark:text-gray-400">{user.email}</p>
           {isActive ? (
             <span className="inline-block mt-1 text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full">Active</span>
           ) : (
@@ -71,8 +71,8 @@ export default function TenantProfileCard({ tenant }: TenantProfileCardProps) {
 function InfoBox({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <p className="text-xs text-gray-500 uppercase">{label}</p>
-      <p className="text-sm font-medium text-gray-800">{value}</p>
+      <p className="text-xs text-gray-500 dark:text-gray-400 uppercase">{label}</p>
+      <p className="text-sm font-medium text-gray-800 dark:text-gray-200">{value}</p>
     </div>
   );
 }

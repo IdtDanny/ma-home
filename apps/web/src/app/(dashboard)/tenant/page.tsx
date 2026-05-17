@@ -20,7 +20,7 @@ export default async function TenantDashboard() {
 
   return (
     <div className="space-y-8">
-      <h1 className="text-2xl font-bold text-gray-800">Dashboard</h1>
+      <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-300">Dashboard</h1>
       <TenantContractCard
         unit={tenant.unit}
         rentAmount={tenant.rentAmount}
