@@ -18,6 +18,7 @@ import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/s
 import NotificationBell from "@/components/dashboard/NotificationBell";
 import { useTheme } from "next-themes";
 import { Moon, Sun } from "lucide-react";
+import AdminNotificationBell from "../dashboard/AdminNotificationBell";
 
 const adminLinks = [
   { href: "/admin", label: "Dashboard" },
@@ -146,6 +147,7 @@ export default function Navbar() {
 
         {/* Right side */}
         <div className="ml-auto flex items-center gap-3">
+          {role === "ADMIN" && <AdminNotificationBell />}
           {role === "TENANT" && <NotificationBell />}
 
           <ThemeToggle />

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -28,11 +28,42 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Pencil, Trash2, Eye, PlusCircle, Download, FileText, Users } from "lucide-react";
+import {
+  Pencil,
+  Trash2,
+  Eye,
+  PlusCircle,
+  Download,
+  FileText,
+  Users,
+} from "lucide-react";
 import * as XLSX from "xlsx";
 import toast from "react-hot-toast";
-import { TenantWithRelations } from "@/types/index"; 
+import type { TenantWithRelations } from "@/types/index";
 import ClearanceForm from "@/components/admin/ClearanceForm";
+
+const statusConfig: Record<string, { label: string; color: string }> = {
+  PENDING_TENANT_SIGNATURE: {
+    label: "Pending Tenant",
+    color: "bg-yellow-100 text-yellow-700 dark:bg-yellow-900 dark:text-yellow-300",
+  },
+  PENDING_LANDLORD_SIGNATURE: {
+    label: "Pending Landlord",
+    color: "bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300",
+  },
+  ACTIVE: {
+    label: "Active",
+    color: "bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300",
+  },
+  EXPIRED: {
+    label: "Expired",
+    color: "bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400",
+  },
+  TERMINATED: {
+    label: "Terminated",
+    color: "bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-300",
+  },
+};
 
 export default function TenantsTable({
   tenants,
@@ -59,19 +90,7 @@ export default function TenantsTable({
     rentAmount: "",
   });
 
-  // ── Delete ──────────────────────────────────────────────
-  const handleDelete = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this tenant?")) return;
-    const res = await fetch(`/api/tenants/${id}`, { method: "DELETE" });
-    if (res.ok) {
-      setTenantList((prev) => prev.filter((t) => t.id !== id));
-      toast.success("Tenant deleted.");
-    } else {
-      toast.error("Failed to delete tenant.");
-    }
-  };
-
-  // ── Create Contract ────────────────────────────────────────────────
+  // ── Contract ────────────────────────────────────────────
   const [contractTenantId, setContractTenantId] = useState<string | null>(null);
   const [contractForm, setContractForm] = useState({
     startDate: "",
@@ -89,7 +108,9 @@ export default function TenantsTable({
     setContractTenantId(tenant.id);
     setContractForm({
       startDate: new Date().toISOString().split("T")[0],
-      endDate: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
+      endDate: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000)
+        .toISOString()
+        .split("T")[0],
       monthlyRent: String(tenant.rentAmount),
       deposit: "",
       utilities: { electricity: "tenant", water: "landlord", internet: "tenant" },
@@ -114,8 +135,21 @@ export default function TenantsTable({
     if (res.ok) {
       toast.success("Contract created and sent for signature.");
       setContractTenantId(null);
+      router.refresh();
     } else {
       toast.error("Failed to create contract.");
+    }
+  };
+
+  // ── Delete ──────────────────────────────────────────────
+  const handleDelete = async (id: string) => {
+    if (!confirm("Are you sure you want to delete this tenant?")) return;
+    const res = await fetch(`/api/tenants/${id}`, { method: "DELETE" });
+    if (res.ok) {
+      setTenantList((prev) => prev.filter((t) => t.id !== id));
+      toast.success("Tenant deleted.");
+    } else {
+      toast.error("Failed to delete tenant.");
     }
   };
 
@@ -175,12 +209,7 @@ export default function TenantsTable({
     const dueDate = new Date(now.getFullYear(), now.getMonth(), 10)
       .toISOString()
       .split("T")[0];
-    setBillForm({
-      type: "RENT",
-      amount: "",
-      period,
-      dueDate,
-    });
+    setBillForm({ type: "RENT", amount: "", period, dueDate });
   };
 
   const handleAddBill = async (e: React.FormEvent) => {
@@ -206,52 +235,7 @@ export default function TenantsTable({
     }
   };
 
-  // ── Export to Excel ─────────────────────────────────────
-  const exportToExcel = () => {
-    const data = tenantList.map((t) => ({
-      Name: t.user.name,
-      Email: t.user.email,
-      Phone: t.user.phone || "",
-      Property: t.unit.property.name,
-      Unit: t.unit.name,
-      "Monthly Rent (RWF)": t.rentAmount,
-      Status: t.isActive ? "Active" : "Inactive",
-      "Move-in Date": new Date(t.startDate).toLocaleDateString(),
-    }));
-
-    const worksheet = XLSX.utils.json_to_sheet(data);
-    const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, "Tenants");
-    XLSX.writeFile(workbook, "tenants.xlsx");
-    toast.success("Export downloaded.");
-  };
-
-  // ── Actions Helper (for both card and table) ────────────
-  const actionButtons = (tenant: TenantWithRelations) => (
-    <div className="flex gap-1 justify-end">
-      <Button variant="ghost" size="icon" onClick={() => openView(tenant)} title="View Profile">
-        <Eye className="h-4 w-4" />
-      </Button>
-      <Button variant="ghost" size="icon" onClick={() => openContractForm(tenant)} title="Assign Contract">
-        <FileText className="h-4 w-4" />
-      </Button>
-      <Button variant="ghost" size="icon" onClick={() => openEdit(tenant)} title="Edit">
-        <Pencil className="h-4 w-4" />
-      </Button>
-      <Button variant="ghost" size="icon" onClick={() => openBillForm(tenant.id)} title="Add Bill">
-        <PlusCircle className="h-4 w-4" />
-      </Button>
-      <Button variant="ghost" size="icon" onClick={() => {
-        setDeletingTenant(tenant);
-        setClearanceFormOpen(true);
-        }} title="Delete">
-      {/* <Button variant="ghost" size="icon" onClick={() => handleDelete(tenant.id)} title="Delete"> */}
-        <Trash2 className="h-4 w-4 text-red-500" />
-      </Button>
-    </div>
-  );
-
-  // This state is used to track which tenant's occupants are being managed in the Add Occupant dialog
+  // ── Occupants ───────────────────────────────────────────
   const [occupantTenant, setOccupantTenant] = useState<TenantWithRelations | null>(null);
   const [newOccupant, setNewOccupant] = useState({ name: "", phone: "", relation: "" });
 
@@ -260,7 +244,6 @@ export default function TenantsTable({
     setNewOccupant({ name: "", phone: "", relation: "" });
   };
 
-  // The Add Occupant dialog and its handlers would go here, similar to the Edit and View dialogs, but for brevity, it's not included in this snippet.
   const handleAddOccupant = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!occupantTenant) return;
@@ -291,7 +274,6 @@ export default function TenantsTable({
     }
   };
 
-  // Delete occupant handler would be similar to handleDelete but for occupants, and would also update the tenant's occupants in state accordingly.
   const handleDeleteOccupant = async (occupantId: string) => {
     if (!occupantTenant) return;
     const res = await fetch(`/api/occupants/${occupantId}`, { method: "DELETE" });
@@ -318,6 +300,70 @@ export default function TenantsTable({
     }
   };
 
+  // ── Export to Excel ─────────────────────────────────────
+  const exportToExcel = () => {
+    const data = tenantList.map((t) => ({
+      Name: t.user.name,
+      Email: t.user.email,
+      Phone: t.user.phone || "",
+      Property: t.unit.property.name,
+      Unit: t.unit.name,
+      "Monthly Rent (RWF)": t.rentAmount,
+      Status: t.isActive ? "Active" : "Inactive",
+      "Move-in Date": new Date(t.startDate).toLocaleDateString(),
+    }));
+    const worksheet = XLSX.utils.json_to_sheet(data);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Tenants");
+    XLSX.writeFile(workbook, "tenants.xlsx");
+    toast.success("Export downloaded.");
+  };
+
+  // ── Actions Helper (now receives hasContract to decide button) ──
+  const actionButtons = (tenant: TenantWithRelations, hasContract: boolean) => (
+    <div className="flex gap-1 justify-end">
+      <Button variant="ghost" size="icon" onClick={() => openView(tenant)} title="View Profile">
+        <Eye className="h-4 w-4" />
+      </Button>
+      {hasContract ? (
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => router.push(`/admin/contracts?tenantId=${tenant.id}`)}
+          title="View Contract"
+        >
+          <FileText className="h-4 w-4 text-blue-600" />
+        </Button>
+      ) : (
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => openContractForm(tenant)}
+          title="Assign Contract"
+        >
+          <PlusCircle className="h-4 w-4" />
+        </Button>
+      )}
+      <Button variant="ghost" size="icon" onClick={() => openEdit(tenant)} title="Edit">
+        <Pencil className="h-4 w-4" />
+      </Button>
+      <Button variant="ghost" size="icon" onClick={() => openBillForm(tenant.id)} title="Add Bill">
+        <PlusCircle className="h-4 w-4" />
+      </Button>
+      <Button
+        variant="ghost"
+        size="icon"
+        onClick={() => {
+          setDeletingTenant(tenant);
+          setClearanceFormOpen(true);
+        }}
+        title="Delete"
+      >
+        <Trash2 className="h-4 w-4 text-red-500" />
+      </Button>
+    </div>
+  );
+
   return (
     <>
       <Card className="dark:bg-gray-900 dark:border-gray-800">
@@ -331,65 +377,81 @@ export default function TenantsTable({
           </Button>
         </CardHeader>
         <CardContent>
-          {/* ── Mobile: Cards (visible on small screens) ── */}
+          {/* ── Mobile: Cards ── */}
           <div className="md:hidden space-y-4">
             {tenantList.length === 0 ? (
               <p className="text-center text-gray-500 dark:text-gray-400 py-8">
                 No tenants found.
               </p>
             ) : (
-              tenantList.map((tenant) => (
-                <motion.div
-                  key={tenant.id}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0 }}
-                  className="bg-white dark:bg-gray-800 rounded-xl border dark:border-gray-700 p-4"
-                >
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <h3 className="font-semibold text-gray-900 dark:text-gray-100">
-                        {tenant.user.name}
-                      </h3>
-                      <p className="text-xs text-gray-500 dark:text-gray-400">
-                        {tenant.user.email}
-                      </p>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">
-                        {tenant.unit.property.name} – {tenant.unit.name}
-                      </p>
-                    </div>
-                    <span
-                      className={`text-xs px-2 py-1 rounded-full font-medium ${
-                        tenant.isActive
-                          ? "bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300"
-                          : "bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-300"
-                      }`}
-                    >
-                      {tenant.isActive ? "Active" : "Inactive"}
-                    </span>
-                  </div>
+              tenantList.map((tenant) => {
+                const latestContract = tenant.contracts?.[0];
+                const contractStatus = latestContract?.status ?? null;
+                const hasContract = !!latestContract;
 
-                  <div className="mt-3 grid grid-cols-2 gap-2 text-sm">
-                    <div>
-                      <span className="text-xs text-gray-500 dark:text-gray-400">ID:</span>{" "}
-                      {tenant.nationalId || "—"}
-                    </div>
-                  </div>
-                  <div>
-                    <span className="text-gray-500 dark:text-gray-400">Occupants:</span>{" "}
-                    <Button variant="link" className="p-0 h-auto" onClick={() => openOccupantsDialog(tenant)}>
-                      {tenant.occupants.length}
-                    </Button>
-                  </div>
+                return (
+                  <motion.div
+                    key={tenant.id}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0 }}
+                    className="bg-white dark:bg-gray-800 rounded-xl border dark:border-gray-700 p-4"
+                  >
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <h3 className="font-semibold text-gray-900 dark:text-gray-100">
+                          {tenant.user.name}
+                        </h3>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                          {tenant.user.email}
+                        </p>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">
+                          {tenant.unit.property.name} – {tenant.unit.name}
+                        </p>
+                      </div>
 
-                  <div className="mt-3 flex justify-between items-center">
-                    <span className="font-medium text-gray-800 dark:text-gray-200">
-                      {tenant.rentAmount.toLocaleString()} RWF
-                    </span>
-                    {actionButtons(tenant)}
-                  </div>
-                </motion.div>
-              ))
+                      <div className="flex items-center gap-2 mt-1">
+                        <span className="text-xs text-gray-500">Contract:</span>
+                        {contractStatus ? (
+                          <span
+                            className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
+                              statusConfig[contractStatus]?.color ?? ""
+                            }`}
+                          >
+                            {statusConfig[contractStatus]?.label ?? contractStatus}
+                          </span>
+                        ) : (
+                          <span className="text-xs text-gray-400">No Contract</span>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="mt-2 grid grid-cols-2 gap-2 text-sm">
+                      <div>
+                        <span className="text-xs text-gray-500 dark:text-gray-400">ID:</span>{" "}
+                        {tenant.nationalId || "—"}
+                      </div>
+                      <div>
+                        <span className="text-xs text-gray-500 dark:text-gray-400">Occupants:</span>{" "}
+                        <Button
+                          variant="link"
+                          className="p-0 h-auto"
+                          onClick={() => openOccupantsDialog(tenant)}
+                        >
+                          {tenant.occupants.length}
+                        </Button>
+                      </div>
+                    </div>
+
+                    <div className="mt-3 flex justify-between items-center">
+                      <span className="font-medium text-gray-800 dark:text-gray-200">
+                        {tenant.rentAmount.toLocaleString()} RWF
+                      </span>
+                      {actionButtons(tenant, hasContract)}
+                    </div>
+                  </motion.div>
+                );
+              })
             )}
           </div>
 
@@ -415,58 +477,66 @@ export default function TenantsTable({
                 </TableHeader>
                 <TableBody>
                   <AnimatePresence>
-                    {tenantList.map((tenant) => (
-                      <motion.tr
-                        key={tenant.id}
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0 }}
-                        className="border-b dark:border-gray-800"
-                      >
-                        <TableCell className="font-medium text-gray-800 dark:text-gray-200">
-                          {tenant.user.name}
-                        </TableCell>
-                        <TableCell className="text-gray-600 dark:text-gray-400">
-                          {tenant.user.email}
-                        </TableCell>
-                        <TableCell className="text-gray-600 dark:text-gray-400">
-                          {tenant.unit.property.name} – {tenant.unit.name}
-                        </TableCell>
-                        <TableCell className="text-gray-600 dark:text-gray-400 text-xs">
-                          {tenant.nationalId || "—"}
-                        </TableCell>
-                        <TableCell>
-                          <div className="flex items-center gap-2">
-                            <span className="text-sm">{tenant.occupants.length}</span>
-                            <Button
-                              variant="ghost"
-                              size="icon"
-                              onClick={() => openOccupantsDialog(tenant)}
-                              title="Manage Occupants"
-                            >
-                              <Users className="h-4 w-4" />
-                            </Button>
-                          </div>
-                        </TableCell>
-                        <TableCell>
-                          {tenant.rentAmount.toLocaleString()} RWF
-                        </TableCell>
-                        <TableCell>
-                          <span
-                            className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
-                              tenant.isActive
-                                ? "bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300"
-                                : "bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-300"
-                            }`}
-                          >
-                            {tenant.isActive ? "Active" : "Inactive"}
-                          </span>
-                        </TableCell>
-                        <TableCell className="text-right">
-                          {actionButtons(tenant)}
-                        </TableCell>
-                      </motion.tr>
-                    ))}
+                    {tenantList.map((tenant) => {
+                      const latestContract = tenant.contracts?.[0];
+                      const contractStatus = latestContract?.status ?? null;
+                      const hasContract = !!latestContract;
+
+                      return (
+                        <motion.tr
+                          key={tenant.id}
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0 }}
+                          className="border-b dark:border-gray-800"
+                        >
+                          <TableCell className="font-medium text-gray-800 dark:text-gray-200">
+                            {tenant.user.name}
+                          </TableCell>
+                          <TableCell className="text-gray-600 dark:text-gray-400">
+                            {tenant.user.email}
+                          </TableCell>
+                          <TableCell className="text-gray-600 dark:text-gray-400">
+                            {tenant.unit.property.name} – {tenant.unit.name}
+                          </TableCell>
+                          <TableCell className="text-gray-600 dark:text-gray-400 text-xs">
+                            {tenant.nationalId || "—"}
+                          </TableCell>
+                          <TableCell>
+                            <div className="flex items-center gap-2">
+                              <span className="text-sm">{tenant.occupants.length}</span>
+                              <Button
+                                variant="ghost"
+                                size="icon"
+                                onClick={() => openOccupantsDialog(tenant)}
+                                title="Manage Occupants"
+                              >
+                                <Users className="h-4 w-4" />
+                              </Button>
+                            </div>
+                          </TableCell>
+                          <TableCell>
+                            {tenant.rentAmount.toLocaleString()} RWF
+                          </TableCell>
+                          <TableCell>
+                            {contractStatus ? (
+                              <span
+                                className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
+                                  statusConfig[contractStatus]?.color ?? ""
+                                }`}
+                              >
+                                {statusConfig[contractStatus]?.label ?? contractStatus}
+                              </span>
+                            ) : (
+                              <span className="text-xs text-gray-400">No Contract</span>
+                            )}
+                          </TableCell>
+                          <TableCell className="text-right">
+                            {actionButtons(tenant, hasContract)}
+                          </TableCell>
+                        </motion.tr>
+                      );
+                    })}
                   </AnimatePresence>
                 </TableBody>
               </Table>
@@ -475,14 +545,13 @@ export default function TenantsTable({
         </CardContent>
       </Card>
 
-      {/* ── Edit Dialog (same as before) ── */}
+      {/* ── Edit Dialog ── */}
       <Dialog open={!!editingTenant} onOpenChange={(open) => !open && setEditingTenant(null)}>
         <DialogContent className="max-w-md dark:bg-gray-900">
           <DialogHeader>
             <DialogTitle>Edit Tenant</DialogTitle>
           </DialogHeader>
           <form onSubmit={handleEditSubmit} className="space-y-4">
-            {/* … form fields (keep from previous version) … */}
             <div>
               <Label>Name</Label>
               <Input required value={editForm.name} onChange={(e) => setEditForm({ ...editForm, name: e.target.value })} />
@@ -505,10 +574,7 @@ export default function TenantsTable({
       </Dialog>
 
       {/* ── View Profile Dialog ── */}
-      <Dialog
-        open={!!viewingTenant}
-        onOpenChange={(open) => !open && setViewingTenant(null)}
-      >
+      <Dialog open={!!viewingTenant} onOpenChange={(open) => !open && setViewingTenant(null)}>
         <DialogContent className="max-w-2xl dark:bg-gray-900">
           <DialogHeader>
             <DialogTitle>Tenant Profile</DialogTitle>
@@ -518,21 +584,15 @@ export default function TenantsTable({
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <Label>Name</Label>
-                  <p className="font-medium text-gray-800 dark:text-gray-200">
-                    {viewingTenant.user.name}
-                  </p>
+                  <p className="font-medium text-gray-800 dark:text-gray-200">{viewingTenant.user.name}</p>
                 </div>
                 <div>
                   <Label>Email</Label>
-                  <p className="font-medium text-gray-800 dark:text-gray-200">
-                    {viewingTenant.user.email}
-                  </p>
+                  <p className="font-medium text-gray-800 dark:text-gray-200">{viewingTenant.user.email}</p>
                 </div>
                 <div>
                   <Label>Phone</Label>
-                  <p className="font-medium text-gray-800 dark:text-gray-200">
-                    {viewingTenant.user.phone || "—"}
-                  </p>
+                  <p className="font-medium text-gray-800 dark:text-gray-200">{viewingTenant.user.phone || "—"}</p>
                 </div>
                 <div>
                   <Label>Unit</Label>
@@ -564,20 +624,9 @@ export default function TenantsTable({
                   <Label>Recent Bills</Label>
                   <ul className="space-y-1 mt-2">
                     {viewingTenant.bills.map((bill) => (
-                      <li
-                        key={bill.id}
-                        className="flex justify-between text-sm border-b dark:border-gray-700 pb-1"
-                      >
-                        <span>
-                          {bill.type} – {bill.period}
-                        </span>
-                        <span
-                          className={`font-medium ${
-                            bill.status === "SUCCESSFUL"
-                              ? "text-green-600"
-                              : "text-gray-600 dark:text-gray-400"
-                          }`}
-                        >
+                      <li key={bill.id} className="flex justify-between text-sm border-b dark:border-gray-700 pb-1">
+                        <span>{bill.type} – {bill.period}</span>
+                        <span className={`font-medium ${bill.status === "SUCCESSFUL" ? "text-green-600" : "text-gray-600 dark:text-gray-400"}`}>
                           {bill.amount.toLocaleString()} RWF ({bill.status})
                         </span>
                       </li>
@@ -590,11 +639,8 @@ export default function TenantsTable({
         </DialogContent>
       </Dialog>
 
-      {/* ── Add Bill Dialog ──────────────────────────── */}
-      <Dialog
-        open={!!billTenantId}
-        onOpenChange={(open) => !open && setBillTenantId(null)}
-      >
+      {/* ── Add Bill Dialog ── */}
+      <Dialog open={!!billTenantId} onOpenChange={(open) => !open && setBillTenantId(null)}>
         <DialogContent className="max-w-md dark:bg-gray-900">
           <DialogHeader>
             <DialogTitle>Add Bill</DialogTitle>
@@ -602,10 +648,7 @@ export default function TenantsTable({
           <form onSubmit={handleAddBill} className="space-y-4">
             <div>
               <Label>Bill Type</Label>
-              <Select
-                value={billForm.type}
-                onValueChange={(v) => setBillForm({ ...billForm, type: v })}
-              >
+              <Select value={billForm.type} onValueChange={(v) => setBillForm({ ...billForm, type: v })}>
                 <SelectTrigger>
                   <SelectValue placeholder="Select type" />
                 </SelectTrigger>
@@ -619,44 +662,22 @@ export default function TenantsTable({
             </div>
             <div>
               <Label>Amount (RWF)</Label>
-              <Input
-                type="number"
-                required
-                value={billForm.amount}
-                onChange={(e) =>
-                  setBillForm({ ...billForm, amount: e.target.value })
-                }
-              />
+              <Input type="number" required value={billForm.amount} onChange={(e) => setBillForm({ ...billForm, amount: e.target.value })} />
             </div>
             <div>
               <Label>Period (YYYY‑MM)</Label>
-              <Input
-                required
-                value={billForm.period}
-                onChange={(e) =>
-                  setBillForm({ ...billForm, period: e.target.value })
-                }
-              />
+              <Input required value={billForm.period} onChange={(e) => setBillForm({ ...billForm, period: e.target.value })} />
             </div>
             <div>
               <Label>Due Date</Label>
-              <Input
-                type="date"
-                required
-                value={billForm.dueDate}
-                onChange={(e) =>
-                  setBillForm({ ...billForm, dueDate: e.target.value })
-                }
-              />
+              <Input type="date" required value={billForm.dueDate} onChange={(e) => setBillForm({ ...billForm, dueDate: e.target.value })} />
             </div>
-            <Button type="submit" className="w-full">
-              Create Bill
-            </Button>
+            <Button type="submit" className="w-full">Create Bill</Button>
           </form>
         </DialogContent>
       </Dialog>
-      
-      {/* ── Create Contract Dialog ──────────────────────────── */}
+
+      {/* ── Create Contract Dialog ── */}
       <Dialog open={!!contractTenantId} onOpenChange={(open) => !open && setContractTenantId(null)}>
         <DialogContent className="max-w-lg dark:bg-gray-900">
           <DialogHeader>
@@ -713,13 +734,11 @@ export default function TenantsTable({
         </DialogContent>
       </Dialog>
 
-      {/* Assign Occupants Dialog */}
+      {/* ── Occupants Dialog ── */}
       <Dialog open={!!occupantTenant} onOpenChange={(open) => !open && setOccupantTenant(null)}>
         <DialogContent className="max-w-md dark:bg-gray-900">
           <DialogHeader>
-            <DialogTitle>
-              Occupants for {occupantTenant?.user.name}
-            </DialogTitle>
+            <DialogTitle>Occupants for {occupantTenant?.user.name}</DialogTitle>
           </DialogHeader>
           <div className="space-y-4">
             {occupantTenant?.occupants.length === 0 ? (
@@ -733,11 +752,7 @@ export default function TenantsTable({
                       {occ.relation && <p className="text-xs text-gray-500">{occ.relation}</p>}
                       {occ.phone && <p className="text-xs text-gray-400">{occ.phone}</p>}
                     </div>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={() => handleDeleteOccupant(occ.id)}
-                    >
+                    <Button variant="ghost" size="icon" onClick={() => handleDeleteOccupant(occ.id)}>
                       <Trash2 className="h-4 w-4 text-red-400" />
                     </Button>
                   </li>
@@ -761,19 +776,20 @@ export default function TenantsTable({
                 value={newOccupant.relation}
                 onChange={(e) => setNewOccupant({ ...newOccupant, relation: e.target.value })}
               />
-              <Button type="submit" size="sm">
-                Add Occupant
-              </Button>
+              <Button type="submit" size="sm">Add Occupant</Button>
             </form>
           </div>
         </DialogContent>
       </Dialog>
 
-      {/* Clearance Dialog for Tenant Deletion */}
-      <Dialog open={clearanceFormOpen} onOpenChange={(open) => {
-        setClearanceFormOpen(open);
-        if (!open) setDeletingTenant(null);
-      }}>
+      {/* ── Clearance Dialog ── */}
+      <Dialog
+        open={clearanceFormOpen}
+        onOpenChange={(open) => {
+          setClearanceFormOpen(open);
+          if (!open) setDeletingTenant(null);
+        }}
+      >
         <DialogContent className="max-w-2xl dark:bg-gray-900 max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>Eviction & Clearance Certificate</DialogTitle>
@@ -782,12 +798,11 @@ export default function TenantsTable({
             <ClearanceForm
               tenant={deletingTenant}
               onSuccess={() => {
-                // Remove tenant from local state
-                setTenantList((prev) => prev.filter(t => t.id !== deletingTenant.id));
+                setTenantList((prev) => prev.filter((t) => t.id !== deletingTenant.id));
                 setClearanceFormOpen(false);
                 setDeletingTenant(null);
                 toast.success("Tenant evicted and certificate generated.");
-                router.refresh(); // refresh server component if needed
+                router.refresh();
               }}
               onCancel={() => {
                 setClearanceFormOpen(false);

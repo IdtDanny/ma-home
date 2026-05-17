@@ -18,6 +18,7 @@ export default async function AdminTenantsPage() {
       unit: { include: { property: true } },
       bills: { orderBy: { createdAt: "desc" }, take: 5 },
       occupants: true,
+      contracts: { orderBy: { createdAt: "desc" }, take: 1 },
     },
     orderBy: { createdAt: "desc" },
   });

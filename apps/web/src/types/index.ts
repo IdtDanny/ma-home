@@ -28,6 +28,10 @@ export type TenantWithRelations = {
     status: string;
     period: string;
   }[];
+  contracts: {
+    id: string;
+    status: string ;
+  }[];
 };
 
 export type Occupant = {
