@@ -153,6 +153,10 @@ exports.Prisma.TenantScalarFieldEnum = {
   rentAmount: 'rentAmount',
   startDate: 'startDate',
   isActive: 'isActive',
+  nationalId: 'nationalId',
+  emergencyContactName: 'emergencyContactName',
+  emergencyContactPhone: 'emergencyContactPhone',
+  numberOfOccupants: 'numberOfOccupants',
   createdAt: 'createdAt'
 };
 
@@ -198,6 +202,57 @@ exports.Prisma.ContactMessageScalarFieldEnum = {
   isRead: 'isRead'
 };
 
+exports.Prisma.OccupantScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  name: 'name',
+  phone: 'phone',
+  relation: 'relation'
+};
+
+exports.Prisma.ContractScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  monthlyRent: 'monthlyRent',
+  deposit: 'deposit',
+  utilities: 'utilities',
+  status: 'status',
+  content: 'content',
+  tenantSignature: 'tenantSignature',
+  tenantSignedAt: 'tenantSignedAt',
+  landlordSignature: 'landlordSignature',
+  landlordSignedAt: 'landlordSignedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ClearanceCertificateScalarFieldEnum = {
+  id: 'id',
+  tenantName: 'tenantName',
+  nationalId: 'nationalId',
+  propertyAddress: 'propertyAddress',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  rentCleared: 'rentCleared',
+  utilitiesCleared: 'utilitiesCleared',
+  serviceChargesCleared: 'serviceChargesCleared',
+  damagesCleared: 'damagesCleared',
+  propertyCondition: 'propertyCondition',
+  repairDetails: 'repairDetails',
+  securityDeposit: 'securityDeposit',
+  depositRefunded: 'depositRefunded',
+  refundAmount: 'refundAmount',
+  depositRetainedReason: 'depositRetainedReason',
+  landlordName: 'landlordName',
+  landlordSignature: 'landlordSignature',
+  landlordPhone: 'landlordPhone',
+  createdAt: 'createdAt',
+  tenantEmail: 'tenantEmail',
+  tenantPhone: 'tenantPhone'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -205,6 +260,10 @@ exports.Prisma.SortOrder = {
 
 exports.Prisma.NullableJsonNullValueInput = {
   DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull
+};
+
+exports.Prisma.JsonNullValueInput = {
   JsonNull: Prisma.JsonNull
 };
 
@@ -247,6 +306,14 @@ exports.PaymentMethod = exports.$Enums.PaymentMethod = {
   AIRTEL: 'AIRTEL'
 };
 
+exports.ContractStatus = exports.$Enums.ContractStatus = {
+  PENDING_TENANT_SIGNATURE: 'PENDING_TENANT_SIGNATURE',
+  PENDING_LANDLORD_SIGNATURE: 'PENDING_LANDLORD_SIGNATURE',
+  ACTIVE: 'ACTIVE',
+  EXPIRED: 'EXPIRED',
+  TERMINATED: 'TERMINATED'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Property: 'Property',
@@ -255,7 +322,10 @@ exports.Prisma.ModelName = {
   Bill: 'Bill',
   Payment: 'Payment',
   Announcement: 'Announcement',
-  ContactMessage: 'ContactMessage'
+  ContactMessage: 'ContactMessage',
+  Occupant: 'Occupant',
+  Contract: 'Contract',
+  ClearanceCertificate: 'ClearanceCertificate'
 };
 
 /**

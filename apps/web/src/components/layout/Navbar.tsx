@@ -26,10 +26,13 @@ const adminLinks = [
   { href: "/admin/properties", label: "Properties" },
   { href: "/admin/announcements", label: "Announcements" },
   { href: "/admin/messages", label: "Messages" },
+  { href: "/admin/contracts", label: "Contracts" },
 ];
 
 const tenantLinks = [
   { href: "/tenant", label: "Dashboard" },
+  // { href: "/tenant/contract", label: "My Contract", icon: "📝" },
+  { href: "/tenant/contract", label: "My Contract" },
   { href: "/tenant/bills", label: "My Bills" },
   { href: "/tenant/profile", label: "Profile" },
   { href: "/tenant/contact", label: "Contact" },
@@ -66,24 +69,53 @@ export default function Navbar() {
               <Menu className="h-5 w-5" />
             </Button>
           </SheetTrigger>
-          <SheetContent side="left" className="w-64">
-            <SheetTitle className="text-xl font-bold mb-6">MA Home</SheetTitle>
-            <nav className="flex flex-col gap-2">
-              {links.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setMobileOpen(false)}
-                  className={`px-3 py-2 rounded-md text-sm font-medium transition ${
-                    pathname === link.href
-                      ? "bg-primary-50 text-primary-700"
-                      : "text-gray-600 hover:bg-gray-100"
-                  }`}
+          {/* <SheetContent side="left" className="w-64"> */}
+
+          <SheetContent side="left" className="w-64 p-0 dark:bg-gray-900">
+            <div className="flex flex-col h-full">
+              {/* Header */}
+              <div className="p-6 border-b dark:border-gray-800">
+                <SheetTitle className="text-xl font-bold text-gray-900 dark:text-gray-100">
+                  MA Home
+                </SheetTitle>
+              </div>
+
+              {/* Navigation Links */}
+              <nav className="flex-1 px-4 py-4 space-y-1">
+                {links.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setMobileOpen(false)}
+                    className={`flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                      pathname === link.href
+                        ? "bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300"
+                        : "text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </nav>
+
+              {/* Bottom actions */}
+              <div className="border-t dark:border-gray-800 p-4 space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-gray-500 dark:text-gray-400">Theme</span>
+                  <ThemeToggle />
+                </div>
+                <Button
+                  variant="ghost"
+                  className="w-full justify-start text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+                  onClick={() => signOut({ callbackUrl: "/login" })}
                 >
-                  {link.label}
-                </Link>
-              ))}
-            </nav>
+                  <LogOut className="mr-2 h-4 w-4" />
+                  Sign Out
+                </Button>
+              </div>
+            </div>
+          {/* </SheetContent> */}
+
           </SheetContent>
         </Sheet>
 

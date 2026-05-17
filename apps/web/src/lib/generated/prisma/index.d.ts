@@ -53,6 +53,21 @@ export type Announcement = $Result.DefaultSelection<Prisma.$AnnouncementPayload>
  * 
  */
 export type ContactMessage = $Result.DefaultSelection<Prisma.$ContactMessagePayload>
+/**
+ * Model Occupant
+ * 
+ */
+export type Occupant = $Result.DefaultSelection<Prisma.$OccupantPayload>
+/**
+ * Model Contract
+ * 
+ */
+export type Contract = $Result.DefaultSelection<Prisma.$ContractPayload>
+/**
+ * Model ClearanceCertificate
+ * 
+ */
+export type ClearanceCertificate = $Result.DefaultSelection<Prisma.$ClearanceCertificatePayload>
 
 /**
  * Enums
@@ -93,6 +108,17 @@ export const PaymentStatus: {
 
 export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus]
 
+
+export const ContractStatus: {
+  PENDING_TENANT_SIGNATURE: 'PENDING_TENANT_SIGNATURE',
+  PENDING_LANDLORD_SIGNATURE: 'PENDING_LANDLORD_SIGNATURE',
+  ACTIVE: 'ACTIVE',
+  EXPIRED: 'EXPIRED',
+  TERMINATED: 'TERMINATED'
+};
+
+export type ContractStatus = (typeof ContractStatus)[keyof typeof ContractStatus]
+
 }
 
 export type Role = $Enums.Role
@@ -110,6 +136,10 @@ export const PaymentMethod: typeof $Enums.PaymentMethod
 export type PaymentStatus = $Enums.PaymentStatus
 
 export const PaymentStatus: typeof $Enums.PaymentStatus
+
+export type ContractStatus = $Enums.ContractStatus
+
+export const ContractStatus: typeof $Enums.ContractStatus
 
 /**
  * ##  Prisma Client ʲˢ
@@ -311,6 +341,36 @@ export class PrismaClient<
     * ```
     */
   get contactMessage(): Prisma.ContactMessageDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.occupant`: Exposes CRUD operations for the **Occupant** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Occupants
+    * const occupants = await prisma.occupant.findMany()
+    * ```
+    */
+  get occupant(): Prisma.OccupantDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.contract`: Exposes CRUD operations for the **Contract** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Contracts
+    * const contracts = await prisma.contract.findMany()
+    * ```
+    */
+  get contract(): Prisma.ContractDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.clearanceCertificate`: Exposes CRUD operations for the **ClearanceCertificate** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ClearanceCertificates
+    * const clearanceCertificates = await prisma.clearanceCertificate.findMany()
+    * ```
+    */
+  get clearanceCertificate(): Prisma.ClearanceCertificateDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -752,7 +812,10 @@ export namespace Prisma {
     Bill: 'Bill',
     Payment: 'Payment',
     Announcement: 'Announcement',
-    ContactMessage: 'ContactMessage'
+    ContactMessage: 'ContactMessage',
+    Occupant: 'Occupant',
+    Contract: 'Contract',
+    ClearanceCertificate: 'ClearanceCertificate'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -768,7 +831,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "property" | "unit" | "tenant" | "bill" | "payment" | "announcement" | "contactMessage"
+      modelProps: "user" | "property" | "unit" | "tenant" | "bill" | "payment" | "announcement" | "contactMessage" | "occupant" | "contract" | "clearanceCertificate"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1364,6 +1427,228 @@ export namespace Prisma {
           }
         }
       }
+      Occupant: {
+        payload: Prisma.$OccupantPayload<ExtArgs>
+        fields: Prisma.OccupantFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.OccupantFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OccupantPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.OccupantFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OccupantPayload>
+          }
+          findFirst: {
+            args: Prisma.OccupantFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OccupantPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.OccupantFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OccupantPayload>
+          }
+          findMany: {
+            args: Prisma.OccupantFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OccupantPayload>[]
+          }
+          create: {
+            args: Prisma.OccupantCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OccupantPayload>
+          }
+          createMany: {
+            args: Prisma.OccupantCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.OccupantCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OccupantPayload>[]
+          }
+          delete: {
+            args: Prisma.OccupantDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OccupantPayload>
+          }
+          update: {
+            args: Prisma.OccupantUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OccupantPayload>
+          }
+          deleteMany: {
+            args: Prisma.OccupantDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.OccupantUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.OccupantUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OccupantPayload>[]
+          }
+          upsert: {
+            args: Prisma.OccupantUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OccupantPayload>
+          }
+          aggregate: {
+            args: Prisma.OccupantAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateOccupant>
+          }
+          groupBy: {
+            args: Prisma.OccupantGroupByArgs<ExtArgs>
+            result: $Utils.Optional<OccupantGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.OccupantCountArgs<ExtArgs>
+            result: $Utils.Optional<OccupantCountAggregateOutputType> | number
+          }
+        }
+      }
+      Contract: {
+        payload: Prisma.$ContractPayload<ExtArgs>
+        fields: Prisma.ContractFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ContractFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContractPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ContractFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContractPayload>
+          }
+          findFirst: {
+            args: Prisma.ContractFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContractPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ContractFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContractPayload>
+          }
+          findMany: {
+            args: Prisma.ContractFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContractPayload>[]
+          }
+          create: {
+            args: Prisma.ContractCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContractPayload>
+          }
+          createMany: {
+            args: Prisma.ContractCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ContractCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContractPayload>[]
+          }
+          delete: {
+            args: Prisma.ContractDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContractPayload>
+          }
+          update: {
+            args: Prisma.ContractUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContractPayload>
+          }
+          deleteMany: {
+            args: Prisma.ContractDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ContractUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ContractUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContractPayload>[]
+          }
+          upsert: {
+            args: Prisma.ContractUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContractPayload>
+          }
+          aggregate: {
+            args: Prisma.ContractAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateContract>
+          }
+          groupBy: {
+            args: Prisma.ContractGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ContractGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ContractCountArgs<ExtArgs>
+            result: $Utils.Optional<ContractCountAggregateOutputType> | number
+          }
+        }
+      }
+      ClearanceCertificate: {
+        payload: Prisma.$ClearanceCertificatePayload<ExtArgs>
+        fields: Prisma.ClearanceCertificateFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ClearanceCertificateFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClearanceCertificatePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ClearanceCertificateFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClearanceCertificatePayload>
+          }
+          findFirst: {
+            args: Prisma.ClearanceCertificateFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClearanceCertificatePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ClearanceCertificateFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClearanceCertificatePayload>
+          }
+          findMany: {
+            args: Prisma.ClearanceCertificateFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClearanceCertificatePayload>[]
+          }
+          create: {
+            args: Prisma.ClearanceCertificateCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClearanceCertificatePayload>
+          }
+          createMany: {
+            args: Prisma.ClearanceCertificateCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ClearanceCertificateCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClearanceCertificatePayload>[]
+          }
+          delete: {
+            args: Prisma.ClearanceCertificateDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClearanceCertificatePayload>
+          }
+          update: {
+            args: Prisma.ClearanceCertificateUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClearanceCertificatePayload>
+          }
+          deleteMany: {
+            args: Prisma.ClearanceCertificateDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ClearanceCertificateUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ClearanceCertificateUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClearanceCertificatePayload>[]
+          }
+          upsert: {
+            args: Prisma.ClearanceCertificateUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClearanceCertificatePayload>
+          }
+          aggregate: {
+            args: Prisma.ClearanceCertificateAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateClearanceCertificate>
+          }
+          groupBy: {
+            args: Prisma.ClearanceCertificateGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ClearanceCertificateGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ClearanceCertificateCountArgs<ExtArgs>
+            result: $Utils.Optional<ClearanceCertificateCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1480,6 +1765,9 @@ export namespace Prisma {
     payment?: PaymentOmit
     announcement?: AnnouncementOmit
     contactMessage?: ContactMessageOmit
+    occupant?: OccupantOmit
+    contract?: ContractOmit
+    clearanceCertificate?: ClearanceCertificateOmit
   }
 
   /* Types for Logging */
@@ -1680,10 +1968,14 @@ export namespace Prisma {
    */
 
   export type TenantCountOutputType = {
+    occupants: number
+    contracts: number
     bills: number
   }
 
   export type TenantCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    occupants?: boolean | TenantCountOutputTypeCountOccupantsArgs
+    contracts?: boolean | TenantCountOutputTypeCountContractsArgs
     bills?: boolean | TenantCountOutputTypeCountBillsArgs
   }
 
@@ -1696,6 +1988,20 @@ export namespace Prisma {
      * Select specific fields to fetch from the TenantCountOutputType
      */
     select?: TenantCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountOccupantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OccupantWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountContractsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ContractWhereInput
   }
 
   /**
@@ -5118,10 +5424,12 @@ export namespace Prisma {
 
   export type TenantAvgAggregateOutputType = {
     rentAmount: number | null
+    numberOfOccupants: number | null
   }
 
   export type TenantSumAggregateOutputType = {
     rentAmount: number | null
+    numberOfOccupants: number | null
   }
 
   export type TenantMinAggregateOutputType = {
@@ -5131,6 +5439,10 @@ export namespace Prisma {
     rentAmount: number | null
     startDate: Date | null
     isActive: boolean | null
+    nationalId: string | null
+    emergencyContactName: string | null
+    emergencyContactPhone: string | null
+    numberOfOccupants: number | null
     createdAt: Date | null
   }
 
@@ -5141,6 +5453,10 @@ export namespace Prisma {
     rentAmount: number | null
     startDate: Date | null
     isActive: boolean | null
+    nationalId: string | null
+    emergencyContactName: string | null
+    emergencyContactPhone: string | null
+    numberOfOccupants: number | null
     createdAt: Date | null
   }
 
@@ -5151,6 +5467,10 @@ export namespace Prisma {
     rentAmount: number
     startDate: number
     isActive: number
+    nationalId: number
+    emergencyContactName: number
+    emergencyContactPhone: number
+    numberOfOccupants: number
     createdAt: number
     _all: number
   }
@@ -5158,10 +5478,12 @@ export namespace Prisma {
 
   export type TenantAvgAggregateInputType = {
     rentAmount?: true
+    numberOfOccupants?: true
   }
 
   export type TenantSumAggregateInputType = {
     rentAmount?: true
+    numberOfOccupants?: true
   }
 
   export type TenantMinAggregateInputType = {
@@ -5171,6 +5493,10 @@ export namespace Prisma {
     rentAmount?: true
     startDate?: true
     isActive?: true
+    nationalId?: true
+    emergencyContactName?: true
+    emergencyContactPhone?: true
+    numberOfOccupants?: true
     createdAt?: true
   }
 
@@ -5181,6 +5507,10 @@ export namespace Prisma {
     rentAmount?: true
     startDate?: true
     isActive?: true
+    nationalId?: true
+    emergencyContactName?: true
+    emergencyContactPhone?: true
+    numberOfOccupants?: true
     createdAt?: true
   }
 
@@ -5191,6 +5521,10 @@ export namespace Prisma {
     rentAmount?: true
     startDate?: true
     isActive?: true
+    nationalId?: true
+    emergencyContactName?: true
+    emergencyContactPhone?: true
+    numberOfOccupants?: true
     createdAt?: true
     _all?: true
   }
@@ -5288,6 +5622,10 @@ export namespace Prisma {
     rentAmount: number
     startDate: Date
     isActive: boolean
+    nationalId: string | null
+    emergencyContactName: string | null
+    emergencyContactPhone: string | null
+    numberOfOccupants: number | null
     createdAt: Date
     _count: TenantCountAggregateOutputType | null
     _avg: TenantAvgAggregateOutputType | null
@@ -5317,9 +5655,15 @@ export namespace Prisma {
     rentAmount?: boolean
     startDate?: boolean
     isActive?: boolean
+    nationalId?: boolean
+    emergencyContactName?: boolean
+    emergencyContactPhone?: boolean
+    numberOfOccupants?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     unit?: boolean | UnitDefaultArgs<ExtArgs>
+    occupants?: boolean | Tenant$occupantsArgs<ExtArgs>
+    contracts?: boolean | Tenant$contractsArgs<ExtArgs>
     bills?: boolean | Tenant$billsArgs<ExtArgs>
     _count?: boolean | TenantCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["tenant"]>
@@ -5331,6 +5675,10 @@ export namespace Prisma {
     rentAmount?: boolean
     startDate?: boolean
     isActive?: boolean
+    nationalId?: boolean
+    emergencyContactName?: boolean
+    emergencyContactPhone?: boolean
+    numberOfOccupants?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     unit?: boolean | UnitDefaultArgs<ExtArgs>
@@ -5343,6 +5691,10 @@ export namespace Prisma {
     rentAmount?: boolean
     startDate?: boolean
     isActive?: boolean
+    nationalId?: boolean
+    emergencyContactName?: boolean
+    emergencyContactPhone?: boolean
+    numberOfOccupants?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     unit?: boolean | UnitDefaultArgs<ExtArgs>
@@ -5355,13 +5707,19 @@ export namespace Prisma {
     rentAmount?: boolean
     startDate?: boolean
     isActive?: boolean
+    nationalId?: boolean
+    emergencyContactName?: boolean
+    emergencyContactPhone?: boolean
+    numberOfOccupants?: boolean
     createdAt?: boolean
   }
 
-  export type TenantOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "unitId" | "rentAmount" | "startDate" | "isActive" | "createdAt", ExtArgs["result"]["tenant"]>
+  export type TenantOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "unitId" | "rentAmount" | "startDate" | "isActive" | "nationalId" | "emergencyContactName" | "emergencyContactPhone" | "numberOfOccupants" | "createdAt", ExtArgs["result"]["tenant"]>
   export type TenantInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     unit?: boolean | UnitDefaultArgs<ExtArgs>
+    occupants?: boolean | Tenant$occupantsArgs<ExtArgs>
+    contracts?: boolean | Tenant$contractsArgs<ExtArgs>
     bills?: boolean | Tenant$billsArgs<ExtArgs>
     _count?: boolean | TenantCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -5379,6 +5737,8 @@ export namespace Prisma {
     objects: {
       user: Prisma.$UserPayload<ExtArgs>
       unit: Prisma.$UnitPayload<ExtArgs>
+      occupants: Prisma.$OccupantPayload<ExtArgs>[]
+      contracts: Prisma.$ContractPayload<ExtArgs>[]
       bills: Prisma.$BillPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -5388,6 +5748,10 @@ export namespace Prisma {
       rentAmount: number
       startDate: Date
       isActive: boolean
+      nationalId: string | null
+      emergencyContactName: string | null
+      emergencyContactPhone: string | null
+      numberOfOccupants: number | null
       createdAt: Date
     }, ExtArgs["result"]["tenant"]>
     composites: {}
@@ -5785,6 +6149,8 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     unit<T extends UnitDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UnitDefaultArgs<ExtArgs>>): Prisma__UnitClient<$Result.GetResult<Prisma.$UnitPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    occupants<T extends Tenant$occupantsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$occupantsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OccupantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    contracts<T extends Tenant$contractsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$contractsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     bills<T extends Tenant$billsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$billsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BillPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -5821,6 +6187,10 @@ export namespace Prisma {
     readonly rentAmount: FieldRef<"Tenant", 'Float'>
     readonly startDate: FieldRef<"Tenant", 'DateTime'>
     readonly isActive: FieldRef<"Tenant", 'Boolean'>
+    readonly nationalId: FieldRef<"Tenant", 'String'>
+    readonly emergencyContactName: FieldRef<"Tenant", 'String'>
+    readonly emergencyContactPhone: FieldRef<"Tenant", 'String'>
+    readonly numberOfOccupants: FieldRef<"Tenant", 'Int'>
     readonly createdAt: FieldRef<"Tenant", 'DateTime'>
   }
     
@@ -6220,6 +6590,54 @@ export namespace Prisma {
      * Limit how many Tenants to delete.
      */
     limit?: number
+  }
+
+  /**
+   * Tenant.occupants
+   */
+  export type Tenant$occupantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Occupant
+     */
+    select?: OccupantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Occupant
+     */
+    omit?: OccupantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OccupantInclude<ExtArgs> | null
+    where?: OccupantWhereInput
+    orderBy?: OccupantOrderByWithRelationInput | OccupantOrderByWithRelationInput[]
+    cursor?: OccupantWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: OccupantScalarFieldEnum | OccupantScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.contracts
+   */
+  export type Tenant$contractsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contract
+     */
+    select?: ContractSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Contract
+     */
+    omit?: ContractOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContractInclude<ExtArgs> | null
+    where?: ContractWhereInput
+    orderBy?: ContractOrderByWithRelationInput | ContractOrderByWithRelationInput[]
+    cursor?: ContractWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ContractScalarFieldEnum | ContractScalarFieldEnum[]
   }
 
   /**
@@ -10743,6 +11161,3555 @@ export namespace Prisma {
 
 
   /**
+   * Model Occupant
+   */
+
+  export type AggregateOccupant = {
+    _count: OccupantCountAggregateOutputType | null
+    _min: OccupantMinAggregateOutputType | null
+    _max: OccupantMaxAggregateOutputType | null
+  }
+
+  export type OccupantMinAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    name: string | null
+    phone: string | null
+    relation: string | null
+  }
+
+  export type OccupantMaxAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    name: string | null
+    phone: string | null
+    relation: string | null
+  }
+
+  export type OccupantCountAggregateOutputType = {
+    id: number
+    tenantId: number
+    name: number
+    phone: number
+    relation: number
+    _all: number
+  }
+
+
+  export type OccupantMinAggregateInputType = {
+    id?: true
+    tenantId?: true
+    name?: true
+    phone?: true
+    relation?: true
+  }
+
+  export type OccupantMaxAggregateInputType = {
+    id?: true
+    tenantId?: true
+    name?: true
+    phone?: true
+    relation?: true
+  }
+
+  export type OccupantCountAggregateInputType = {
+    id?: true
+    tenantId?: true
+    name?: true
+    phone?: true
+    relation?: true
+    _all?: true
+  }
+
+  export type OccupantAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Occupant to aggregate.
+     */
+    where?: OccupantWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Occupants to fetch.
+     */
+    orderBy?: OccupantOrderByWithRelationInput | OccupantOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: OccupantWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Occupants from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Occupants.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Occupants
+    **/
+    _count?: true | OccupantCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: OccupantMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: OccupantMaxAggregateInputType
+  }
+
+  export type GetOccupantAggregateType<T extends OccupantAggregateArgs> = {
+        [P in keyof T & keyof AggregateOccupant]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateOccupant[P]>
+      : GetScalarType<T[P], AggregateOccupant[P]>
+  }
+
+
+
+
+  export type OccupantGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OccupantWhereInput
+    orderBy?: OccupantOrderByWithAggregationInput | OccupantOrderByWithAggregationInput[]
+    by: OccupantScalarFieldEnum[] | OccupantScalarFieldEnum
+    having?: OccupantScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: OccupantCountAggregateInputType | true
+    _min?: OccupantMinAggregateInputType
+    _max?: OccupantMaxAggregateInputType
+  }
+
+  export type OccupantGroupByOutputType = {
+    id: string
+    tenantId: string
+    name: string
+    phone: string | null
+    relation: string | null
+    _count: OccupantCountAggregateOutputType | null
+    _min: OccupantMinAggregateOutputType | null
+    _max: OccupantMaxAggregateOutputType | null
+  }
+
+  type GetOccupantGroupByPayload<T extends OccupantGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<OccupantGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof OccupantGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], OccupantGroupByOutputType[P]>
+            : GetScalarType<T[P], OccupantGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type OccupantSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    name?: boolean
+    phone?: boolean
+    relation?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["occupant"]>
+
+  export type OccupantSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    name?: boolean
+    phone?: boolean
+    relation?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["occupant"]>
+
+  export type OccupantSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    name?: boolean
+    phone?: boolean
+    relation?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["occupant"]>
+
+  export type OccupantSelectScalar = {
+    id?: boolean
+    tenantId?: boolean
+    name?: boolean
+    phone?: boolean
+    relation?: boolean
+  }
+
+  export type OccupantOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "name" | "phone" | "relation", ExtArgs["result"]["occupant"]>
+  export type OccupantInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+  export type OccupantIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+  export type OccupantIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+
+  export type $OccupantPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Occupant"
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantId: string
+      name: string
+      phone: string | null
+      relation: string | null
+    }, ExtArgs["result"]["occupant"]>
+    composites: {}
+  }
+
+  type OccupantGetPayload<S extends boolean | null | undefined | OccupantDefaultArgs> = $Result.GetResult<Prisma.$OccupantPayload, S>
+
+  type OccupantCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<OccupantFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: OccupantCountAggregateInputType | true
+    }
+
+  export interface OccupantDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Occupant'], meta: { name: 'Occupant' } }
+    /**
+     * Find zero or one Occupant that matches the filter.
+     * @param {OccupantFindUniqueArgs} args - Arguments to find a Occupant
+     * @example
+     * // Get one Occupant
+     * const occupant = await prisma.occupant.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends OccupantFindUniqueArgs>(args: SelectSubset<T, OccupantFindUniqueArgs<ExtArgs>>): Prisma__OccupantClient<$Result.GetResult<Prisma.$OccupantPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Occupant that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {OccupantFindUniqueOrThrowArgs} args - Arguments to find a Occupant
+     * @example
+     * // Get one Occupant
+     * const occupant = await prisma.occupant.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends OccupantFindUniqueOrThrowArgs>(args: SelectSubset<T, OccupantFindUniqueOrThrowArgs<ExtArgs>>): Prisma__OccupantClient<$Result.GetResult<Prisma.$OccupantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Occupant that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OccupantFindFirstArgs} args - Arguments to find a Occupant
+     * @example
+     * // Get one Occupant
+     * const occupant = await prisma.occupant.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends OccupantFindFirstArgs>(args?: SelectSubset<T, OccupantFindFirstArgs<ExtArgs>>): Prisma__OccupantClient<$Result.GetResult<Prisma.$OccupantPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Occupant that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OccupantFindFirstOrThrowArgs} args - Arguments to find a Occupant
+     * @example
+     * // Get one Occupant
+     * const occupant = await prisma.occupant.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends OccupantFindFirstOrThrowArgs>(args?: SelectSubset<T, OccupantFindFirstOrThrowArgs<ExtArgs>>): Prisma__OccupantClient<$Result.GetResult<Prisma.$OccupantPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Occupants that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OccupantFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Occupants
+     * const occupants = await prisma.occupant.findMany()
+     * 
+     * // Get first 10 Occupants
+     * const occupants = await prisma.occupant.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const occupantWithIdOnly = await prisma.occupant.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends OccupantFindManyArgs>(args?: SelectSubset<T, OccupantFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OccupantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Occupant.
+     * @param {OccupantCreateArgs} args - Arguments to create a Occupant.
+     * @example
+     * // Create one Occupant
+     * const Occupant = await prisma.occupant.create({
+     *   data: {
+     *     // ... data to create a Occupant
+     *   }
+     * })
+     * 
+     */
+    create<T extends OccupantCreateArgs>(args: SelectSubset<T, OccupantCreateArgs<ExtArgs>>): Prisma__OccupantClient<$Result.GetResult<Prisma.$OccupantPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Occupants.
+     * @param {OccupantCreateManyArgs} args - Arguments to create many Occupants.
+     * @example
+     * // Create many Occupants
+     * const occupant = await prisma.occupant.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends OccupantCreateManyArgs>(args?: SelectSubset<T, OccupantCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Occupants and returns the data saved in the database.
+     * @param {OccupantCreateManyAndReturnArgs} args - Arguments to create many Occupants.
+     * @example
+     * // Create many Occupants
+     * const occupant = await prisma.occupant.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Occupants and only return the `id`
+     * const occupantWithIdOnly = await prisma.occupant.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends OccupantCreateManyAndReturnArgs>(args?: SelectSubset<T, OccupantCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OccupantPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Occupant.
+     * @param {OccupantDeleteArgs} args - Arguments to delete one Occupant.
+     * @example
+     * // Delete one Occupant
+     * const Occupant = await prisma.occupant.delete({
+     *   where: {
+     *     // ... filter to delete one Occupant
+     *   }
+     * })
+     * 
+     */
+    delete<T extends OccupantDeleteArgs>(args: SelectSubset<T, OccupantDeleteArgs<ExtArgs>>): Prisma__OccupantClient<$Result.GetResult<Prisma.$OccupantPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Occupant.
+     * @param {OccupantUpdateArgs} args - Arguments to update one Occupant.
+     * @example
+     * // Update one Occupant
+     * const occupant = await prisma.occupant.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends OccupantUpdateArgs>(args: SelectSubset<T, OccupantUpdateArgs<ExtArgs>>): Prisma__OccupantClient<$Result.GetResult<Prisma.$OccupantPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Occupants.
+     * @param {OccupantDeleteManyArgs} args - Arguments to filter Occupants to delete.
+     * @example
+     * // Delete a few Occupants
+     * const { count } = await prisma.occupant.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends OccupantDeleteManyArgs>(args?: SelectSubset<T, OccupantDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Occupants.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OccupantUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Occupants
+     * const occupant = await prisma.occupant.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends OccupantUpdateManyArgs>(args: SelectSubset<T, OccupantUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Occupants and returns the data updated in the database.
+     * @param {OccupantUpdateManyAndReturnArgs} args - Arguments to update many Occupants.
+     * @example
+     * // Update many Occupants
+     * const occupant = await prisma.occupant.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Occupants and only return the `id`
+     * const occupantWithIdOnly = await prisma.occupant.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends OccupantUpdateManyAndReturnArgs>(args: SelectSubset<T, OccupantUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OccupantPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Occupant.
+     * @param {OccupantUpsertArgs} args - Arguments to update or create a Occupant.
+     * @example
+     * // Update or create a Occupant
+     * const occupant = await prisma.occupant.upsert({
+     *   create: {
+     *     // ... data to create a Occupant
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Occupant we want to update
+     *   }
+     * })
+     */
+    upsert<T extends OccupantUpsertArgs>(args: SelectSubset<T, OccupantUpsertArgs<ExtArgs>>): Prisma__OccupantClient<$Result.GetResult<Prisma.$OccupantPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Occupants.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OccupantCountArgs} args - Arguments to filter Occupants to count.
+     * @example
+     * // Count the number of Occupants
+     * const count = await prisma.occupant.count({
+     *   where: {
+     *     // ... the filter for the Occupants we want to count
+     *   }
+     * })
+    **/
+    count<T extends OccupantCountArgs>(
+      args?: Subset<T, OccupantCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], OccupantCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Occupant.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OccupantAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends OccupantAggregateArgs>(args: Subset<T, OccupantAggregateArgs>): Prisma.PrismaPromise<GetOccupantAggregateType<T>>
+
+    /**
+     * Group by Occupant.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OccupantGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends OccupantGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: OccupantGroupByArgs['orderBy'] }
+        : { orderBy?: OccupantGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, OccupantGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetOccupantGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Occupant model
+   */
+  readonly fields: OccupantFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Occupant.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__OccupantClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Occupant model
+   */
+  interface OccupantFieldRefs {
+    readonly id: FieldRef<"Occupant", 'String'>
+    readonly tenantId: FieldRef<"Occupant", 'String'>
+    readonly name: FieldRef<"Occupant", 'String'>
+    readonly phone: FieldRef<"Occupant", 'String'>
+    readonly relation: FieldRef<"Occupant", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Occupant findUnique
+   */
+  export type OccupantFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Occupant
+     */
+    select?: OccupantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Occupant
+     */
+    omit?: OccupantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OccupantInclude<ExtArgs> | null
+    /**
+     * Filter, which Occupant to fetch.
+     */
+    where: OccupantWhereUniqueInput
+  }
+
+  /**
+   * Occupant findUniqueOrThrow
+   */
+  export type OccupantFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Occupant
+     */
+    select?: OccupantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Occupant
+     */
+    omit?: OccupantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OccupantInclude<ExtArgs> | null
+    /**
+     * Filter, which Occupant to fetch.
+     */
+    where: OccupantWhereUniqueInput
+  }
+
+  /**
+   * Occupant findFirst
+   */
+  export type OccupantFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Occupant
+     */
+    select?: OccupantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Occupant
+     */
+    omit?: OccupantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OccupantInclude<ExtArgs> | null
+    /**
+     * Filter, which Occupant to fetch.
+     */
+    where?: OccupantWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Occupants to fetch.
+     */
+    orderBy?: OccupantOrderByWithRelationInput | OccupantOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Occupants.
+     */
+    cursor?: OccupantWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Occupants from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Occupants.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Occupants.
+     */
+    distinct?: OccupantScalarFieldEnum | OccupantScalarFieldEnum[]
+  }
+
+  /**
+   * Occupant findFirstOrThrow
+   */
+  export type OccupantFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Occupant
+     */
+    select?: OccupantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Occupant
+     */
+    omit?: OccupantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OccupantInclude<ExtArgs> | null
+    /**
+     * Filter, which Occupant to fetch.
+     */
+    where?: OccupantWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Occupants to fetch.
+     */
+    orderBy?: OccupantOrderByWithRelationInput | OccupantOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Occupants.
+     */
+    cursor?: OccupantWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Occupants from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Occupants.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Occupants.
+     */
+    distinct?: OccupantScalarFieldEnum | OccupantScalarFieldEnum[]
+  }
+
+  /**
+   * Occupant findMany
+   */
+  export type OccupantFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Occupant
+     */
+    select?: OccupantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Occupant
+     */
+    omit?: OccupantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OccupantInclude<ExtArgs> | null
+    /**
+     * Filter, which Occupants to fetch.
+     */
+    where?: OccupantWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Occupants to fetch.
+     */
+    orderBy?: OccupantOrderByWithRelationInput | OccupantOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Occupants.
+     */
+    cursor?: OccupantWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Occupants from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Occupants.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Occupants.
+     */
+    distinct?: OccupantScalarFieldEnum | OccupantScalarFieldEnum[]
+  }
+
+  /**
+   * Occupant create
+   */
+  export type OccupantCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Occupant
+     */
+    select?: OccupantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Occupant
+     */
+    omit?: OccupantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OccupantInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Occupant.
+     */
+    data: XOR<OccupantCreateInput, OccupantUncheckedCreateInput>
+  }
+
+  /**
+   * Occupant createMany
+   */
+  export type OccupantCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Occupants.
+     */
+    data: OccupantCreateManyInput | OccupantCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Occupant createManyAndReturn
+   */
+  export type OccupantCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Occupant
+     */
+    select?: OccupantSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Occupant
+     */
+    omit?: OccupantOmit<ExtArgs> | null
+    /**
+     * The data used to create many Occupants.
+     */
+    data: OccupantCreateManyInput | OccupantCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OccupantIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Occupant update
+   */
+  export type OccupantUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Occupant
+     */
+    select?: OccupantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Occupant
+     */
+    omit?: OccupantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OccupantInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Occupant.
+     */
+    data: XOR<OccupantUpdateInput, OccupantUncheckedUpdateInput>
+    /**
+     * Choose, which Occupant to update.
+     */
+    where: OccupantWhereUniqueInput
+  }
+
+  /**
+   * Occupant updateMany
+   */
+  export type OccupantUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Occupants.
+     */
+    data: XOR<OccupantUpdateManyMutationInput, OccupantUncheckedUpdateManyInput>
+    /**
+     * Filter which Occupants to update
+     */
+    where?: OccupantWhereInput
+    /**
+     * Limit how many Occupants to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Occupant updateManyAndReturn
+   */
+  export type OccupantUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Occupant
+     */
+    select?: OccupantSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Occupant
+     */
+    omit?: OccupantOmit<ExtArgs> | null
+    /**
+     * The data used to update Occupants.
+     */
+    data: XOR<OccupantUpdateManyMutationInput, OccupantUncheckedUpdateManyInput>
+    /**
+     * Filter which Occupants to update
+     */
+    where?: OccupantWhereInput
+    /**
+     * Limit how many Occupants to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OccupantIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Occupant upsert
+   */
+  export type OccupantUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Occupant
+     */
+    select?: OccupantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Occupant
+     */
+    omit?: OccupantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OccupantInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Occupant to update in case it exists.
+     */
+    where: OccupantWhereUniqueInput
+    /**
+     * In case the Occupant found by the `where` argument doesn't exist, create a new Occupant with this data.
+     */
+    create: XOR<OccupantCreateInput, OccupantUncheckedCreateInput>
+    /**
+     * In case the Occupant was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<OccupantUpdateInput, OccupantUncheckedUpdateInput>
+  }
+
+  /**
+   * Occupant delete
+   */
+  export type OccupantDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Occupant
+     */
+    select?: OccupantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Occupant
+     */
+    omit?: OccupantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OccupantInclude<ExtArgs> | null
+    /**
+     * Filter which Occupant to delete.
+     */
+    where: OccupantWhereUniqueInput
+  }
+
+  /**
+   * Occupant deleteMany
+   */
+  export type OccupantDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Occupants to delete
+     */
+    where?: OccupantWhereInput
+    /**
+     * Limit how many Occupants to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Occupant without action
+   */
+  export type OccupantDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Occupant
+     */
+    select?: OccupantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Occupant
+     */
+    omit?: OccupantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OccupantInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Contract
+   */
+
+  export type AggregateContract = {
+    _count: ContractCountAggregateOutputType | null
+    _avg: ContractAvgAggregateOutputType | null
+    _sum: ContractSumAggregateOutputType | null
+    _min: ContractMinAggregateOutputType | null
+    _max: ContractMaxAggregateOutputType | null
+  }
+
+  export type ContractAvgAggregateOutputType = {
+    monthlyRent: number | null
+    deposit: number | null
+  }
+
+  export type ContractSumAggregateOutputType = {
+    monthlyRent: number | null
+    deposit: number | null
+  }
+
+  export type ContractMinAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    startDate: Date | null
+    endDate: Date | null
+    monthlyRent: number | null
+    deposit: number | null
+    status: $Enums.ContractStatus | null
+    content: string | null
+    tenantSignature: string | null
+    tenantSignedAt: Date | null
+    landlordSignature: boolean | null
+    landlordSignedAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ContractMaxAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    startDate: Date | null
+    endDate: Date | null
+    monthlyRent: number | null
+    deposit: number | null
+    status: $Enums.ContractStatus | null
+    content: string | null
+    tenantSignature: string | null
+    tenantSignedAt: Date | null
+    landlordSignature: boolean | null
+    landlordSignedAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ContractCountAggregateOutputType = {
+    id: number
+    tenantId: number
+    startDate: number
+    endDate: number
+    monthlyRent: number
+    deposit: number
+    utilities: number
+    status: number
+    content: number
+    tenantSignature: number
+    tenantSignedAt: number
+    landlordSignature: number
+    landlordSignedAt: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ContractAvgAggregateInputType = {
+    monthlyRent?: true
+    deposit?: true
+  }
+
+  export type ContractSumAggregateInputType = {
+    monthlyRent?: true
+    deposit?: true
+  }
+
+  export type ContractMinAggregateInputType = {
+    id?: true
+    tenantId?: true
+    startDate?: true
+    endDate?: true
+    monthlyRent?: true
+    deposit?: true
+    status?: true
+    content?: true
+    tenantSignature?: true
+    tenantSignedAt?: true
+    landlordSignature?: true
+    landlordSignedAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ContractMaxAggregateInputType = {
+    id?: true
+    tenantId?: true
+    startDate?: true
+    endDate?: true
+    monthlyRent?: true
+    deposit?: true
+    status?: true
+    content?: true
+    tenantSignature?: true
+    tenantSignedAt?: true
+    landlordSignature?: true
+    landlordSignedAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ContractCountAggregateInputType = {
+    id?: true
+    tenantId?: true
+    startDate?: true
+    endDate?: true
+    monthlyRent?: true
+    deposit?: true
+    utilities?: true
+    status?: true
+    content?: true
+    tenantSignature?: true
+    tenantSignedAt?: true
+    landlordSignature?: true
+    landlordSignedAt?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ContractAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Contract to aggregate.
+     */
+    where?: ContractWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Contracts to fetch.
+     */
+    orderBy?: ContractOrderByWithRelationInput | ContractOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ContractWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Contracts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Contracts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Contracts
+    **/
+    _count?: true | ContractCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ContractAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ContractSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ContractMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ContractMaxAggregateInputType
+  }
+
+  export type GetContractAggregateType<T extends ContractAggregateArgs> = {
+        [P in keyof T & keyof AggregateContract]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateContract[P]>
+      : GetScalarType<T[P], AggregateContract[P]>
+  }
+
+
+
+
+  export type ContractGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ContractWhereInput
+    orderBy?: ContractOrderByWithAggregationInput | ContractOrderByWithAggregationInput[]
+    by: ContractScalarFieldEnum[] | ContractScalarFieldEnum
+    having?: ContractScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ContractCountAggregateInputType | true
+    _avg?: ContractAvgAggregateInputType
+    _sum?: ContractSumAggregateInputType
+    _min?: ContractMinAggregateInputType
+    _max?: ContractMaxAggregateInputType
+  }
+
+  export type ContractGroupByOutputType = {
+    id: string
+    tenantId: string
+    startDate: Date
+    endDate: Date
+    monthlyRent: number
+    deposit: number | null
+    utilities: JsonValue
+    status: $Enums.ContractStatus
+    content: string | null
+    tenantSignature: string | null
+    tenantSignedAt: Date | null
+    landlordSignature: boolean
+    landlordSignedAt: Date | null
+    createdAt: Date
+    updatedAt: Date
+    _count: ContractCountAggregateOutputType | null
+    _avg: ContractAvgAggregateOutputType | null
+    _sum: ContractSumAggregateOutputType | null
+    _min: ContractMinAggregateOutputType | null
+    _max: ContractMaxAggregateOutputType | null
+  }
+
+  type GetContractGroupByPayload<T extends ContractGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ContractGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ContractGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ContractGroupByOutputType[P]>
+            : GetScalarType<T[P], ContractGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ContractSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    monthlyRent?: boolean
+    deposit?: boolean
+    utilities?: boolean
+    status?: boolean
+    content?: boolean
+    tenantSignature?: boolean
+    tenantSignedAt?: boolean
+    landlordSignature?: boolean
+    landlordSignedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["contract"]>
+
+  export type ContractSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    monthlyRent?: boolean
+    deposit?: boolean
+    utilities?: boolean
+    status?: boolean
+    content?: boolean
+    tenantSignature?: boolean
+    tenantSignedAt?: boolean
+    landlordSignature?: boolean
+    landlordSignedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["contract"]>
+
+  export type ContractSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    monthlyRent?: boolean
+    deposit?: boolean
+    utilities?: boolean
+    status?: boolean
+    content?: boolean
+    tenantSignature?: boolean
+    tenantSignedAt?: boolean
+    landlordSignature?: boolean
+    landlordSignedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["contract"]>
+
+  export type ContractSelectScalar = {
+    id?: boolean
+    tenantId?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    monthlyRent?: boolean
+    deposit?: boolean
+    utilities?: boolean
+    status?: boolean
+    content?: boolean
+    tenantSignature?: boolean
+    tenantSignedAt?: boolean
+    landlordSignature?: boolean
+    landlordSignedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ContractOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "startDate" | "endDate" | "monthlyRent" | "deposit" | "utilities" | "status" | "content" | "tenantSignature" | "tenantSignedAt" | "landlordSignature" | "landlordSignedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["contract"]>
+  export type ContractInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+  export type ContractIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+  export type ContractIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+
+  export type $ContractPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Contract"
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantId: string
+      startDate: Date
+      endDate: Date
+      monthlyRent: number
+      deposit: number | null
+      utilities: Prisma.JsonValue
+      status: $Enums.ContractStatus
+      content: string | null
+      tenantSignature: string | null
+      tenantSignedAt: Date | null
+      landlordSignature: boolean
+      landlordSignedAt: Date | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["contract"]>
+    composites: {}
+  }
+
+  type ContractGetPayload<S extends boolean | null | undefined | ContractDefaultArgs> = $Result.GetResult<Prisma.$ContractPayload, S>
+
+  type ContractCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ContractFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ContractCountAggregateInputType | true
+    }
+
+  export interface ContractDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Contract'], meta: { name: 'Contract' } }
+    /**
+     * Find zero or one Contract that matches the filter.
+     * @param {ContractFindUniqueArgs} args - Arguments to find a Contract
+     * @example
+     * // Get one Contract
+     * const contract = await prisma.contract.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ContractFindUniqueArgs>(args: SelectSubset<T, ContractFindUniqueArgs<ExtArgs>>): Prisma__ContractClient<$Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Contract that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ContractFindUniqueOrThrowArgs} args - Arguments to find a Contract
+     * @example
+     * // Get one Contract
+     * const contract = await prisma.contract.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ContractFindUniqueOrThrowArgs>(args: SelectSubset<T, ContractFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ContractClient<$Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Contract that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContractFindFirstArgs} args - Arguments to find a Contract
+     * @example
+     * // Get one Contract
+     * const contract = await prisma.contract.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ContractFindFirstArgs>(args?: SelectSubset<T, ContractFindFirstArgs<ExtArgs>>): Prisma__ContractClient<$Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Contract that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContractFindFirstOrThrowArgs} args - Arguments to find a Contract
+     * @example
+     * // Get one Contract
+     * const contract = await prisma.contract.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ContractFindFirstOrThrowArgs>(args?: SelectSubset<T, ContractFindFirstOrThrowArgs<ExtArgs>>): Prisma__ContractClient<$Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Contracts that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContractFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Contracts
+     * const contracts = await prisma.contract.findMany()
+     * 
+     * // Get first 10 Contracts
+     * const contracts = await prisma.contract.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const contractWithIdOnly = await prisma.contract.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ContractFindManyArgs>(args?: SelectSubset<T, ContractFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Contract.
+     * @param {ContractCreateArgs} args - Arguments to create a Contract.
+     * @example
+     * // Create one Contract
+     * const Contract = await prisma.contract.create({
+     *   data: {
+     *     // ... data to create a Contract
+     *   }
+     * })
+     * 
+     */
+    create<T extends ContractCreateArgs>(args: SelectSubset<T, ContractCreateArgs<ExtArgs>>): Prisma__ContractClient<$Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Contracts.
+     * @param {ContractCreateManyArgs} args - Arguments to create many Contracts.
+     * @example
+     * // Create many Contracts
+     * const contract = await prisma.contract.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ContractCreateManyArgs>(args?: SelectSubset<T, ContractCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Contracts and returns the data saved in the database.
+     * @param {ContractCreateManyAndReturnArgs} args - Arguments to create many Contracts.
+     * @example
+     * // Create many Contracts
+     * const contract = await prisma.contract.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Contracts and only return the `id`
+     * const contractWithIdOnly = await prisma.contract.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ContractCreateManyAndReturnArgs>(args?: SelectSubset<T, ContractCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Contract.
+     * @param {ContractDeleteArgs} args - Arguments to delete one Contract.
+     * @example
+     * // Delete one Contract
+     * const Contract = await prisma.contract.delete({
+     *   where: {
+     *     // ... filter to delete one Contract
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ContractDeleteArgs>(args: SelectSubset<T, ContractDeleteArgs<ExtArgs>>): Prisma__ContractClient<$Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Contract.
+     * @param {ContractUpdateArgs} args - Arguments to update one Contract.
+     * @example
+     * // Update one Contract
+     * const contract = await prisma.contract.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ContractUpdateArgs>(args: SelectSubset<T, ContractUpdateArgs<ExtArgs>>): Prisma__ContractClient<$Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Contracts.
+     * @param {ContractDeleteManyArgs} args - Arguments to filter Contracts to delete.
+     * @example
+     * // Delete a few Contracts
+     * const { count } = await prisma.contract.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ContractDeleteManyArgs>(args?: SelectSubset<T, ContractDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Contracts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContractUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Contracts
+     * const contract = await prisma.contract.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ContractUpdateManyArgs>(args: SelectSubset<T, ContractUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Contracts and returns the data updated in the database.
+     * @param {ContractUpdateManyAndReturnArgs} args - Arguments to update many Contracts.
+     * @example
+     * // Update many Contracts
+     * const contract = await prisma.contract.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Contracts and only return the `id`
+     * const contractWithIdOnly = await prisma.contract.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ContractUpdateManyAndReturnArgs>(args: SelectSubset<T, ContractUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Contract.
+     * @param {ContractUpsertArgs} args - Arguments to update or create a Contract.
+     * @example
+     * // Update or create a Contract
+     * const contract = await prisma.contract.upsert({
+     *   create: {
+     *     // ... data to create a Contract
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Contract we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ContractUpsertArgs>(args: SelectSubset<T, ContractUpsertArgs<ExtArgs>>): Prisma__ContractClient<$Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Contracts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContractCountArgs} args - Arguments to filter Contracts to count.
+     * @example
+     * // Count the number of Contracts
+     * const count = await prisma.contract.count({
+     *   where: {
+     *     // ... the filter for the Contracts we want to count
+     *   }
+     * })
+    **/
+    count<T extends ContractCountArgs>(
+      args?: Subset<T, ContractCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ContractCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Contract.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContractAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ContractAggregateArgs>(args: Subset<T, ContractAggregateArgs>): Prisma.PrismaPromise<GetContractAggregateType<T>>
+
+    /**
+     * Group by Contract.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContractGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ContractGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ContractGroupByArgs['orderBy'] }
+        : { orderBy?: ContractGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ContractGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetContractGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Contract model
+   */
+  readonly fields: ContractFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Contract.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ContractClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Contract model
+   */
+  interface ContractFieldRefs {
+    readonly id: FieldRef<"Contract", 'String'>
+    readonly tenantId: FieldRef<"Contract", 'String'>
+    readonly startDate: FieldRef<"Contract", 'DateTime'>
+    readonly endDate: FieldRef<"Contract", 'DateTime'>
+    readonly monthlyRent: FieldRef<"Contract", 'Float'>
+    readonly deposit: FieldRef<"Contract", 'Float'>
+    readonly utilities: FieldRef<"Contract", 'Json'>
+    readonly status: FieldRef<"Contract", 'ContractStatus'>
+    readonly content: FieldRef<"Contract", 'String'>
+    readonly tenantSignature: FieldRef<"Contract", 'String'>
+    readonly tenantSignedAt: FieldRef<"Contract", 'DateTime'>
+    readonly landlordSignature: FieldRef<"Contract", 'Boolean'>
+    readonly landlordSignedAt: FieldRef<"Contract", 'DateTime'>
+    readonly createdAt: FieldRef<"Contract", 'DateTime'>
+    readonly updatedAt: FieldRef<"Contract", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Contract findUnique
+   */
+  export type ContractFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contract
+     */
+    select?: ContractSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Contract
+     */
+    omit?: ContractOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContractInclude<ExtArgs> | null
+    /**
+     * Filter, which Contract to fetch.
+     */
+    where: ContractWhereUniqueInput
+  }
+
+  /**
+   * Contract findUniqueOrThrow
+   */
+  export type ContractFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contract
+     */
+    select?: ContractSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Contract
+     */
+    omit?: ContractOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContractInclude<ExtArgs> | null
+    /**
+     * Filter, which Contract to fetch.
+     */
+    where: ContractWhereUniqueInput
+  }
+
+  /**
+   * Contract findFirst
+   */
+  export type ContractFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contract
+     */
+    select?: ContractSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Contract
+     */
+    omit?: ContractOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContractInclude<ExtArgs> | null
+    /**
+     * Filter, which Contract to fetch.
+     */
+    where?: ContractWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Contracts to fetch.
+     */
+    orderBy?: ContractOrderByWithRelationInput | ContractOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Contracts.
+     */
+    cursor?: ContractWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Contracts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Contracts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Contracts.
+     */
+    distinct?: ContractScalarFieldEnum | ContractScalarFieldEnum[]
+  }
+
+  /**
+   * Contract findFirstOrThrow
+   */
+  export type ContractFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contract
+     */
+    select?: ContractSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Contract
+     */
+    omit?: ContractOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContractInclude<ExtArgs> | null
+    /**
+     * Filter, which Contract to fetch.
+     */
+    where?: ContractWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Contracts to fetch.
+     */
+    orderBy?: ContractOrderByWithRelationInput | ContractOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Contracts.
+     */
+    cursor?: ContractWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Contracts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Contracts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Contracts.
+     */
+    distinct?: ContractScalarFieldEnum | ContractScalarFieldEnum[]
+  }
+
+  /**
+   * Contract findMany
+   */
+  export type ContractFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contract
+     */
+    select?: ContractSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Contract
+     */
+    omit?: ContractOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContractInclude<ExtArgs> | null
+    /**
+     * Filter, which Contracts to fetch.
+     */
+    where?: ContractWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Contracts to fetch.
+     */
+    orderBy?: ContractOrderByWithRelationInput | ContractOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Contracts.
+     */
+    cursor?: ContractWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Contracts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Contracts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Contracts.
+     */
+    distinct?: ContractScalarFieldEnum | ContractScalarFieldEnum[]
+  }
+
+  /**
+   * Contract create
+   */
+  export type ContractCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contract
+     */
+    select?: ContractSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Contract
+     */
+    omit?: ContractOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContractInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Contract.
+     */
+    data: XOR<ContractCreateInput, ContractUncheckedCreateInput>
+  }
+
+  /**
+   * Contract createMany
+   */
+  export type ContractCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Contracts.
+     */
+    data: ContractCreateManyInput | ContractCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Contract createManyAndReturn
+   */
+  export type ContractCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contract
+     */
+    select?: ContractSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Contract
+     */
+    omit?: ContractOmit<ExtArgs> | null
+    /**
+     * The data used to create many Contracts.
+     */
+    data: ContractCreateManyInput | ContractCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContractIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Contract update
+   */
+  export type ContractUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contract
+     */
+    select?: ContractSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Contract
+     */
+    omit?: ContractOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContractInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Contract.
+     */
+    data: XOR<ContractUpdateInput, ContractUncheckedUpdateInput>
+    /**
+     * Choose, which Contract to update.
+     */
+    where: ContractWhereUniqueInput
+  }
+
+  /**
+   * Contract updateMany
+   */
+  export type ContractUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Contracts.
+     */
+    data: XOR<ContractUpdateManyMutationInput, ContractUncheckedUpdateManyInput>
+    /**
+     * Filter which Contracts to update
+     */
+    where?: ContractWhereInput
+    /**
+     * Limit how many Contracts to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Contract updateManyAndReturn
+   */
+  export type ContractUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contract
+     */
+    select?: ContractSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Contract
+     */
+    omit?: ContractOmit<ExtArgs> | null
+    /**
+     * The data used to update Contracts.
+     */
+    data: XOR<ContractUpdateManyMutationInput, ContractUncheckedUpdateManyInput>
+    /**
+     * Filter which Contracts to update
+     */
+    where?: ContractWhereInput
+    /**
+     * Limit how many Contracts to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContractIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Contract upsert
+   */
+  export type ContractUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contract
+     */
+    select?: ContractSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Contract
+     */
+    omit?: ContractOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContractInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Contract to update in case it exists.
+     */
+    where: ContractWhereUniqueInput
+    /**
+     * In case the Contract found by the `where` argument doesn't exist, create a new Contract with this data.
+     */
+    create: XOR<ContractCreateInput, ContractUncheckedCreateInput>
+    /**
+     * In case the Contract was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ContractUpdateInput, ContractUncheckedUpdateInput>
+  }
+
+  /**
+   * Contract delete
+   */
+  export type ContractDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contract
+     */
+    select?: ContractSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Contract
+     */
+    omit?: ContractOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContractInclude<ExtArgs> | null
+    /**
+     * Filter which Contract to delete.
+     */
+    where: ContractWhereUniqueInput
+  }
+
+  /**
+   * Contract deleteMany
+   */
+  export type ContractDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Contracts to delete
+     */
+    where?: ContractWhereInput
+    /**
+     * Limit how many Contracts to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Contract without action
+   */
+  export type ContractDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contract
+     */
+    select?: ContractSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Contract
+     */
+    omit?: ContractOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContractInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ClearanceCertificate
+   */
+
+  export type AggregateClearanceCertificate = {
+    _count: ClearanceCertificateCountAggregateOutputType | null
+    _avg: ClearanceCertificateAvgAggregateOutputType | null
+    _sum: ClearanceCertificateSumAggregateOutputType | null
+    _min: ClearanceCertificateMinAggregateOutputType | null
+    _max: ClearanceCertificateMaxAggregateOutputType | null
+  }
+
+  export type ClearanceCertificateAvgAggregateOutputType = {
+    securityDeposit: number | null
+    refundAmount: number | null
+  }
+
+  export type ClearanceCertificateSumAggregateOutputType = {
+    securityDeposit: number | null
+    refundAmount: number | null
+  }
+
+  export type ClearanceCertificateMinAggregateOutputType = {
+    id: string | null
+    tenantName: string | null
+    nationalId: string | null
+    propertyAddress: string | null
+    startDate: Date | null
+    endDate: Date | null
+    rentCleared: boolean | null
+    utilitiesCleared: boolean | null
+    serviceChargesCleared: boolean | null
+    damagesCleared: boolean | null
+    propertyCondition: string | null
+    repairDetails: string | null
+    securityDeposit: number | null
+    depositRefunded: boolean | null
+    refundAmount: number | null
+    depositRetainedReason: string | null
+    landlordName: string | null
+    landlordSignature: string | null
+    landlordPhone: string | null
+    createdAt: Date | null
+    tenantEmail: string | null
+    tenantPhone: string | null
+  }
+
+  export type ClearanceCertificateMaxAggregateOutputType = {
+    id: string | null
+    tenantName: string | null
+    nationalId: string | null
+    propertyAddress: string | null
+    startDate: Date | null
+    endDate: Date | null
+    rentCleared: boolean | null
+    utilitiesCleared: boolean | null
+    serviceChargesCleared: boolean | null
+    damagesCleared: boolean | null
+    propertyCondition: string | null
+    repairDetails: string | null
+    securityDeposit: number | null
+    depositRefunded: boolean | null
+    refundAmount: number | null
+    depositRetainedReason: string | null
+    landlordName: string | null
+    landlordSignature: string | null
+    landlordPhone: string | null
+    createdAt: Date | null
+    tenantEmail: string | null
+    tenantPhone: string | null
+  }
+
+  export type ClearanceCertificateCountAggregateOutputType = {
+    id: number
+    tenantName: number
+    nationalId: number
+    propertyAddress: number
+    startDate: number
+    endDate: number
+    rentCleared: number
+    utilitiesCleared: number
+    serviceChargesCleared: number
+    damagesCleared: number
+    propertyCondition: number
+    repairDetails: number
+    securityDeposit: number
+    depositRefunded: number
+    refundAmount: number
+    depositRetainedReason: number
+    landlordName: number
+    landlordSignature: number
+    landlordPhone: number
+    createdAt: number
+    tenantEmail: number
+    tenantPhone: number
+    _all: number
+  }
+
+
+  export type ClearanceCertificateAvgAggregateInputType = {
+    securityDeposit?: true
+    refundAmount?: true
+  }
+
+  export type ClearanceCertificateSumAggregateInputType = {
+    securityDeposit?: true
+    refundAmount?: true
+  }
+
+  export type ClearanceCertificateMinAggregateInputType = {
+    id?: true
+    tenantName?: true
+    nationalId?: true
+    propertyAddress?: true
+    startDate?: true
+    endDate?: true
+    rentCleared?: true
+    utilitiesCleared?: true
+    serviceChargesCleared?: true
+    damagesCleared?: true
+    propertyCondition?: true
+    repairDetails?: true
+    securityDeposit?: true
+    depositRefunded?: true
+    refundAmount?: true
+    depositRetainedReason?: true
+    landlordName?: true
+    landlordSignature?: true
+    landlordPhone?: true
+    createdAt?: true
+    tenantEmail?: true
+    tenantPhone?: true
+  }
+
+  export type ClearanceCertificateMaxAggregateInputType = {
+    id?: true
+    tenantName?: true
+    nationalId?: true
+    propertyAddress?: true
+    startDate?: true
+    endDate?: true
+    rentCleared?: true
+    utilitiesCleared?: true
+    serviceChargesCleared?: true
+    damagesCleared?: true
+    propertyCondition?: true
+    repairDetails?: true
+    securityDeposit?: true
+    depositRefunded?: true
+    refundAmount?: true
+    depositRetainedReason?: true
+    landlordName?: true
+    landlordSignature?: true
+    landlordPhone?: true
+    createdAt?: true
+    tenantEmail?: true
+    tenantPhone?: true
+  }
+
+  export type ClearanceCertificateCountAggregateInputType = {
+    id?: true
+    tenantName?: true
+    nationalId?: true
+    propertyAddress?: true
+    startDate?: true
+    endDate?: true
+    rentCleared?: true
+    utilitiesCleared?: true
+    serviceChargesCleared?: true
+    damagesCleared?: true
+    propertyCondition?: true
+    repairDetails?: true
+    securityDeposit?: true
+    depositRefunded?: true
+    refundAmount?: true
+    depositRetainedReason?: true
+    landlordName?: true
+    landlordSignature?: true
+    landlordPhone?: true
+    createdAt?: true
+    tenantEmail?: true
+    tenantPhone?: true
+    _all?: true
+  }
+
+  export type ClearanceCertificateAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ClearanceCertificate to aggregate.
+     */
+    where?: ClearanceCertificateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ClearanceCertificates to fetch.
+     */
+    orderBy?: ClearanceCertificateOrderByWithRelationInput | ClearanceCertificateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ClearanceCertificateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ClearanceCertificates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ClearanceCertificates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ClearanceCertificates
+    **/
+    _count?: true | ClearanceCertificateCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ClearanceCertificateAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ClearanceCertificateSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ClearanceCertificateMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ClearanceCertificateMaxAggregateInputType
+  }
+
+  export type GetClearanceCertificateAggregateType<T extends ClearanceCertificateAggregateArgs> = {
+        [P in keyof T & keyof AggregateClearanceCertificate]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateClearanceCertificate[P]>
+      : GetScalarType<T[P], AggregateClearanceCertificate[P]>
+  }
+
+
+
+
+  export type ClearanceCertificateGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ClearanceCertificateWhereInput
+    orderBy?: ClearanceCertificateOrderByWithAggregationInput | ClearanceCertificateOrderByWithAggregationInput[]
+    by: ClearanceCertificateScalarFieldEnum[] | ClearanceCertificateScalarFieldEnum
+    having?: ClearanceCertificateScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ClearanceCertificateCountAggregateInputType | true
+    _avg?: ClearanceCertificateAvgAggregateInputType
+    _sum?: ClearanceCertificateSumAggregateInputType
+    _min?: ClearanceCertificateMinAggregateInputType
+    _max?: ClearanceCertificateMaxAggregateInputType
+  }
+
+  export type ClearanceCertificateGroupByOutputType = {
+    id: string
+    tenantName: string
+    nationalId: string | null
+    propertyAddress: string
+    startDate: Date
+    endDate: Date
+    rentCleared: boolean
+    utilitiesCleared: boolean
+    serviceChargesCleared: boolean
+    damagesCleared: boolean
+    propertyCondition: string
+    repairDetails: string | null
+    securityDeposit: number | null
+    depositRefunded: boolean | null
+    refundAmount: number | null
+    depositRetainedReason: string | null
+    landlordName: string
+    landlordSignature: string
+    landlordPhone: string
+    createdAt: Date
+    tenantEmail: string | null
+    tenantPhone: string | null
+    _count: ClearanceCertificateCountAggregateOutputType | null
+    _avg: ClearanceCertificateAvgAggregateOutputType | null
+    _sum: ClearanceCertificateSumAggregateOutputType | null
+    _min: ClearanceCertificateMinAggregateOutputType | null
+    _max: ClearanceCertificateMaxAggregateOutputType | null
+  }
+
+  type GetClearanceCertificateGroupByPayload<T extends ClearanceCertificateGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ClearanceCertificateGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ClearanceCertificateGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ClearanceCertificateGroupByOutputType[P]>
+            : GetScalarType<T[P], ClearanceCertificateGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ClearanceCertificateSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantName?: boolean
+    nationalId?: boolean
+    propertyAddress?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    rentCleared?: boolean
+    utilitiesCleared?: boolean
+    serviceChargesCleared?: boolean
+    damagesCleared?: boolean
+    propertyCondition?: boolean
+    repairDetails?: boolean
+    securityDeposit?: boolean
+    depositRefunded?: boolean
+    refundAmount?: boolean
+    depositRetainedReason?: boolean
+    landlordName?: boolean
+    landlordSignature?: boolean
+    landlordPhone?: boolean
+    createdAt?: boolean
+    tenantEmail?: boolean
+    tenantPhone?: boolean
+  }, ExtArgs["result"]["clearanceCertificate"]>
+
+  export type ClearanceCertificateSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantName?: boolean
+    nationalId?: boolean
+    propertyAddress?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    rentCleared?: boolean
+    utilitiesCleared?: boolean
+    serviceChargesCleared?: boolean
+    damagesCleared?: boolean
+    propertyCondition?: boolean
+    repairDetails?: boolean
+    securityDeposit?: boolean
+    depositRefunded?: boolean
+    refundAmount?: boolean
+    depositRetainedReason?: boolean
+    landlordName?: boolean
+    landlordSignature?: boolean
+    landlordPhone?: boolean
+    createdAt?: boolean
+    tenantEmail?: boolean
+    tenantPhone?: boolean
+  }, ExtArgs["result"]["clearanceCertificate"]>
+
+  export type ClearanceCertificateSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantName?: boolean
+    nationalId?: boolean
+    propertyAddress?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    rentCleared?: boolean
+    utilitiesCleared?: boolean
+    serviceChargesCleared?: boolean
+    damagesCleared?: boolean
+    propertyCondition?: boolean
+    repairDetails?: boolean
+    securityDeposit?: boolean
+    depositRefunded?: boolean
+    refundAmount?: boolean
+    depositRetainedReason?: boolean
+    landlordName?: boolean
+    landlordSignature?: boolean
+    landlordPhone?: boolean
+    createdAt?: boolean
+    tenantEmail?: boolean
+    tenantPhone?: boolean
+  }, ExtArgs["result"]["clearanceCertificate"]>
+
+  export type ClearanceCertificateSelectScalar = {
+    id?: boolean
+    tenantName?: boolean
+    nationalId?: boolean
+    propertyAddress?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    rentCleared?: boolean
+    utilitiesCleared?: boolean
+    serviceChargesCleared?: boolean
+    damagesCleared?: boolean
+    propertyCondition?: boolean
+    repairDetails?: boolean
+    securityDeposit?: boolean
+    depositRefunded?: boolean
+    refundAmount?: boolean
+    depositRetainedReason?: boolean
+    landlordName?: boolean
+    landlordSignature?: boolean
+    landlordPhone?: boolean
+    createdAt?: boolean
+    tenantEmail?: boolean
+    tenantPhone?: boolean
+  }
+
+  export type ClearanceCertificateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantName" | "nationalId" | "propertyAddress" | "startDate" | "endDate" | "rentCleared" | "utilitiesCleared" | "serviceChargesCleared" | "damagesCleared" | "propertyCondition" | "repairDetails" | "securityDeposit" | "depositRefunded" | "refundAmount" | "depositRetainedReason" | "landlordName" | "landlordSignature" | "landlordPhone" | "createdAt" | "tenantEmail" | "tenantPhone", ExtArgs["result"]["clearanceCertificate"]>
+
+  export type $ClearanceCertificatePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ClearanceCertificate"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantName: string
+      nationalId: string | null
+      propertyAddress: string
+      startDate: Date
+      endDate: Date
+      rentCleared: boolean
+      utilitiesCleared: boolean
+      serviceChargesCleared: boolean
+      damagesCleared: boolean
+      propertyCondition: string
+      repairDetails: string | null
+      securityDeposit: number | null
+      depositRefunded: boolean | null
+      refundAmount: number | null
+      depositRetainedReason: string | null
+      landlordName: string
+      landlordSignature: string
+      landlordPhone: string
+      createdAt: Date
+      tenantEmail: string | null
+      tenantPhone: string | null
+    }, ExtArgs["result"]["clearanceCertificate"]>
+    composites: {}
+  }
+
+  type ClearanceCertificateGetPayload<S extends boolean | null | undefined | ClearanceCertificateDefaultArgs> = $Result.GetResult<Prisma.$ClearanceCertificatePayload, S>
+
+  type ClearanceCertificateCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ClearanceCertificateFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ClearanceCertificateCountAggregateInputType | true
+    }
+
+  export interface ClearanceCertificateDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ClearanceCertificate'], meta: { name: 'ClearanceCertificate' } }
+    /**
+     * Find zero or one ClearanceCertificate that matches the filter.
+     * @param {ClearanceCertificateFindUniqueArgs} args - Arguments to find a ClearanceCertificate
+     * @example
+     * // Get one ClearanceCertificate
+     * const clearanceCertificate = await prisma.clearanceCertificate.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ClearanceCertificateFindUniqueArgs>(args: SelectSubset<T, ClearanceCertificateFindUniqueArgs<ExtArgs>>): Prisma__ClearanceCertificateClient<$Result.GetResult<Prisma.$ClearanceCertificatePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ClearanceCertificate that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ClearanceCertificateFindUniqueOrThrowArgs} args - Arguments to find a ClearanceCertificate
+     * @example
+     * // Get one ClearanceCertificate
+     * const clearanceCertificate = await prisma.clearanceCertificate.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ClearanceCertificateFindUniqueOrThrowArgs>(args: SelectSubset<T, ClearanceCertificateFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ClearanceCertificateClient<$Result.GetResult<Prisma.$ClearanceCertificatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ClearanceCertificate that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClearanceCertificateFindFirstArgs} args - Arguments to find a ClearanceCertificate
+     * @example
+     * // Get one ClearanceCertificate
+     * const clearanceCertificate = await prisma.clearanceCertificate.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ClearanceCertificateFindFirstArgs>(args?: SelectSubset<T, ClearanceCertificateFindFirstArgs<ExtArgs>>): Prisma__ClearanceCertificateClient<$Result.GetResult<Prisma.$ClearanceCertificatePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ClearanceCertificate that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClearanceCertificateFindFirstOrThrowArgs} args - Arguments to find a ClearanceCertificate
+     * @example
+     * // Get one ClearanceCertificate
+     * const clearanceCertificate = await prisma.clearanceCertificate.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ClearanceCertificateFindFirstOrThrowArgs>(args?: SelectSubset<T, ClearanceCertificateFindFirstOrThrowArgs<ExtArgs>>): Prisma__ClearanceCertificateClient<$Result.GetResult<Prisma.$ClearanceCertificatePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ClearanceCertificates that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClearanceCertificateFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ClearanceCertificates
+     * const clearanceCertificates = await prisma.clearanceCertificate.findMany()
+     * 
+     * // Get first 10 ClearanceCertificates
+     * const clearanceCertificates = await prisma.clearanceCertificate.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const clearanceCertificateWithIdOnly = await prisma.clearanceCertificate.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ClearanceCertificateFindManyArgs>(args?: SelectSubset<T, ClearanceCertificateFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClearanceCertificatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ClearanceCertificate.
+     * @param {ClearanceCertificateCreateArgs} args - Arguments to create a ClearanceCertificate.
+     * @example
+     * // Create one ClearanceCertificate
+     * const ClearanceCertificate = await prisma.clearanceCertificate.create({
+     *   data: {
+     *     // ... data to create a ClearanceCertificate
+     *   }
+     * })
+     * 
+     */
+    create<T extends ClearanceCertificateCreateArgs>(args: SelectSubset<T, ClearanceCertificateCreateArgs<ExtArgs>>): Prisma__ClearanceCertificateClient<$Result.GetResult<Prisma.$ClearanceCertificatePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ClearanceCertificates.
+     * @param {ClearanceCertificateCreateManyArgs} args - Arguments to create many ClearanceCertificates.
+     * @example
+     * // Create many ClearanceCertificates
+     * const clearanceCertificate = await prisma.clearanceCertificate.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ClearanceCertificateCreateManyArgs>(args?: SelectSubset<T, ClearanceCertificateCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ClearanceCertificates and returns the data saved in the database.
+     * @param {ClearanceCertificateCreateManyAndReturnArgs} args - Arguments to create many ClearanceCertificates.
+     * @example
+     * // Create many ClearanceCertificates
+     * const clearanceCertificate = await prisma.clearanceCertificate.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ClearanceCertificates and only return the `id`
+     * const clearanceCertificateWithIdOnly = await prisma.clearanceCertificate.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ClearanceCertificateCreateManyAndReturnArgs>(args?: SelectSubset<T, ClearanceCertificateCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClearanceCertificatePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ClearanceCertificate.
+     * @param {ClearanceCertificateDeleteArgs} args - Arguments to delete one ClearanceCertificate.
+     * @example
+     * // Delete one ClearanceCertificate
+     * const ClearanceCertificate = await prisma.clearanceCertificate.delete({
+     *   where: {
+     *     // ... filter to delete one ClearanceCertificate
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ClearanceCertificateDeleteArgs>(args: SelectSubset<T, ClearanceCertificateDeleteArgs<ExtArgs>>): Prisma__ClearanceCertificateClient<$Result.GetResult<Prisma.$ClearanceCertificatePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ClearanceCertificate.
+     * @param {ClearanceCertificateUpdateArgs} args - Arguments to update one ClearanceCertificate.
+     * @example
+     * // Update one ClearanceCertificate
+     * const clearanceCertificate = await prisma.clearanceCertificate.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ClearanceCertificateUpdateArgs>(args: SelectSubset<T, ClearanceCertificateUpdateArgs<ExtArgs>>): Prisma__ClearanceCertificateClient<$Result.GetResult<Prisma.$ClearanceCertificatePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ClearanceCertificates.
+     * @param {ClearanceCertificateDeleteManyArgs} args - Arguments to filter ClearanceCertificates to delete.
+     * @example
+     * // Delete a few ClearanceCertificates
+     * const { count } = await prisma.clearanceCertificate.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ClearanceCertificateDeleteManyArgs>(args?: SelectSubset<T, ClearanceCertificateDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ClearanceCertificates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClearanceCertificateUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ClearanceCertificates
+     * const clearanceCertificate = await prisma.clearanceCertificate.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ClearanceCertificateUpdateManyArgs>(args: SelectSubset<T, ClearanceCertificateUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ClearanceCertificates and returns the data updated in the database.
+     * @param {ClearanceCertificateUpdateManyAndReturnArgs} args - Arguments to update many ClearanceCertificates.
+     * @example
+     * // Update many ClearanceCertificates
+     * const clearanceCertificate = await prisma.clearanceCertificate.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ClearanceCertificates and only return the `id`
+     * const clearanceCertificateWithIdOnly = await prisma.clearanceCertificate.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ClearanceCertificateUpdateManyAndReturnArgs>(args: SelectSubset<T, ClearanceCertificateUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClearanceCertificatePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ClearanceCertificate.
+     * @param {ClearanceCertificateUpsertArgs} args - Arguments to update or create a ClearanceCertificate.
+     * @example
+     * // Update or create a ClearanceCertificate
+     * const clearanceCertificate = await prisma.clearanceCertificate.upsert({
+     *   create: {
+     *     // ... data to create a ClearanceCertificate
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ClearanceCertificate we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ClearanceCertificateUpsertArgs>(args: SelectSubset<T, ClearanceCertificateUpsertArgs<ExtArgs>>): Prisma__ClearanceCertificateClient<$Result.GetResult<Prisma.$ClearanceCertificatePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ClearanceCertificates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClearanceCertificateCountArgs} args - Arguments to filter ClearanceCertificates to count.
+     * @example
+     * // Count the number of ClearanceCertificates
+     * const count = await prisma.clearanceCertificate.count({
+     *   where: {
+     *     // ... the filter for the ClearanceCertificates we want to count
+     *   }
+     * })
+    **/
+    count<T extends ClearanceCertificateCountArgs>(
+      args?: Subset<T, ClearanceCertificateCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ClearanceCertificateCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ClearanceCertificate.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClearanceCertificateAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ClearanceCertificateAggregateArgs>(args: Subset<T, ClearanceCertificateAggregateArgs>): Prisma.PrismaPromise<GetClearanceCertificateAggregateType<T>>
+
+    /**
+     * Group by ClearanceCertificate.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClearanceCertificateGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ClearanceCertificateGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ClearanceCertificateGroupByArgs['orderBy'] }
+        : { orderBy?: ClearanceCertificateGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ClearanceCertificateGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetClearanceCertificateGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ClearanceCertificate model
+   */
+  readonly fields: ClearanceCertificateFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ClearanceCertificate.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ClearanceCertificateClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ClearanceCertificate model
+   */
+  interface ClearanceCertificateFieldRefs {
+    readonly id: FieldRef<"ClearanceCertificate", 'String'>
+    readonly tenantName: FieldRef<"ClearanceCertificate", 'String'>
+    readonly nationalId: FieldRef<"ClearanceCertificate", 'String'>
+    readonly propertyAddress: FieldRef<"ClearanceCertificate", 'String'>
+    readonly startDate: FieldRef<"ClearanceCertificate", 'DateTime'>
+    readonly endDate: FieldRef<"ClearanceCertificate", 'DateTime'>
+    readonly rentCleared: FieldRef<"ClearanceCertificate", 'Boolean'>
+    readonly utilitiesCleared: FieldRef<"ClearanceCertificate", 'Boolean'>
+    readonly serviceChargesCleared: FieldRef<"ClearanceCertificate", 'Boolean'>
+    readonly damagesCleared: FieldRef<"ClearanceCertificate", 'Boolean'>
+    readonly propertyCondition: FieldRef<"ClearanceCertificate", 'String'>
+    readonly repairDetails: FieldRef<"ClearanceCertificate", 'String'>
+    readonly securityDeposit: FieldRef<"ClearanceCertificate", 'Float'>
+    readonly depositRefunded: FieldRef<"ClearanceCertificate", 'Boolean'>
+    readonly refundAmount: FieldRef<"ClearanceCertificate", 'Float'>
+    readonly depositRetainedReason: FieldRef<"ClearanceCertificate", 'String'>
+    readonly landlordName: FieldRef<"ClearanceCertificate", 'String'>
+    readonly landlordSignature: FieldRef<"ClearanceCertificate", 'String'>
+    readonly landlordPhone: FieldRef<"ClearanceCertificate", 'String'>
+    readonly createdAt: FieldRef<"ClearanceCertificate", 'DateTime'>
+    readonly tenantEmail: FieldRef<"ClearanceCertificate", 'String'>
+    readonly tenantPhone: FieldRef<"ClearanceCertificate", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ClearanceCertificate findUnique
+   */
+  export type ClearanceCertificateFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClearanceCertificate
+     */
+    select?: ClearanceCertificateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClearanceCertificate
+     */
+    omit?: ClearanceCertificateOmit<ExtArgs> | null
+    /**
+     * Filter, which ClearanceCertificate to fetch.
+     */
+    where: ClearanceCertificateWhereUniqueInput
+  }
+
+  /**
+   * ClearanceCertificate findUniqueOrThrow
+   */
+  export type ClearanceCertificateFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClearanceCertificate
+     */
+    select?: ClearanceCertificateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClearanceCertificate
+     */
+    omit?: ClearanceCertificateOmit<ExtArgs> | null
+    /**
+     * Filter, which ClearanceCertificate to fetch.
+     */
+    where: ClearanceCertificateWhereUniqueInput
+  }
+
+  /**
+   * ClearanceCertificate findFirst
+   */
+  export type ClearanceCertificateFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClearanceCertificate
+     */
+    select?: ClearanceCertificateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClearanceCertificate
+     */
+    omit?: ClearanceCertificateOmit<ExtArgs> | null
+    /**
+     * Filter, which ClearanceCertificate to fetch.
+     */
+    where?: ClearanceCertificateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ClearanceCertificates to fetch.
+     */
+    orderBy?: ClearanceCertificateOrderByWithRelationInput | ClearanceCertificateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ClearanceCertificates.
+     */
+    cursor?: ClearanceCertificateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ClearanceCertificates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ClearanceCertificates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ClearanceCertificates.
+     */
+    distinct?: ClearanceCertificateScalarFieldEnum | ClearanceCertificateScalarFieldEnum[]
+  }
+
+  /**
+   * ClearanceCertificate findFirstOrThrow
+   */
+  export type ClearanceCertificateFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClearanceCertificate
+     */
+    select?: ClearanceCertificateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClearanceCertificate
+     */
+    omit?: ClearanceCertificateOmit<ExtArgs> | null
+    /**
+     * Filter, which ClearanceCertificate to fetch.
+     */
+    where?: ClearanceCertificateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ClearanceCertificates to fetch.
+     */
+    orderBy?: ClearanceCertificateOrderByWithRelationInput | ClearanceCertificateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ClearanceCertificates.
+     */
+    cursor?: ClearanceCertificateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ClearanceCertificates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ClearanceCertificates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ClearanceCertificates.
+     */
+    distinct?: ClearanceCertificateScalarFieldEnum | ClearanceCertificateScalarFieldEnum[]
+  }
+
+  /**
+   * ClearanceCertificate findMany
+   */
+  export type ClearanceCertificateFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClearanceCertificate
+     */
+    select?: ClearanceCertificateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClearanceCertificate
+     */
+    omit?: ClearanceCertificateOmit<ExtArgs> | null
+    /**
+     * Filter, which ClearanceCertificates to fetch.
+     */
+    where?: ClearanceCertificateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ClearanceCertificates to fetch.
+     */
+    orderBy?: ClearanceCertificateOrderByWithRelationInput | ClearanceCertificateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ClearanceCertificates.
+     */
+    cursor?: ClearanceCertificateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ClearanceCertificates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ClearanceCertificates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ClearanceCertificates.
+     */
+    distinct?: ClearanceCertificateScalarFieldEnum | ClearanceCertificateScalarFieldEnum[]
+  }
+
+  /**
+   * ClearanceCertificate create
+   */
+  export type ClearanceCertificateCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClearanceCertificate
+     */
+    select?: ClearanceCertificateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClearanceCertificate
+     */
+    omit?: ClearanceCertificateOmit<ExtArgs> | null
+    /**
+     * The data needed to create a ClearanceCertificate.
+     */
+    data: XOR<ClearanceCertificateCreateInput, ClearanceCertificateUncheckedCreateInput>
+  }
+
+  /**
+   * ClearanceCertificate createMany
+   */
+  export type ClearanceCertificateCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ClearanceCertificates.
+     */
+    data: ClearanceCertificateCreateManyInput | ClearanceCertificateCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ClearanceCertificate createManyAndReturn
+   */
+  export type ClearanceCertificateCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClearanceCertificate
+     */
+    select?: ClearanceCertificateSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClearanceCertificate
+     */
+    omit?: ClearanceCertificateOmit<ExtArgs> | null
+    /**
+     * The data used to create many ClearanceCertificates.
+     */
+    data: ClearanceCertificateCreateManyInput | ClearanceCertificateCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ClearanceCertificate update
+   */
+  export type ClearanceCertificateUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClearanceCertificate
+     */
+    select?: ClearanceCertificateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClearanceCertificate
+     */
+    omit?: ClearanceCertificateOmit<ExtArgs> | null
+    /**
+     * The data needed to update a ClearanceCertificate.
+     */
+    data: XOR<ClearanceCertificateUpdateInput, ClearanceCertificateUncheckedUpdateInput>
+    /**
+     * Choose, which ClearanceCertificate to update.
+     */
+    where: ClearanceCertificateWhereUniqueInput
+  }
+
+  /**
+   * ClearanceCertificate updateMany
+   */
+  export type ClearanceCertificateUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ClearanceCertificates.
+     */
+    data: XOR<ClearanceCertificateUpdateManyMutationInput, ClearanceCertificateUncheckedUpdateManyInput>
+    /**
+     * Filter which ClearanceCertificates to update
+     */
+    where?: ClearanceCertificateWhereInput
+    /**
+     * Limit how many ClearanceCertificates to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ClearanceCertificate updateManyAndReturn
+   */
+  export type ClearanceCertificateUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClearanceCertificate
+     */
+    select?: ClearanceCertificateSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClearanceCertificate
+     */
+    omit?: ClearanceCertificateOmit<ExtArgs> | null
+    /**
+     * The data used to update ClearanceCertificates.
+     */
+    data: XOR<ClearanceCertificateUpdateManyMutationInput, ClearanceCertificateUncheckedUpdateManyInput>
+    /**
+     * Filter which ClearanceCertificates to update
+     */
+    where?: ClearanceCertificateWhereInput
+    /**
+     * Limit how many ClearanceCertificates to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ClearanceCertificate upsert
+   */
+  export type ClearanceCertificateUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClearanceCertificate
+     */
+    select?: ClearanceCertificateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClearanceCertificate
+     */
+    omit?: ClearanceCertificateOmit<ExtArgs> | null
+    /**
+     * The filter to search for the ClearanceCertificate to update in case it exists.
+     */
+    where: ClearanceCertificateWhereUniqueInput
+    /**
+     * In case the ClearanceCertificate found by the `where` argument doesn't exist, create a new ClearanceCertificate with this data.
+     */
+    create: XOR<ClearanceCertificateCreateInput, ClearanceCertificateUncheckedCreateInput>
+    /**
+     * In case the ClearanceCertificate was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ClearanceCertificateUpdateInput, ClearanceCertificateUncheckedUpdateInput>
+  }
+
+  /**
+   * ClearanceCertificate delete
+   */
+  export type ClearanceCertificateDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClearanceCertificate
+     */
+    select?: ClearanceCertificateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClearanceCertificate
+     */
+    omit?: ClearanceCertificateOmit<ExtArgs> | null
+    /**
+     * Filter which ClearanceCertificate to delete.
+     */
+    where: ClearanceCertificateWhereUniqueInput
+  }
+
+  /**
+   * ClearanceCertificate deleteMany
+   */
+  export type ClearanceCertificateDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ClearanceCertificates to delete
+     */
+    where?: ClearanceCertificateWhereInput
+    /**
+     * Limit how many ClearanceCertificates to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ClearanceCertificate without action
+   */
+  export type ClearanceCertificateDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClearanceCertificate
+     */
+    select?: ClearanceCertificateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClearanceCertificate
+     */
+    omit?: ClearanceCertificateOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -10798,6 +14765,10 @@ export namespace Prisma {
     rentAmount: 'rentAmount',
     startDate: 'startDate',
     isActive: 'isActive',
+    nationalId: 'nationalId',
+    emergencyContactName: 'emergencyContactName',
+    emergencyContactPhone: 'emergencyContactPhone',
+    numberOfOccupants: 'numberOfOccupants',
     createdAt: 'createdAt'
   };
 
@@ -10858,6 +14829,66 @@ export namespace Prisma {
   export type ContactMessageScalarFieldEnum = (typeof ContactMessageScalarFieldEnum)[keyof typeof ContactMessageScalarFieldEnum]
 
 
+  export const OccupantScalarFieldEnum: {
+    id: 'id',
+    tenantId: 'tenantId',
+    name: 'name',
+    phone: 'phone',
+    relation: 'relation'
+  };
+
+  export type OccupantScalarFieldEnum = (typeof OccupantScalarFieldEnum)[keyof typeof OccupantScalarFieldEnum]
+
+
+  export const ContractScalarFieldEnum: {
+    id: 'id',
+    tenantId: 'tenantId',
+    startDate: 'startDate',
+    endDate: 'endDate',
+    monthlyRent: 'monthlyRent',
+    deposit: 'deposit',
+    utilities: 'utilities',
+    status: 'status',
+    content: 'content',
+    tenantSignature: 'tenantSignature',
+    tenantSignedAt: 'tenantSignedAt',
+    landlordSignature: 'landlordSignature',
+    landlordSignedAt: 'landlordSignedAt',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ContractScalarFieldEnum = (typeof ContractScalarFieldEnum)[keyof typeof ContractScalarFieldEnum]
+
+
+  export const ClearanceCertificateScalarFieldEnum: {
+    id: 'id',
+    tenantName: 'tenantName',
+    nationalId: 'nationalId',
+    propertyAddress: 'propertyAddress',
+    startDate: 'startDate',
+    endDate: 'endDate',
+    rentCleared: 'rentCleared',
+    utilitiesCleared: 'utilitiesCleared',
+    serviceChargesCleared: 'serviceChargesCleared',
+    damagesCleared: 'damagesCleared',
+    propertyCondition: 'propertyCondition',
+    repairDetails: 'repairDetails',
+    securityDeposit: 'securityDeposit',
+    depositRefunded: 'depositRefunded',
+    refundAmount: 'refundAmount',
+    depositRetainedReason: 'depositRetainedReason',
+    landlordName: 'landlordName',
+    landlordSignature: 'landlordSignature',
+    landlordPhone: 'landlordPhone',
+    createdAt: 'createdAt',
+    tenantEmail: 'tenantEmail',
+    tenantPhone: 'tenantPhone'
+  };
+
+  export type ClearanceCertificateScalarFieldEnum = (typeof ClearanceCertificateScalarFieldEnum)[keyof typeof ClearanceCertificateScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -10872,6 +14903,13 @@ export namespace Prisma {
   };
 
   export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
+  export const JsonNullValueInput: {
+    JsonNull: typeof JsonNull
+  };
+
+  export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
   export const QueryMode: {
@@ -10968,6 +15006,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Int'
+   */
+  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int[]'
+   */
+  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
    * Reference to a field of type 'BillType'
    */
   export type EnumBillTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BillType'>
@@ -11024,16 +15076,16 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Int'
+   * Reference to a field of type 'ContractStatus'
    */
-  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+  export type EnumContractStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ContractStatus'>
     
 
 
   /**
-   * Reference to a field of type 'Int[]'
+   * Reference to a field of type 'ContractStatus[]'
    */
-  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+  export type ListEnumContractStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ContractStatus[]'>
     
   /**
    * Deep Input Types
@@ -11243,9 +15295,15 @@ export namespace Prisma {
     rentAmount?: FloatFilter<"Tenant"> | number
     startDate?: DateTimeFilter<"Tenant"> | Date | string
     isActive?: BoolFilter<"Tenant"> | boolean
+    nationalId?: StringNullableFilter<"Tenant"> | string | null
+    emergencyContactName?: StringNullableFilter<"Tenant"> | string | null
+    emergencyContactPhone?: StringNullableFilter<"Tenant"> | string | null
+    numberOfOccupants?: IntNullableFilter<"Tenant"> | number | null
     createdAt?: DateTimeFilter<"Tenant"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     unit?: XOR<UnitScalarRelationFilter, UnitWhereInput>
+    occupants?: OccupantListRelationFilter
+    contracts?: ContractListRelationFilter
     bills?: BillListRelationFilter
   }
 
@@ -11256,9 +15314,15 @@ export namespace Prisma {
     rentAmount?: SortOrder
     startDate?: SortOrder
     isActive?: SortOrder
+    nationalId?: SortOrderInput | SortOrder
+    emergencyContactName?: SortOrderInput | SortOrder
+    emergencyContactPhone?: SortOrderInput | SortOrder
+    numberOfOccupants?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     user?: UserOrderByWithRelationInput
     unit?: UnitOrderByWithRelationInput
+    occupants?: OccupantOrderByRelationAggregateInput
+    contracts?: ContractOrderByRelationAggregateInput
     bills?: BillOrderByRelationAggregateInput
   }
 
@@ -11272,9 +15336,15 @@ export namespace Prisma {
     rentAmount?: FloatFilter<"Tenant"> | number
     startDate?: DateTimeFilter<"Tenant"> | Date | string
     isActive?: BoolFilter<"Tenant"> | boolean
+    nationalId?: StringNullableFilter<"Tenant"> | string | null
+    emergencyContactName?: StringNullableFilter<"Tenant"> | string | null
+    emergencyContactPhone?: StringNullableFilter<"Tenant"> | string | null
+    numberOfOccupants?: IntNullableFilter<"Tenant"> | number | null
     createdAt?: DateTimeFilter<"Tenant"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     unit?: XOR<UnitScalarRelationFilter, UnitWhereInput>
+    occupants?: OccupantListRelationFilter
+    contracts?: ContractListRelationFilter
     bills?: BillListRelationFilter
   }, "id" | "userId">
 
@@ -11285,6 +15355,10 @@ export namespace Prisma {
     rentAmount?: SortOrder
     startDate?: SortOrder
     isActive?: SortOrder
+    nationalId?: SortOrderInput | SortOrder
+    emergencyContactName?: SortOrderInput | SortOrder
+    emergencyContactPhone?: SortOrderInput | SortOrder
+    numberOfOccupants?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     _count?: TenantCountOrderByAggregateInput
     _avg?: TenantAvgOrderByAggregateInput
@@ -11303,6 +15377,10 @@ export namespace Prisma {
     rentAmount?: FloatWithAggregatesFilter<"Tenant"> | number
     startDate?: DateTimeWithAggregatesFilter<"Tenant"> | Date | string
     isActive?: BoolWithAggregatesFilter<"Tenant"> | boolean
+    nationalId?: StringNullableWithAggregatesFilter<"Tenant"> | string | null
+    emergencyContactName?: StringNullableWithAggregatesFilter<"Tenant"> | string | null
+    emergencyContactPhone?: StringNullableWithAggregatesFilter<"Tenant"> | string | null
+    numberOfOccupants?: IntNullableWithAggregatesFilter<"Tenant"> | number | null
     createdAt?: DateTimeWithAggregatesFilter<"Tenant"> | Date | string
   }
 
@@ -11586,6 +15664,307 @@ export namespace Prisma {
     isRead?: BoolWithAggregatesFilter<"ContactMessage"> | boolean
   }
 
+  export type OccupantWhereInput = {
+    AND?: OccupantWhereInput | OccupantWhereInput[]
+    OR?: OccupantWhereInput[]
+    NOT?: OccupantWhereInput | OccupantWhereInput[]
+    id?: StringFilter<"Occupant"> | string
+    tenantId?: StringFilter<"Occupant"> | string
+    name?: StringFilter<"Occupant"> | string
+    phone?: StringNullableFilter<"Occupant"> | string | null
+    relation?: StringNullableFilter<"Occupant"> | string | null
+    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
+  }
+
+  export type OccupantOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    name?: SortOrder
+    phone?: SortOrderInput | SortOrder
+    relation?: SortOrderInput | SortOrder
+    tenant?: TenantOrderByWithRelationInput
+  }
+
+  export type OccupantWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: OccupantWhereInput | OccupantWhereInput[]
+    OR?: OccupantWhereInput[]
+    NOT?: OccupantWhereInput | OccupantWhereInput[]
+    tenantId?: StringFilter<"Occupant"> | string
+    name?: StringFilter<"Occupant"> | string
+    phone?: StringNullableFilter<"Occupant"> | string | null
+    relation?: StringNullableFilter<"Occupant"> | string | null
+    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
+  }, "id">
+
+  export type OccupantOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    name?: SortOrder
+    phone?: SortOrderInput | SortOrder
+    relation?: SortOrderInput | SortOrder
+    _count?: OccupantCountOrderByAggregateInput
+    _max?: OccupantMaxOrderByAggregateInput
+    _min?: OccupantMinOrderByAggregateInput
+  }
+
+  export type OccupantScalarWhereWithAggregatesInput = {
+    AND?: OccupantScalarWhereWithAggregatesInput | OccupantScalarWhereWithAggregatesInput[]
+    OR?: OccupantScalarWhereWithAggregatesInput[]
+    NOT?: OccupantScalarWhereWithAggregatesInput | OccupantScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Occupant"> | string
+    tenantId?: StringWithAggregatesFilter<"Occupant"> | string
+    name?: StringWithAggregatesFilter<"Occupant"> | string
+    phone?: StringNullableWithAggregatesFilter<"Occupant"> | string | null
+    relation?: StringNullableWithAggregatesFilter<"Occupant"> | string | null
+  }
+
+  export type ContractWhereInput = {
+    AND?: ContractWhereInput | ContractWhereInput[]
+    OR?: ContractWhereInput[]
+    NOT?: ContractWhereInput | ContractWhereInput[]
+    id?: StringFilter<"Contract"> | string
+    tenantId?: StringFilter<"Contract"> | string
+    startDate?: DateTimeFilter<"Contract"> | Date | string
+    endDate?: DateTimeFilter<"Contract"> | Date | string
+    monthlyRent?: FloatFilter<"Contract"> | number
+    deposit?: FloatNullableFilter<"Contract"> | number | null
+    utilities?: JsonFilter<"Contract">
+    status?: EnumContractStatusFilter<"Contract"> | $Enums.ContractStatus
+    content?: StringNullableFilter<"Contract"> | string | null
+    tenantSignature?: StringNullableFilter<"Contract"> | string | null
+    tenantSignedAt?: DateTimeNullableFilter<"Contract"> | Date | string | null
+    landlordSignature?: BoolFilter<"Contract"> | boolean
+    landlordSignedAt?: DateTimeNullableFilter<"Contract"> | Date | string | null
+    createdAt?: DateTimeFilter<"Contract"> | Date | string
+    updatedAt?: DateTimeFilter<"Contract"> | Date | string
+    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
+  }
+
+  export type ContractOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    monthlyRent?: SortOrder
+    deposit?: SortOrderInput | SortOrder
+    utilities?: SortOrder
+    status?: SortOrder
+    content?: SortOrderInput | SortOrder
+    tenantSignature?: SortOrderInput | SortOrder
+    tenantSignedAt?: SortOrderInput | SortOrder
+    landlordSignature?: SortOrder
+    landlordSignedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
+  }
+
+  export type ContractWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ContractWhereInput | ContractWhereInput[]
+    OR?: ContractWhereInput[]
+    NOT?: ContractWhereInput | ContractWhereInput[]
+    tenantId?: StringFilter<"Contract"> | string
+    startDate?: DateTimeFilter<"Contract"> | Date | string
+    endDate?: DateTimeFilter<"Contract"> | Date | string
+    monthlyRent?: FloatFilter<"Contract"> | number
+    deposit?: FloatNullableFilter<"Contract"> | number | null
+    utilities?: JsonFilter<"Contract">
+    status?: EnumContractStatusFilter<"Contract"> | $Enums.ContractStatus
+    content?: StringNullableFilter<"Contract"> | string | null
+    tenantSignature?: StringNullableFilter<"Contract"> | string | null
+    tenantSignedAt?: DateTimeNullableFilter<"Contract"> | Date | string | null
+    landlordSignature?: BoolFilter<"Contract"> | boolean
+    landlordSignedAt?: DateTimeNullableFilter<"Contract"> | Date | string | null
+    createdAt?: DateTimeFilter<"Contract"> | Date | string
+    updatedAt?: DateTimeFilter<"Contract"> | Date | string
+    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
+  }, "id">
+
+  export type ContractOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    monthlyRent?: SortOrder
+    deposit?: SortOrderInput | SortOrder
+    utilities?: SortOrder
+    status?: SortOrder
+    content?: SortOrderInput | SortOrder
+    tenantSignature?: SortOrderInput | SortOrder
+    tenantSignedAt?: SortOrderInput | SortOrder
+    landlordSignature?: SortOrder
+    landlordSignedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ContractCountOrderByAggregateInput
+    _avg?: ContractAvgOrderByAggregateInput
+    _max?: ContractMaxOrderByAggregateInput
+    _min?: ContractMinOrderByAggregateInput
+    _sum?: ContractSumOrderByAggregateInput
+  }
+
+  export type ContractScalarWhereWithAggregatesInput = {
+    AND?: ContractScalarWhereWithAggregatesInput | ContractScalarWhereWithAggregatesInput[]
+    OR?: ContractScalarWhereWithAggregatesInput[]
+    NOT?: ContractScalarWhereWithAggregatesInput | ContractScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Contract"> | string
+    tenantId?: StringWithAggregatesFilter<"Contract"> | string
+    startDate?: DateTimeWithAggregatesFilter<"Contract"> | Date | string
+    endDate?: DateTimeWithAggregatesFilter<"Contract"> | Date | string
+    monthlyRent?: FloatWithAggregatesFilter<"Contract"> | number
+    deposit?: FloatNullableWithAggregatesFilter<"Contract"> | number | null
+    utilities?: JsonWithAggregatesFilter<"Contract">
+    status?: EnumContractStatusWithAggregatesFilter<"Contract"> | $Enums.ContractStatus
+    content?: StringNullableWithAggregatesFilter<"Contract"> | string | null
+    tenantSignature?: StringNullableWithAggregatesFilter<"Contract"> | string | null
+    tenantSignedAt?: DateTimeNullableWithAggregatesFilter<"Contract"> | Date | string | null
+    landlordSignature?: BoolWithAggregatesFilter<"Contract"> | boolean
+    landlordSignedAt?: DateTimeNullableWithAggregatesFilter<"Contract"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Contract"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Contract"> | Date | string
+  }
+
+  export type ClearanceCertificateWhereInput = {
+    AND?: ClearanceCertificateWhereInput | ClearanceCertificateWhereInput[]
+    OR?: ClearanceCertificateWhereInput[]
+    NOT?: ClearanceCertificateWhereInput | ClearanceCertificateWhereInput[]
+    id?: StringFilter<"ClearanceCertificate"> | string
+    tenantName?: StringFilter<"ClearanceCertificate"> | string
+    nationalId?: StringNullableFilter<"ClearanceCertificate"> | string | null
+    propertyAddress?: StringFilter<"ClearanceCertificate"> | string
+    startDate?: DateTimeFilter<"ClearanceCertificate"> | Date | string
+    endDate?: DateTimeFilter<"ClearanceCertificate"> | Date | string
+    rentCleared?: BoolFilter<"ClearanceCertificate"> | boolean
+    utilitiesCleared?: BoolFilter<"ClearanceCertificate"> | boolean
+    serviceChargesCleared?: BoolFilter<"ClearanceCertificate"> | boolean
+    damagesCleared?: BoolFilter<"ClearanceCertificate"> | boolean
+    propertyCondition?: StringFilter<"ClearanceCertificate"> | string
+    repairDetails?: StringNullableFilter<"ClearanceCertificate"> | string | null
+    securityDeposit?: FloatNullableFilter<"ClearanceCertificate"> | number | null
+    depositRefunded?: BoolNullableFilter<"ClearanceCertificate"> | boolean | null
+    refundAmount?: FloatNullableFilter<"ClearanceCertificate"> | number | null
+    depositRetainedReason?: StringNullableFilter<"ClearanceCertificate"> | string | null
+    landlordName?: StringFilter<"ClearanceCertificate"> | string
+    landlordSignature?: StringFilter<"ClearanceCertificate"> | string
+    landlordPhone?: StringFilter<"ClearanceCertificate"> | string
+    createdAt?: DateTimeFilter<"ClearanceCertificate"> | Date | string
+    tenantEmail?: StringNullableFilter<"ClearanceCertificate"> | string | null
+    tenantPhone?: StringNullableFilter<"ClearanceCertificate"> | string | null
+  }
+
+  export type ClearanceCertificateOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantName?: SortOrder
+    nationalId?: SortOrderInput | SortOrder
+    propertyAddress?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    rentCleared?: SortOrder
+    utilitiesCleared?: SortOrder
+    serviceChargesCleared?: SortOrder
+    damagesCleared?: SortOrder
+    propertyCondition?: SortOrder
+    repairDetails?: SortOrderInput | SortOrder
+    securityDeposit?: SortOrderInput | SortOrder
+    depositRefunded?: SortOrderInput | SortOrder
+    refundAmount?: SortOrderInput | SortOrder
+    depositRetainedReason?: SortOrderInput | SortOrder
+    landlordName?: SortOrder
+    landlordSignature?: SortOrder
+    landlordPhone?: SortOrder
+    createdAt?: SortOrder
+    tenantEmail?: SortOrderInput | SortOrder
+    tenantPhone?: SortOrderInput | SortOrder
+  }
+
+  export type ClearanceCertificateWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ClearanceCertificateWhereInput | ClearanceCertificateWhereInput[]
+    OR?: ClearanceCertificateWhereInput[]
+    NOT?: ClearanceCertificateWhereInput | ClearanceCertificateWhereInput[]
+    tenantName?: StringFilter<"ClearanceCertificate"> | string
+    nationalId?: StringNullableFilter<"ClearanceCertificate"> | string | null
+    propertyAddress?: StringFilter<"ClearanceCertificate"> | string
+    startDate?: DateTimeFilter<"ClearanceCertificate"> | Date | string
+    endDate?: DateTimeFilter<"ClearanceCertificate"> | Date | string
+    rentCleared?: BoolFilter<"ClearanceCertificate"> | boolean
+    utilitiesCleared?: BoolFilter<"ClearanceCertificate"> | boolean
+    serviceChargesCleared?: BoolFilter<"ClearanceCertificate"> | boolean
+    damagesCleared?: BoolFilter<"ClearanceCertificate"> | boolean
+    propertyCondition?: StringFilter<"ClearanceCertificate"> | string
+    repairDetails?: StringNullableFilter<"ClearanceCertificate"> | string | null
+    securityDeposit?: FloatNullableFilter<"ClearanceCertificate"> | number | null
+    depositRefunded?: BoolNullableFilter<"ClearanceCertificate"> | boolean | null
+    refundAmount?: FloatNullableFilter<"ClearanceCertificate"> | number | null
+    depositRetainedReason?: StringNullableFilter<"ClearanceCertificate"> | string | null
+    landlordName?: StringFilter<"ClearanceCertificate"> | string
+    landlordSignature?: StringFilter<"ClearanceCertificate"> | string
+    landlordPhone?: StringFilter<"ClearanceCertificate"> | string
+    createdAt?: DateTimeFilter<"ClearanceCertificate"> | Date | string
+    tenantEmail?: StringNullableFilter<"ClearanceCertificate"> | string | null
+    tenantPhone?: StringNullableFilter<"ClearanceCertificate"> | string | null
+  }, "id">
+
+  export type ClearanceCertificateOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantName?: SortOrder
+    nationalId?: SortOrderInput | SortOrder
+    propertyAddress?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    rentCleared?: SortOrder
+    utilitiesCleared?: SortOrder
+    serviceChargesCleared?: SortOrder
+    damagesCleared?: SortOrder
+    propertyCondition?: SortOrder
+    repairDetails?: SortOrderInput | SortOrder
+    securityDeposit?: SortOrderInput | SortOrder
+    depositRefunded?: SortOrderInput | SortOrder
+    refundAmount?: SortOrderInput | SortOrder
+    depositRetainedReason?: SortOrderInput | SortOrder
+    landlordName?: SortOrder
+    landlordSignature?: SortOrder
+    landlordPhone?: SortOrder
+    createdAt?: SortOrder
+    tenantEmail?: SortOrderInput | SortOrder
+    tenantPhone?: SortOrderInput | SortOrder
+    _count?: ClearanceCertificateCountOrderByAggregateInput
+    _avg?: ClearanceCertificateAvgOrderByAggregateInput
+    _max?: ClearanceCertificateMaxOrderByAggregateInput
+    _min?: ClearanceCertificateMinOrderByAggregateInput
+    _sum?: ClearanceCertificateSumOrderByAggregateInput
+  }
+
+  export type ClearanceCertificateScalarWhereWithAggregatesInput = {
+    AND?: ClearanceCertificateScalarWhereWithAggregatesInput | ClearanceCertificateScalarWhereWithAggregatesInput[]
+    OR?: ClearanceCertificateScalarWhereWithAggregatesInput[]
+    NOT?: ClearanceCertificateScalarWhereWithAggregatesInput | ClearanceCertificateScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ClearanceCertificate"> | string
+    tenantName?: StringWithAggregatesFilter<"ClearanceCertificate"> | string
+    nationalId?: StringNullableWithAggregatesFilter<"ClearanceCertificate"> | string | null
+    propertyAddress?: StringWithAggregatesFilter<"ClearanceCertificate"> | string
+    startDate?: DateTimeWithAggregatesFilter<"ClearanceCertificate"> | Date | string
+    endDate?: DateTimeWithAggregatesFilter<"ClearanceCertificate"> | Date | string
+    rentCleared?: BoolWithAggregatesFilter<"ClearanceCertificate"> | boolean
+    utilitiesCleared?: BoolWithAggregatesFilter<"ClearanceCertificate"> | boolean
+    serviceChargesCleared?: BoolWithAggregatesFilter<"ClearanceCertificate"> | boolean
+    damagesCleared?: BoolWithAggregatesFilter<"ClearanceCertificate"> | boolean
+    propertyCondition?: StringWithAggregatesFilter<"ClearanceCertificate"> | string
+    repairDetails?: StringNullableWithAggregatesFilter<"ClearanceCertificate"> | string | null
+    securityDeposit?: FloatNullableWithAggregatesFilter<"ClearanceCertificate"> | number | null
+    depositRefunded?: BoolNullableWithAggregatesFilter<"ClearanceCertificate"> | boolean | null
+    refundAmount?: FloatNullableWithAggregatesFilter<"ClearanceCertificate"> | number | null
+    depositRetainedReason?: StringNullableWithAggregatesFilter<"ClearanceCertificate"> | string | null
+    landlordName?: StringWithAggregatesFilter<"ClearanceCertificate"> | string
+    landlordSignature?: StringWithAggregatesFilter<"ClearanceCertificate"> | string
+    landlordPhone?: StringWithAggregatesFilter<"ClearanceCertificate"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"ClearanceCertificate"> | Date | string
+    tenantEmail?: StringNullableWithAggregatesFilter<"ClearanceCertificate"> | string | null
+    tenantPhone?: StringNullableWithAggregatesFilter<"ClearanceCertificate"> | string | null
+  }
+
   export type UserCreateInput = {
     id?: string
     email: string
@@ -11799,9 +16178,15 @@ export namespace Prisma {
     rentAmount: number
     startDate: Date | string
     isActive?: boolean
+    nationalId?: string | null
+    emergencyContactName?: string | null
+    emergencyContactPhone?: string | null
+    numberOfOccupants?: number | null
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutTenantProfileInput
     unit: UnitCreateNestedOneWithoutTenantsInput
+    occupants?: OccupantCreateNestedManyWithoutTenantInput
+    contracts?: ContractCreateNestedManyWithoutTenantInput
     bills?: BillCreateNestedManyWithoutTenantInput
   }
 
@@ -11812,7 +16197,13 @@ export namespace Prisma {
     rentAmount: number
     startDate: Date | string
     isActive?: boolean
+    nationalId?: string | null
+    emergencyContactName?: string | null
+    emergencyContactPhone?: string | null
+    numberOfOccupants?: number | null
     createdAt?: Date | string
+    occupants?: OccupantUncheckedCreateNestedManyWithoutTenantInput
+    contracts?: ContractUncheckedCreateNestedManyWithoutTenantInput
     bills?: BillUncheckedCreateNestedManyWithoutTenantInput
   }
 
@@ -11821,9 +16212,15 @@ export namespace Prisma {
     rentAmount?: FloatFieldUpdateOperationsInput | number
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    nationalId?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    numberOfOccupants?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantProfileNestedInput
     unit?: UnitUpdateOneRequiredWithoutTenantsNestedInput
+    occupants?: OccupantUpdateManyWithoutTenantNestedInput
+    contracts?: ContractUpdateManyWithoutTenantNestedInput
     bills?: BillUpdateManyWithoutTenantNestedInput
   }
 
@@ -11834,7 +16231,13 @@ export namespace Prisma {
     rentAmount?: FloatFieldUpdateOperationsInput | number
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    nationalId?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    numberOfOccupants?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    occupants?: OccupantUncheckedUpdateManyWithoutTenantNestedInput
+    contracts?: ContractUncheckedUpdateManyWithoutTenantNestedInput
     bills?: BillUncheckedUpdateManyWithoutTenantNestedInput
   }
 
@@ -11845,6 +16248,10 @@ export namespace Prisma {
     rentAmount: number
     startDate: Date | string
     isActive?: boolean
+    nationalId?: string | null
+    emergencyContactName?: string | null
+    emergencyContactPhone?: string | null
+    numberOfOccupants?: number | null
     createdAt?: Date | string
   }
 
@@ -11853,6 +16260,10 @@ export namespace Prisma {
     rentAmount?: FloatFieldUpdateOperationsInput | number
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    nationalId?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    numberOfOccupants?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -11863,6 +16274,10 @@ export namespace Prisma {
     rentAmount?: FloatFieldUpdateOperationsInput | number
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    nationalId?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    numberOfOccupants?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -12159,6 +16574,361 @@ export namespace Prisma {
     isRead?: BoolFieldUpdateOperationsInput | boolean
   }
 
+  export type OccupantCreateInput = {
+    id?: string
+    name: string
+    phone?: string | null
+    relation?: string | null
+    tenant: TenantCreateNestedOneWithoutOccupantsInput
+  }
+
+  export type OccupantUncheckedCreateInput = {
+    id?: string
+    tenantId: string
+    name: string
+    phone?: string | null
+    relation?: string | null
+  }
+
+  export type OccupantUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    relation?: NullableStringFieldUpdateOperationsInput | string | null
+    tenant?: TenantUpdateOneRequiredWithoutOccupantsNestedInput
+  }
+
+  export type OccupantUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    relation?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type OccupantCreateManyInput = {
+    id?: string
+    tenantId: string
+    name: string
+    phone?: string | null
+    relation?: string | null
+  }
+
+  export type OccupantUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    relation?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type OccupantUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    relation?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ContractCreateInput = {
+    id?: string
+    startDate: Date | string
+    endDate: Date | string
+    monthlyRent: number
+    deposit?: number | null
+    utilities: JsonNullValueInput | InputJsonValue
+    status?: $Enums.ContractStatus
+    content?: string | null
+    tenantSignature?: string | null
+    tenantSignedAt?: Date | string | null
+    landlordSignature?: boolean
+    landlordSignedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutContractsInput
+  }
+
+  export type ContractUncheckedCreateInput = {
+    id?: string
+    tenantId: string
+    startDate: Date | string
+    endDate: Date | string
+    monthlyRent: number
+    deposit?: number | null
+    utilities: JsonNullValueInput | InputJsonValue
+    status?: $Enums.ContractStatus
+    content?: string | null
+    tenantSignature?: string | null
+    tenantSignedAt?: Date | string | null
+    landlordSignature?: boolean
+    landlordSignedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ContractUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    monthlyRent?: FloatFieldUpdateOperationsInput | number
+    deposit?: NullableFloatFieldUpdateOperationsInput | number | null
+    utilities?: JsonNullValueInput | InputJsonValue
+    status?: EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    tenantSignature?: NullableStringFieldUpdateOperationsInput | string | null
+    tenantSignedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    landlordSignature?: BoolFieldUpdateOperationsInput | boolean
+    landlordSignedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutContractsNestedInput
+  }
+
+  export type ContractUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    monthlyRent?: FloatFieldUpdateOperationsInput | number
+    deposit?: NullableFloatFieldUpdateOperationsInput | number | null
+    utilities?: JsonNullValueInput | InputJsonValue
+    status?: EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    tenantSignature?: NullableStringFieldUpdateOperationsInput | string | null
+    tenantSignedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    landlordSignature?: BoolFieldUpdateOperationsInput | boolean
+    landlordSignedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ContractCreateManyInput = {
+    id?: string
+    tenantId: string
+    startDate: Date | string
+    endDate: Date | string
+    monthlyRent: number
+    deposit?: number | null
+    utilities: JsonNullValueInput | InputJsonValue
+    status?: $Enums.ContractStatus
+    content?: string | null
+    tenantSignature?: string | null
+    tenantSignedAt?: Date | string | null
+    landlordSignature?: boolean
+    landlordSignedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ContractUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    monthlyRent?: FloatFieldUpdateOperationsInput | number
+    deposit?: NullableFloatFieldUpdateOperationsInput | number | null
+    utilities?: JsonNullValueInput | InputJsonValue
+    status?: EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    tenantSignature?: NullableStringFieldUpdateOperationsInput | string | null
+    tenantSignedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    landlordSignature?: BoolFieldUpdateOperationsInput | boolean
+    landlordSignedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ContractUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    monthlyRent?: FloatFieldUpdateOperationsInput | number
+    deposit?: NullableFloatFieldUpdateOperationsInput | number | null
+    utilities?: JsonNullValueInput | InputJsonValue
+    status?: EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    tenantSignature?: NullableStringFieldUpdateOperationsInput | string | null
+    tenantSignedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    landlordSignature?: BoolFieldUpdateOperationsInput | boolean
+    landlordSignedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ClearanceCertificateCreateInput = {
+    id?: string
+    tenantName: string
+    nationalId?: string | null
+    propertyAddress: string
+    startDate: Date | string
+    endDate: Date | string
+    rentCleared: boolean
+    utilitiesCleared: boolean
+    serviceChargesCleared: boolean
+    damagesCleared: boolean
+    propertyCondition: string
+    repairDetails?: string | null
+    securityDeposit?: number | null
+    depositRefunded?: boolean | null
+    refundAmount?: number | null
+    depositRetainedReason?: string | null
+    landlordName: string
+    landlordSignature: string
+    landlordPhone: string
+    createdAt?: Date | string
+    tenantEmail?: string | null
+    tenantPhone?: string | null
+  }
+
+  export type ClearanceCertificateUncheckedCreateInput = {
+    id?: string
+    tenantName: string
+    nationalId?: string | null
+    propertyAddress: string
+    startDate: Date | string
+    endDate: Date | string
+    rentCleared: boolean
+    utilitiesCleared: boolean
+    serviceChargesCleared: boolean
+    damagesCleared: boolean
+    propertyCondition: string
+    repairDetails?: string | null
+    securityDeposit?: number | null
+    depositRefunded?: boolean | null
+    refundAmount?: number | null
+    depositRetainedReason?: string | null
+    landlordName: string
+    landlordSignature: string
+    landlordPhone: string
+    createdAt?: Date | string
+    tenantEmail?: string | null
+    tenantPhone?: string | null
+  }
+
+  export type ClearanceCertificateUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantName?: StringFieldUpdateOperationsInput | string
+    nationalId?: NullableStringFieldUpdateOperationsInput | string | null
+    propertyAddress?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    rentCleared?: BoolFieldUpdateOperationsInput | boolean
+    utilitiesCleared?: BoolFieldUpdateOperationsInput | boolean
+    serviceChargesCleared?: BoolFieldUpdateOperationsInput | boolean
+    damagesCleared?: BoolFieldUpdateOperationsInput | boolean
+    propertyCondition?: StringFieldUpdateOperationsInput | string
+    repairDetails?: NullableStringFieldUpdateOperationsInput | string | null
+    securityDeposit?: NullableFloatFieldUpdateOperationsInput | number | null
+    depositRefunded?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    refundAmount?: NullableFloatFieldUpdateOperationsInput | number | null
+    depositRetainedReason?: NullableStringFieldUpdateOperationsInput | string | null
+    landlordName?: StringFieldUpdateOperationsInput | string
+    landlordSignature?: StringFieldUpdateOperationsInput | string
+    landlordPhone?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenantEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    tenantPhone?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ClearanceCertificateUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantName?: StringFieldUpdateOperationsInput | string
+    nationalId?: NullableStringFieldUpdateOperationsInput | string | null
+    propertyAddress?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    rentCleared?: BoolFieldUpdateOperationsInput | boolean
+    utilitiesCleared?: BoolFieldUpdateOperationsInput | boolean
+    serviceChargesCleared?: BoolFieldUpdateOperationsInput | boolean
+    damagesCleared?: BoolFieldUpdateOperationsInput | boolean
+    propertyCondition?: StringFieldUpdateOperationsInput | string
+    repairDetails?: NullableStringFieldUpdateOperationsInput | string | null
+    securityDeposit?: NullableFloatFieldUpdateOperationsInput | number | null
+    depositRefunded?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    refundAmount?: NullableFloatFieldUpdateOperationsInput | number | null
+    depositRetainedReason?: NullableStringFieldUpdateOperationsInput | string | null
+    landlordName?: StringFieldUpdateOperationsInput | string
+    landlordSignature?: StringFieldUpdateOperationsInput | string
+    landlordPhone?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenantEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    tenantPhone?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ClearanceCertificateCreateManyInput = {
+    id?: string
+    tenantName: string
+    nationalId?: string | null
+    propertyAddress: string
+    startDate: Date | string
+    endDate: Date | string
+    rentCleared: boolean
+    utilitiesCleared: boolean
+    serviceChargesCleared: boolean
+    damagesCleared: boolean
+    propertyCondition: string
+    repairDetails?: string | null
+    securityDeposit?: number | null
+    depositRefunded?: boolean | null
+    refundAmount?: number | null
+    depositRetainedReason?: string | null
+    landlordName: string
+    landlordSignature: string
+    landlordPhone: string
+    createdAt?: Date | string
+    tenantEmail?: string | null
+    tenantPhone?: string | null
+  }
+
+  export type ClearanceCertificateUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantName?: StringFieldUpdateOperationsInput | string
+    nationalId?: NullableStringFieldUpdateOperationsInput | string | null
+    propertyAddress?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    rentCleared?: BoolFieldUpdateOperationsInput | boolean
+    utilitiesCleared?: BoolFieldUpdateOperationsInput | boolean
+    serviceChargesCleared?: BoolFieldUpdateOperationsInput | boolean
+    damagesCleared?: BoolFieldUpdateOperationsInput | boolean
+    propertyCondition?: StringFieldUpdateOperationsInput | string
+    repairDetails?: NullableStringFieldUpdateOperationsInput | string | null
+    securityDeposit?: NullableFloatFieldUpdateOperationsInput | number | null
+    depositRefunded?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    refundAmount?: NullableFloatFieldUpdateOperationsInput | number | null
+    depositRetainedReason?: NullableStringFieldUpdateOperationsInput | string | null
+    landlordName?: StringFieldUpdateOperationsInput | string
+    landlordSignature?: StringFieldUpdateOperationsInput | string
+    landlordPhone?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenantEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    tenantPhone?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ClearanceCertificateUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantName?: StringFieldUpdateOperationsInput | string
+    nationalId?: NullableStringFieldUpdateOperationsInput | string | null
+    propertyAddress?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    rentCleared?: BoolFieldUpdateOperationsInput | boolean
+    utilitiesCleared?: BoolFieldUpdateOperationsInput | boolean
+    serviceChargesCleared?: BoolFieldUpdateOperationsInput | boolean
+    damagesCleared?: BoolFieldUpdateOperationsInput | boolean
+    propertyCondition?: StringFieldUpdateOperationsInput | string
+    repairDetails?: NullableStringFieldUpdateOperationsInput | string | null
+    securityDeposit?: NullableFloatFieldUpdateOperationsInput | number | null
+    depositRefunded?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    refundAmount?: NullableFloatFieldUpdateOperationsInput | number | null
+    depositRetainedReason?: NullableStringFieldUpdateOperationsInput | string | null
+    landlordName?: StringFieldUpdateOperationsInput | string
+    landlordSignature?: StringFieldUpdateOperationsInput | string
+    landlordPhone?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenantEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    tenantPhone?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -12441,9 +17211,40 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type UnitScalarRelationFilter = {
     is?: UnitWhereInput
     isNot?: UnitWhereInput
+  }
+
+  export type OccupantListRelationFilter = {
+    every?: OccupantWhereInput
+    some?: OccupantWhereInput
+    none?: OccupantWhereInput
+  }
+
+  export type ContractListRelationFilter = {
+    every?: ContractWhereInput
+    some?: ContractWhereInput
+    none?: ContractWhereInput
+  }
+
+  export type OccupantOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ContractOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type TenantCountOrderByAggregateInput = {
@@ -12453,11 +17254,16 @@ export namespace Prisma {
     rentAmount?: SortOrder
     startDate?: SortOrder
     isActive?: SortOrder
+    nationalId?: SortOrder
+    emergencyContactName?: SortOrder
+    emergencyContactPhone?: SortOrder
+    numberOfOccupants?: SortOrder
     createdAt?: SortOrder
   }
 
   export type TenantAvgOrderByAggregateInput = {
     rentAmount?: SortOrder
+    numberOfOccupants?: SortOrder
   }
 
   export type TenantMaxOrderByAggregateInput = {
@@ -12467,6 +17273,10 @@ export namespace Prisma {
     rentAmount?: SortOrder
     startDate?: SortOrder
     isActive?: SortOrder
+    nationalId?: SortOrder
+    emergencyContactName?: SortOrder
+    emergencyContactPhone?: SortOrder
+    numberOfOccupants?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -12477,11 +17287,16 @@ export namespace Prisma {
     rentAmount?: SortOrder
     startDate?: SortOrder
     isActive?: SortOrder
+    nationalId?: SortOrder
+    emergencyContactName?: SortOrder
+    emergencyContactPhone?: SortOrder
+    numberOfOccupants?: SortOrder
     createdAt?: SortOrder
   }
 
   export type TenantSumOrderByAggregateInput = {
     rentAmount?: SortOrder
+    numberOfOccupants?: SortOrder
   }
 
   export type FloatWithAggregatesFilter<$PrismaModel = never> = {
@@ -12506,6 +17321,22 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedBoolFilter<$PrismaModel>
     _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type EnumBillTypeFilter<$PrismaModel = never> = {
@@ -12786,6 +17617,283 @@ export namespace Prisma {
     tenantId?: SortOrder
     createdAt?: SortOrder
     isRead?: SortOrder
+  }
+
+  export type OccupantCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    name?: SortOrder
+    phone?: SortOrder
+    relation?: SortOrder
+  }
+
+  export type OccupantMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    name?: SortOrder
+    phone?: SortOrder
+    relation?: SortOrder
+  }
+
+  export type OccupantMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    name?: SortOrder
+    phone?: SortOrder
+    relation?: SortOrder
+  }
+
+  export type FloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+  export type JsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type EnumContractStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.ContractStatus | EnumContractStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ContractStatus[] | ListEnumContractStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ContractStatus[] | ListEnumContractStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumContractStatusFilter<$PrismaModel> | $Enums.ContractStatus
+  }
+
+  export type ContractCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    monthlyRent?: SortOrder
+    deposit?: SortOrder
+    utilities?: SortOrder
+    status?: SortOrder
+    content?: SortOrder
+    tenantSignature?: SortOrder
+    tenantSignedAt?: SortOrder
+    landlordSignature?: SortOrder
+    landlordSignedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ContractAvgOrderByAggregateInput = {
+    monthlyRent?: SortOrder
+    deposit?: SortOrder
+  }
+
+  export type ContractMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    monthlyRent?: SortOrder
+    deposit?: SortOrder
+    status?: SortOrder
+    content?: SortOrder
+    tenantSignature?: SortOrder
+    tenantSignedAt?: SortOrder
+    landlordSignature?: SortOrder
+    landlordSignedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ContractMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    monthlyRent?: SortOrder
+    deposit?: SortOrder
+    status?: SortOrder
+    content?: SortOrder
+    tenantSignature?: SortOrder
+    tenantSignedAt?: SortOrder
+    landlordSignature?: SortOrder
+    landlordSignedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ContractSumOrderByAggregateInput = {
+    monthlyRent?: SortOrder
+    deposit?: SortOrder
+  }
+
+  export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+  export type JsonWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedJsonFilter<$PrismaModel>
+    _max?: NestedJsonFilter<$PrismaModel>
+  }
+
+  export type EnumContractStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ContractStatus | EnumContractStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ContractStatus[] | ListEnumContractStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ContractStatus[] | ListEnumContractStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumContractStatusWithAggregatesFilter<$PrismaModel> | $Enums.ContractStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumContractStatusFilter<$PrismaModel>
+    _max?: NestedEnumContractStatusFilter<$PrismaModel>
+  }
+
+  export type BoolNullableFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
+  }
+
+  export type ClearanceCertificateCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantName?: SortOrder
+    nationalId?: SortOrder
+    propertyAddress?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    rentCleared?: SortOrder
+    utilitiesCleared?: SortOrder
+    serviceChargesCleared?: SortOrder
+    damagesCleared?: SortOrder
+    propertyCondition?: SortOrder
+    repairDetails?: SortOrder
+    securityDeposit?: SortOrder
+    depositRefunded?: SortOrder
+    refundAmount?: SortOrder
+    depositRetainedReason?: SortOrder
+    landlordName?: SortOrder
+    landlordSignature?: SortOrder
+    landlordPhone?: SortOrder
+    createdAt?: SortOrder
+    tenantEmail?: SortOrder
+    tenantPhone?: SortOrder
+  }
+
+  export type ClearanceCertificateAvgOrderByAggregateInput = {
+    securityDeposit?: SortOrder
+    refundAmount?: SortOrder
+  }
+
+  export type ClearanceCertificateMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantName?: SortOrder
+    nationalId?: SortOrder
+    propertyAddress?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    rentCleared?: SortOrder
+    utilitiesCleared?: SortOrder
+    serviceChargesCleared?: SortOrder
+    damagesCleared?: SortOrder
+    propertyCondition?: SortOrder
+    repairDetails?: SortOrder
+    securityDeposit?: SortOrder
+    depositRefunded?: SortOrder
+    refundAmount?: SortOrder
+    depositRetainedReason?: SortOrder
+    landlordName?: SortOrder
+    landlordSignature?: SortOrder
+    landlordPhone?: SortOrder
+    createdAt?: SortOrder
+    tenantEmail?: SortOrder
+    tenantPhone?: SortOrder
+  }
+
+  export type ClearanceCertificateMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantName?: SortOrder
+    nationalId?: SortOrder
+    propertyAddress?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    rentCleared?: SortOrder
+    utilitiesCleared?: SortOrder
+    serviceChargesCleared?: SortOrder
+    damagesCleared?: SortOrder
+    propertyCondition?: SortOrder
+    repairDetails?: SortOrder
+    securityDeposit?: SortOrder
+    depositRefunded?: SortOrder
+    refundAmount?: SortOrder
+    depositRetainedReason?: SortOrder
+    landlordName?: SortOrder
+    landlordSignature?: SortOrder
+    landlordPhone?: SortOrder
+    createdAt?: SortOrder
+    tenantEmail?: SortOrder
+    tenantPhone?: SortOrder
+  }
+
+  export type ClearanceCertificateSumOrderByAggregateInput = {
+    securityDeposit?: SortOrder
+    refundAmount?: SortOrder
+  }
+
+  export type BoolNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedBoolNullableFilter<$PrismaModel>
+    _max?: NestedBoolNullableFilter<$PrismaModel>
   }
 
   export type TenantCreateNestedOneWithoutUserInput = {
@@ -13128,11 +18236,39 @@ export namespace Prisma {
     connect?: UnitWhereUniqueInput
   }
 
+  export type OccupantCreateNestedManyWithoutTenantInput = {
+    create?: XOR<OccupantCreateWithoutTenantInput, OccupantUncheckedCreateWithoutTenantInput> | OccupantCreateWithoutTenantInput[] | OccupantUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: OccupantCreateOrConnectWithoutTenantInput | OccupantCreateOrConnectWithoutTenantInput[]
+    createMany?: OccupantCreateManyTenantInputEnvelope
+    connect?: OccupantWhereUniqueInput | OccupantWhereUniqueInput[]
+  }
+
+  export type ContractCreateNestedManyWithoutTenantInput = {
+    create?: XOR<ContractCreateWithoutTenantInput, ContractUncheckedCreateWithoutTenantInput> | ContractCreateWithoutTenantInput[] | ContractUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: ContractCreateOrConnectWithoutTenantInput | ContractCreateOrConnectWithoutTenantInput[]
+    createMany?: ContractCreateManyTenantInputEnvelope
+    connect?: ContractWhereUniqueInput | ContractWhereUniqueInput[]
+  }
+
   export type BillCreateNestedManyWithoutTenantInput = {
     create?: XOR<BillCreateWithoutTenantInput, BillUncheckedCreateWithoutTenantInput> | BillCreateWithoutTenantInput[] | BillUncheckedCreateWithoutTenantInput[]
     connectOrCreate?: BillCreateOrConnectWithoutTenantInput | BillCreateOrConnectWithoutTenantInput[]
     createMany?: BillCreateManyTenantInputEnvelope
     connect?: BillWhereUniqueInput | BillWhereUniqueInput[]
+  }
+
+  export type OccupantUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<OccupantCreateWithoutTenantInput, OccupantUncheckedCreateWithoutTenantInput> | OccupantCreateWithoutTenantInput[] | OccupantUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: OccupantCreateOrConnectWithoutTenantInput | OccupantCreateOrConnectWithoutTenantInput[]
+    createMany?: OccupantCreateManyTenantInputEnvelope
+    connect?: OccupantWhereUniqueInput | OccupantWhereUniqueInput[]
+  }
+
+  export type ContractUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<ContractCreateWithoutTenantInput, ContractUncheckedCreateWithoutTenantInput> | ContractCreateWithoutTenantInput[] | ContractUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: ContractCreateOrConnectWithoutTenantInput | ContractCreateOrConnectWithoutTenantInput[]
+    createMany?: ContractCreateManyTenantInputEnvelope
+    connect?: ContractWhereUniqueInput | ContractWhereUniqueInput[]
   }
 
   export type BillUncheckedCreateNestedManyWithoutTenantInput = {
@@ -13154,6 +18290,14 @@ export namespace Prisma {
     set?: boolean
   }
 
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type UserUpdateOneRequiredWithoutTenantProfileNestedInput = {
     create?: XOR<UserCreateWithoutTenantProfileInput, UserUncheckedCreateWithoutTenantProfileInput>
     connectOrCreate?: UserCreateOrConnectWithoutTenantProfileInput
@@ -13170,6 +18314,34 @@ export namespace Prisma {
     update?: XOR<XOR<UnitUpdateToOneWithWhereWithoutTenantsInput, UnitUpdateWithoutTenantsInput>, UnitUncheckedUpdateWithoutTenantsInput>
   }
 
+  export type OccupantUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<OccupantCreateWithoutTenantInput, OccupantUncheckedCreateWithoutTenantInput> | OccupantCreateWithoutTenantInput[] | OccupantUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: OccupantCreateOrConnectWithoutTenantInput | OccupantCreateOrConnectWithoutTenantInput[]
+    upsert?: OccupantUpsertWithWhereUniqueWithoutTenantInput | OccupantUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: OccupantCreateManyTenantInputEnvelope
+    set?: OccupantWhereUniqueInput | OccupantWhereUniqueInput[]
+    disconnect?: OccupantWhereUniqueInput | OccupantWhereUniqueInput[]
+    delete?: OccupantWhereUniqueInput | OccupantWhereUniqueInput[]
+    connect?: OccupantWhereUniqueInput | OccupantWhereUniqueInput[]
+    update?: OccupantUpdateWithWhereUniqueWithoutTenantInput | OccupantUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: OccupantUpdateManyWithWhereWithoutTenantInput | OccupantUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: OccupantScalarWhereInput | OccupantScalarWhereInput[]
+  }
+
+  export type ContractUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<ContractCreateWithoutTenantInput, ContractUncheckedCreateWithoutTenantInput> | ContractCreateWithoutTenantInput[] | ContractUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: ContractCreateOrConnectWithoutTenantInput | ContractCreateOrConnectWithoutTenantInput[]
+    upsert?: ContractUpsertWithWhereUniqueWithoutTenantInput | ContractUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: ContractCreateManyTenantInputEnvelope
+    set?: ContractWhereUniqueInput | ContractWhereUniqueInput[]
+    disconnect?: ContractWhereUniqueInput | ContractWhereUniqueInput[]
+    delete?: ContractWhereUniqueInput | ContractWhereUniqueInput[]
+    connect?: ContractWhereUniqueInput | ContractWhereUniqueInput[]
+    update?: ContractUpdateWithWhereUniqueWithoutTenantInput | ContractUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: ContractUpdateManyWithWhereWithoutTenantInput | ContractUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: ContractScalarWhereInput | ContractScalarWhereInput[]
+  }
+
   export type BillUpdateManyWithoutTenantNestedInput = {
     create?: XOR<BillCreateWithoutTenantInput, BillUncheckedCreateWithoutTenantInput> | BillCreateWithoutTenantInput[] | BillUncheckedCreateWithoutTenantInput[]
     connectOrCreate?: BillCreateOrConnectWithoutTenantInput | BillCreateOrConnectWithoutTenantInput[]
@@ -13182,6 +18354,34 @@ export namespace Prisma {
     update?: BillUpdateWithWhereUniqueWithoutTenantInput | BillUpdateWithWhereUniqueWithoutTenantInput[]
     updateMany?: BillUpdateManyWithWhereWithoutTenantInput | BillUpdateManyWithWhereWithoutTenantInput[]
     deleteMany?: BillScalarWhereInput | BillScalarWhereInput[]
+  }
+
+  export type OccupantUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<OccupantCreateWithoutTenantInput, OccupantUncheckedCreateWithoutTenantInput> | OccupantCreateWithoutTenantInput[] | OccupantUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: OccupantCreateOrConnectWithoutTenantInput | OccupantCreateOrConnectWithoutTenantInput[]
+    upsert?: OccupantUpsertWithWhereUniqueWithoutTenantInput | OccupantUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: OccupantCreateManyTenantInputEnvelope
+    set?: OccupantWhereUniqueInput | OccupantWhereUniqueInput[]
+    disconnect?: OccupantWhereUniqueInput | OccupantWhereUniqueInput[]
+    delete?: OccupantWhereUniqueInput | OccupantWhereUniqueInput[]
+    connect?: OccupantWhereUniqueInput | OccupantWhereUniqueInput[]
+    update?: OccupantUpdateWithWhereUniqueWithoutTenantInput | OccupantUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: OccupantUpdateManyWithWhereWithoutTenantInput | OccupantUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: OccupantScalarWhereInput | OccupantScalarWhereInput[]
+  }
+
+  export type ContractUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<ContractCreateWithoutTenantInput, ContractUncheckedCreateWithoutTenantInput> | ContractCreateWithoutTenantInput[] | ContractUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: ContractCreateOrConnectWithoutTenantInput | ContractCreateOrConnectWithoutTenantInput[]
+    upsert?: ContractUpsertWithWhereUniqueWithoutTenantInput | ContractUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: ContractCreateManyTenantInputEnvelope
+    set?: ContractWhereUniqueInput | ContractWhereUniqueInput[]
+    disconnect?: ContractWhereUniqueInput | ContractWhereUniqueInput[]
+    delete?: ContractWhereUniqueInput | ContractWhereUniqueInput[]
+    connect?: ContractWhereUniqueInput | ContractWhereUniqueInput[]
+    update?: ContractUpdateWithWhereUniqueWithoutTenantInput | ContractUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: ContractUpdateManyWithWhereWithoutTenantInput | ContractUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: ContractScalarWhereInput | ContractScalarWhereInput[]
   }
 
   export type BillUncheckedUpdateManyWithoutTenantNestedInput = {
@@ -13314,6 +18514,50 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutContactMessagesInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutContactMessagesInput, UserUpdateWithoutContactMessagesInput>, UserUncheckedUpdateWithoutContactMessagesInput>
+  }
+
+  export type TenantCreateNestedOneWithoutOccupantsInput = {
+    create?: XOR<TenantCreateWithoutOccupantsInput, TenantUncheckedCreateWithoutOccupantsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutOccupantsInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type TenantUpdateOneRequiredWithoutOccupantsNestedInput = {
+    create?: XOR<TenantCreateWithoutOccupantsInput, TenantUncheckedCreateWithoutOccupantsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutOccupantsInput
+    upsert?: TenantUpsertWithoutOccupantsInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutOccupantsInput, TenantUpdateWithoutOccupantsInput>, TenantUncheckedUpdateWithoutOccupantsInput>
+  }
+
+  export type TenantCreateNestedOneWithoutContractsInput = {
+    create?: XOR<TenantCreateWithoutContractsInput, TenantUncheckedCreateWithoutContractsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutContractsInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type NullableFloatFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type EnumContractStatusFieldUpdateOperationsInput = {
+    set?: $Enums.ContractStatus
+  }
+
+  export type TenantUpdateOneRequiredWithoutContractsNestedInput = {
+    create?: XOR<TenantCreateWithoutContractsInput, TenantUncheckedCreateWithoutContractsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutContractsInput
+    upsert?: TenantUpsertWithoutContractsInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutContractsInput, TenantUpdateWithoutContractsInput>, TenantUncheckedUpdateWithoutContractsInput>
+  }
+
+  export type NullableBoolFieldUpdateOperationsInput = {
+    set?: boolean | null
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -13482,6 +18726,33 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
   export type NestedEnumBillTypeFilter<$PrismaModel = never> = {
     equals?: $Enums.BillType | EnumBillTypeFieldRefInput<$PrismaModel>
     in?: $Enums.BillType[] | ListEnumBillTypeFieldRefInput<$PrismaModel>
@@ -13581,13 +18852,88 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
+  export type NestedEnumContractStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.ContractStatus | EnumContractStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ContractStatus[] | ListEnumContractStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ContractStatus[] | ListEnumContractStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumContractStatusFilter<$PrismaModel> | $Enums.ContractStatus
+  }
+
+  export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+  export type NestedJsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type NestedEnumContractStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ContractStatus | EnumContractStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ContractStatus[] | ListEnumContractStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ContractStatus[] | ListEnumContractStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumContractStatusWithAggregatesFilter<$PrismaModel> | $Enums.ContractStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumContractStatusFilter<$PrismaModel>
+    _max?: NestedEnumContractStatusFilter<$PrismaModel>
+  }
+
+  export type NestedBoolNullableFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
+  }
+
+  export type NestedBoolNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedBoolNullableFilter<$PrismaModel>
+    _max?: NestedBoolNullableFilter<$PrismaModel>
+  }
+
   export type TenantCreateWithoutUserInput = {
     id?: string
     rentAmount: number
     startDate: Date | string
     isActive?: boolean
+    nationalId?: string | null
+    emergencyContactName?: string | null
+    emergencyContactPhone?: string | null
+    numberOfOccupants?: number | null
     createdAt?: Date | string
     unit: UnitCreateNestedOneWithoutTenantsInput
+    occupants?: OccupantCreateNestedManyWithoutTenantInput
+    contracts?: ContractCreateNestedManyWithoutTenantInput
     bills?: BillCreateNestedManyWithoutTenantInput
   }
 
@@ -13597,7 +18943,13 @@ export namespace Prisma {
     rentAmount: number
     startDate: Date | string
     isActive?: boolean
+    nationalId?: string | null
+    emergencyContactName?: string | null
+    emergencyContactPhone?: string | null
+    numberOfOccupants?: number | null
     createdAt?: Date | string
+    occupants?: OccupantUncheckedCreateNestedManyWithoutTenantInput
+    contracts?: ContractUncheckedCreateNestedManyWithoutTenantInput
     bills?: BillUncheckedCreateNestedManyWithoutTenantInput
   }
 
@@ -13698,8 +19050,14 @@ export namespace Prisma {
     rentAmount?: FloatFieldUpdateOperationsInput | number
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    nationalId?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    numberOfOccupants?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     unit?: UnitUpdateOneRequiredWithoutTenantsNestedInput
+    occupants?: OccupantUpdateManyWithoutTenantNestedInput
+    contracts?: ContractUpdateManyWithoutTenantNestedInput
     bills?: BillUpdateManyWithoutTenantNestedInput
   }
 
@@ -13709,7 +19067,13 @@ export namespace Prisma {
     rentAmount?: FloatFieldUpdateOperationsInput | number
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    nationalId?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    numberOfOccupants?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    occupants?: OccupantUncheckedUpdateManyWithoutTenantNestedInput
+    contracts?: ContractUncheckedUpdateManyWithoutTenantNestedInput
     bills?: BillUncheckedUpdateManyWithoutTenantNestedInput
   }
 
@@ -13945,8 +19309,14 @@ export namespace Prisma {
     rentAmount: number
     startDate: Date | string
     isActive?: boolean
+    nationalId?: string | null
+    emergencyContactName?: string | null
+    emergencyContactPhone?: string | null
+    numberOfOccupants?: number | null
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutTenantProfileInput
+    occupants?: OccupantCreateNestedManyWithoutTenantInput
+    contracts?: ContractCreateNestedManyWithoutTenantInput
     bills?: BillCreateNestedManyWithoutTenantInput
   }
 
@@ -13956,7 +19326,13 @@ export namespace Prisma {
     rentAmount: number
     startDate: Date | string
     isActive?: boolean
+    nationalId?: string | null
+    emergencyContactName?: string | null
+    emergencyContactPhone?: string | null
+    numberOfOccupants?: number | null
     createdAt?: Date | string
+    occupants?: OccupantUncheckedCreateNestedManyWithoutTenantInput
+    contracts?: ContractUncheckedCreateNestedManyWithoutTenantInput
     bills?: BillUncheckedCreateNestedManyWithoutTenantInput
   }
 
@@ -14059,6 +19435,10 @@ export namespace Prisma {
     rentAmount?: FloatFilter<"Tenant"> | number
     startDate?: DateTimeFilter<"Tenant"> | Date | string
     isActive?: BoolFilter<"Tenant"> | boolean
+    nationalId?: StringNullableFilter<"Tenant"> | string | null
+    emergencyContactName?: StringNullableFilter<"Tenant"> | string | null
+    emergencyContactPhone?: StringNullableFilter<"Tenant"> | string | null
+    numberOfOccupants?: IntNullableFilter<"Tenant"> | number | null
     createdAt?: DateTimeFilter<"Tenant"> | Date | string
   }
 
@@ -14146,6 +19526,74 @@ export namespace Prisma {
   export type UnitCreateOrConnectWithoutTenantsInput = {
     where: UnitWhereUniqueInput
     create: XOR<UnitCreateWithoutTenantsInput, UnitUncheckedCreateWithoutTenantsInput>
+  }
+
+  export type OccupantCreateWithoutTenantInput = {
+    id?: string
+    name: string
+    phone?: string | null
+    relation?: string | null
+  }
+
+  export type OccupantUncheckedCreateWithoutTenantInput = {
+    id?: string
+    name: string
+    phone?: string | null
+    relation?: string | null
+  }
+
+  export type OccupantCreateOrConnectWithoutTenantInput = {
+    where: OccupantWhereUniqueInput
+    create: XOR<OccupantCreateWithoutTenantInput, OccupantUncheckedCreateWithoutTenantInput>
+  }
+
+  export type OccupantCreateManyTenantInputEnvelope = {
+    data: OccupantCreateManyTenantInput | OccupantCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ContractCreateWithoutTenantInput = {
+    id?: string
+    startDate: Date | string
+    endDate: Date | string
+    monthlyRent: number
+    deposit?: number | null
+    utilities: JsonNullValueInput | InputJsonValue
+    status?: $Enums.ContractStatus
+    content?: string | null
+    tenantSignature?: string | null
+    tenantSignedAt?: Date | string | null
+    landlordSignature?: boolean
+    landlordSignedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ContractUncheckedCreateWithoutTenantInput = {
+    id?: string
+    startDate: Date | string
+    endDate: Date | string
+    monthlyRent: number
+    deposit?: number | null
+    utilities: JsonNullValueInput | InputJsonValue
+    status?: $Enums.ContractStatus
+    content?: string | null
+    tenantSignature?: string | null
+    tenantSignedAt?: Date | string | null
+    landlordSignature?: boolean
+    landlordSignedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ContractCreateOrConnectWithoutTenantInput = {
+    where: ContractWhereUniqueInput
+    create: XOR<ContractCreateWithoutTenantInput, ContractUncheckedCreateWithoutTenantInput>
+  }
+
+  export type ContractCreateManyTenantInputEnvelope = {
+    data: ContractCreateManyTenantInput | ContractCreateManyTenantInput[]
+    skipDuplicates?: boolean
   }
 
   export type BillCreateWithoutTenantInput = {
@@ -14250,6 +19698,70 @@ export namespace Prisma {
     bills?: BillUncheckedUpdateManyWithoutUnitNestedInput
   }
 
+  export type OccupantUpsertWithWhereUniqueWithoutTenantInput = {
+    where: OccupantWhereUniqueInput
+    update: XOR<OccupantUpdateWithoutTenantInput, OccupantUncheckedUpdateWithoutTenantInput>
+    create: XOR<OccupantCreateWithoutTenantInput, OccupantUncheckedCreateWithoutTenantInput>
+  }
+
+  export type OccupantUpdateWithWhereUniqueWithoutTenantInput = {
+    where: OccupantWhereUniqueInput
+    data: XOR<OccupantUpdateWithoutTenantInput, OccupantUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type OccupantUpdateManyWithWhereWithoutTenantInput = {
+    where: OccupantScalarWhereInput
+    data: XOR<OccupantUpdateManyMutationInput, OccupantUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type OccupantScalarWhereInput = {
+    AND?: OccupantScalarWhereInput | OccupantScalarWhereInput[]
+    OR?: OccupantScalarWhereInput[]
+    NOT?: OccupantScalarWhereInput | OccupantScalarWhereInput[]
+    id?: StringFilter<"Occupant"> | string
+    tenantId?: StringFilter<"Occupant"> | string
+    name?: StringFilter<"Occupant"> | string
+    phone?: StringNullableFilter<"Occupant"> | string | null
+    relation?: StringNullableFilter<"Occupant"> | string | null
+  }
+
+  export type ContractUpsertWithWhereUniqueWithoutTenantInput = {
+    where: ContractWhereUniqueInput
+    update: XOR<ContractUpdateWithoutTenantInput, ContractUncheckedUpdateWithoutTenantInput>
+    create: XOR<ContractCreateWithoutTenantInput, ContractUncheckedCreateWithoutTenantInput>
+  }
+
+  export type ContractUpdateWithWhereUniqueWithoutTenantInput = {
+    where: ContractWhereUniqueInput
+    data: XOR<ContractUpdateWithoutTenantInput, ContractUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type ContractUpdateManyWithWhereWithoutTenantInput = {
+    where: ContractScalarWhereInput
+    data: XOR<ContractUpdateManyMutationInput, ContractUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type ContractScalarWhereInput = {
+    AND?: ContractScalarWhereInput | ContractScalarWhereInput[]
+    OR?: ContractScalarWhereInput[]
+    NOT?: ContractScalarWhereInput | ContractScalarWhereInput[]
+    id?: StringFilter<"Contract"> | string
+    tenantId?: StringFilter<"Contract"> | string
+    startDate?: DateTimeFilter<"Contract"> | Date | string
+    endDate?: DateTimeFilter<"Contract"> | Date | string
+    monthlyRent?: FloatFilter<"Contract"> | number
+    deposit?: FloatNullableFilter<"Contract"> | number | null
+    utilities?: JsonFilter<"Contract">
+    status?: EnumContractStatusFilter<"Contract"> | $Enums.ContractStatus
+    content?: StringNullableFilter<"Contract"> | string | null
+    tenantSignature?: StringNullableFilter<"Contract"> | string | null
+    tenantSignedAt?: DateTimeNullableFilter<"Contract"> | Date | string | null
+    landlordSignature?: BoolFilter<"Contract"> | boolean
+    landlordSignedAt?: DateTimeNullableFilter<"Contract"> | Date | string | null
+    createdAt?: DateTimeFilter<"Contract"> | Date | string
+    updatedAt?: DateTimeFilter<"Contract"> | Date | string
+  }
+
   export type BillUpsertWithWhereUniqueWithoutTenantInput = {
     where: BillWhereUniqueInput
     update: XOR<BillUpdateWithoutTenantInput, BillUncheckedUpdateWithoutTenantInput>
@@ -14271,9 +19783,15 @@ export namespace Prisma {
     rentAmount: number
     startDate: Date | string
     isActive?: boolean
+    nationalId?: string | null
+    emergencyContactName?: string | null
+    emergencyContactPhone?: string | null
+    numberOfOccupants?: number | null
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutTenantProfileInput
     unit: UnitCreateNestedOneWithoutTenantsInput
+    occupants?: OccupantCreateNestedManyWithoutTenantInput
+    contracts?: ContractCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutBillsInput = {
@@ -14283,7 +19801,13 @@ export namespace Prisma {
     rentAmount: number
     startDate: Date | string
     isActive?: boolean
+    nationalId?: string | null
+    emergencyContactName?: string | null
+    emergencyContactPhone?: string | null
+    numberOfOccupants?: number | null
     createdAt?: Date | string
+    occupants?: OccupantUncheckedCreateNestedManyWithoutTenantInput
+    contracts?: ContractUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutBillsInput = {
@@ -14355,9 +19879,15 @@ export namespace Prisma {
     rentAmount?: FloatFieldUpdateOperationsInput | number
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    nationalId?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    numberOfOccupants?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantProfileNestedInput
     unit?: UnitUpdateOneRequiredWithoutTenantsNestedInput
+    occupants?: OccupantUpdateManyWithoutTenantNestedInput
+    contracts?: ContractUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutBillsInput = {
@@ -14367,7 +19897,13 @@ export namespace Prisma {
     rentAmount?: FloatFieldUpdateOperationsInput | number
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    nationalId?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    numberOfOccupants?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    occupants?: OccupantUncheckedUpdateManyWithoutTenantNestedInput
+    contracts?: ContractUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UnitUpsertWithoutBillsInput = {
@@ -14642,6 +20178,166 @@ export namespace Prisma {
     announcements?: AnnouncementUncheckedUpdateManyWithoutAuthorNestedInput
   }
 
+  export type TenantCreateWithoutOccupantsInput = {
+    id?: string
+    rentAmount: number
+    startDate: Date | string
+    isActive?: boolean
+    nationalId?: string | null
+    emergencyContactName?: string | null
+    emergencyContactPhone?: string | null
+    numberOfOccupants?: number | null
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutTenantProfileInput
+    unit: UnitCreateNestedOneWithoutTenantsInput
+    contracts?: ContractCreateNestedManyWithoutTenantInput
+    bills?: BillCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutOccupantsInput = {
+    id?: string
+    userId: string
+    unitId: string
+    rentAmount: number
+    startDate: Date | string
+    isActive?: boolean
+    nationalId?: string | null
+    emergencyContactName?: string | null
+    emergencyContactPhone?: string | null
+    numberOfOccupants?: number | null
+    createdAt?: Date | string
+    contracts?: ContractUncheckedCreateNestedManyWithoutTenantInput
+    bills?: BillUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutOccupantsInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutOccupantsInput, TenantUncheckedCreateWithoutOccupantsInput>
+  }
+
+  export type TenantUpsertWithoutOccupantsInput = {
+    update: XOR<TenantUpdateWithoutOccupantsInput, TenantUncheckedUpdateWithoutOccupantsInput>
+    create: XOR<TenantCreateWithoutOccupantsInput, TenantUncheckedCreateWithoutOccupantsInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutOccupantsInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutOccupantsInput, TenantUncheckedUpdateWithoutOccupantsInput>
+  }
+
+  export type TenantUpdateWithoutOccupantsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    rentAmount?: FloatFieldUpdateOperationsInput | number
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    nationalId?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    numberOfOccupants?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutTenantProfileNestedInput
+    unit?: UnitUpdateOneRequiredWithoutTenantsNestedInput
+    contracts?: ContractUpdateManyWithoutTenantNestedInput
+    bills?: BillUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutOccupantsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    unitId?: StringFieldUpdateOperationsInput | string
+    rentAmount?: FloatFieldUpdateOperationsInput | number
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    nationalId?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    numberOfOccupants?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    contracts?: ContractUncheckedUpdateManyWithoutTenantNestedInput
+    bills?: BillUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantCreateWithoutContractsInput = {
+    id?: string
+    rentAmount: number
+    startDate: Date | string
+    isActive?: boolean
+    nationalId?: string | null
+    emergencyContactName?: string | null
+    emergencyContactPhone?: string | null
+    numberOfOccupants?: number | null
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutTenantProfileInput
+    unit: UnitCreateNestedOneWithoutTenantsInput
+    occupants?: OccupantCreateNestedManyWithoutTenantInput
+    bills?: BillCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutContractsInput = {
+    id?: string
+    userId: string
+    unitId: string
+    rentAmount: number
+    startDate: Date | string
+    isActive?: boolean
+    nationalId?: string | null
+    emergencyContactName?: string | null
+    emergencyContactPhone?: string | null
+    numberOfOccupants?: number | null
+    createdAt?: Date | string
+    occupants?: OccupantUncheckedCreateNestedManyWithoutTenantInput
+    bills?: BillUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutContractsInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutContractsInput, TenantUncheckedCreateWithoutContractsInput>
+  }
+
+  export type TenantUpsertWithoutContractsInput = {
+    update: XOR<TenantUpdateWithoutContractsInput, TenantUncheckedUpdateWithoutContractsInput>
+    create: XOR<TenantCreateWithoutContractsInput, TenantUncheckedCreateWithoutContractsInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutContractsInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutContractsInput, TenantUncheckedUpdateWithoutContractsInput>
+  }
+
+  export type TenantUpdateWithoutContractsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    rentAmount?: FloatFieldUpdateOperationsInput | number
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    nationalId?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    numberOfOccupants?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutTenantProfileNestedInput
+    unit?: UnitUpdateOneRequiredWithoutTenantsNestedInput
+    occupants?: OccupantUpdateManyWithoutTenantNestedInput
+    bills?: BillUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutContractsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    unitId?: StringFieldUpdateOperationsInput | string
+    rentAmount?: FloatFieldUpdateOperationsInput | number
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    nationalId?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    numberOfOccupants?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    occupants?: OccupantUncheckedUpdateManyWithoutTenantNestedInput
+    bills?: BillUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
   export type PropertyCreateManyAdminInput = {
     id?: string
     name: string
@@ -14766,6 +20462,10 @@ export namespace Prisma {
     rentAmount: number
     startDate: Date | string
     isActive?: boolean
+    nationalId?: string | null
+    emergencyContactName?: string | null
+    emergencyContactPhone?: string | null
+    numberOfOccupants?: number | null
     createdAt?: Date | string
   }
 
@@ -14786,8 +20486,14 @@ export namespace Prisma {
     rentAmount?: FloatFieldUpdateOperationsInput | number
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    nationalId?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    numberOfOccupants?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantProfileNestedInput
+    occupants?: OccupantUpdateManyWithoutTenantNestedInput
+    contracts?: ContractUpdateManyWithoutTenantNestedInput
     bills?: BillUpdateManyWithoutTenantNestedInput
   }
 
@@ -14797,7 +20503,13 @@ export namespace Prisma {
     rentAmount?: FloatFieldUpdateOperationsInput | number
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    nationalId?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    numberOfOccupants?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    occupants?: OccupantUncheckedUpdateManyWithoutTenantNestedInput
+    contracts?: ContractUncheckedUpdateManyWithoutTenantNestedInput
     bills?: BillUncheckedUpdateManyWithoutTenantNestedInput
   }
 
@@ -14807,6 +20519,10 @@ export namespace Prisma {
     rentAmount?: FloatFieldUpdateOperationsInput | number
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    nationalId?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    numberOfOccupants?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -14848,6 +20564,30 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type OccupantCreateManyTenantInput = {
+    id?: string
+    name: string
+    phone?: string | null
+    relation?: string | null
+  }
+
+  export type ContractCreateManyTenantInput = {
+    id?: string
+    startDate: Date | string
+    endDate: Date | string
+    monthlyRent: number
+    deposit?: number | null
+    utilities: JsonNullValueInput | InputJsonValue
+    status?: $Enums.ContractStatus
+    content?: string | null
+    tenantSignature?: string | null
+    tenantSignedAt?: Date | string | null
+    landlordSignature?: boolean
+    landlordSignedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type BillCreateManyTenantInput = {
     id?: string
     unitId: string
@@ -14858,6 +20598,78 @@ export namespace Prisma {
     paidAt?: Date | string | null
     status?: $Enums.PaymentStatus
     createdAt?: Date | string
+  }
+
+  export type OccupantUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    relation?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type OccupantUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    relation?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type OccupantUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    relation?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ContractUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    monthlyRent?: FloatFieldUpdateOperationsInput | number
+    deposit?: NullableFloatFieldUpdateOperationsInput | number | null
+    utilities?: JsonNullValueInput | InputJsonValue
+    status?: EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    tenantSignature?: NullableStringFieldUpdateOperationsInput | string | null
+    tenantSignedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    landlordSignature?: BoolFieldUpdateOperationsInput | boolean
+    landlordSignedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ContractUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    monthlyRent?: FloatFieldUpdateOperationsInput | number
+    deposit?: NullableFloatFieldUpdateOperationsInput | number | null
+    utilities?: JsonNullValueInput | InputJsonValue
+    status?: EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    tenantSignature?: NullableStringFieldUpdateOperationsInput | string | null
+    tenantSignedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    landlordSignature?: BoolFieldUpdateOperationsInput | boolean
+    landlordSignedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ContractUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    monthlyRent?: FloatFieldUpdateOperationsInput | number
+    deposit?: NullableFloatFieldUpdateOperationsInput | number | null
+    utilities?: JsonNullValueInput | InputJsonValue
+    status?: EnumContractStatusFieldUpdateOperationsInput | $Enums.ContractStatus
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    tenantSignature?: NullableStringFieldUpdateOperationsInput | string | null
+    tenantSignedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    landlordSignature?: BoolFieldUpdateOperationsInput | boolean
+    landlordSignedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type BillUpdateWithoutTenantInput = {

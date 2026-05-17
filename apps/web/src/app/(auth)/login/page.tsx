@@ -5,11 +5,13 @@ import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { useTheme } from "next-themes";
 import { Moon, Sun } from "lucide-react";
+import { useMounted } from "@/hooks/useMounted";
 
 
 export default function LoginPage() {
   const router = useRouter();
   const [error, setError] = useState("");
+  const mounted = useMounted();
   const [loading, setLoading] = useState(false);
   const { theme, setTheme } = useTheme();
 
@@ -36,6 +38,13 @@ export default function LoginPage() {
     }
   };
 
+  let themeIcon = <span className="h-5 w-5" />;   // server placeholder
+  if (mounted) {
+    themeIcon = theme === "dark"
+      ? <Sun className="h-5 w-5" />
+      : <Moon className="h-5 w-5" />;
+  }
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-100 via-white to-accent-50 p-4">
       <button
@@ -43,11 +52,7 @@ export default function LoginPage() {
         className="absolute top-4 right-4 p-2 rounded-full bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition"
         aria-label="Toggle theme"
       >
-        {theme === "dark" ? (
-          <Sun className="h-5 w-5" />
-        ) : (
-          <Moon className="h-5 w-5" />
-        )}
+        {themeIcon}
       </button>
       <motion.div
         initial={{ opacity: 0, y: 20 }}

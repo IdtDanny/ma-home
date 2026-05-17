@@ -69,16 +69,22 @@ model Unit {
 }
 
 model Tenant {
-  id         String   @id @default(cuid())
-  userId     String   @unique
-  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  unitId     String
-  unit       Unit     @relation(fields: [unitId], references: [id])
-  rentAmount Float // monthly base rent
-  startDate  DateTime // move-in date
-  bills      Bill[]
-  isActive   Boolean  @default(true)
-  createdAt  DateTime @default(now())
+  id                    String     @id @default(cuid())
+  userId                String     @unique
+  user                  User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  unitId                String
+  unit                  Unit       @relation(fields: [unitId], references: [id])
+  rentAmount            Float
+  startDate             DateTime
+  isActive              Boolean    @default(true)
+  nationalId            String?
+  emergencyContactName  String?
+  emergencyContactPhone String?
+  numberOfOccupants     Int?
+  occupants             Occupant[]
+  contracts             Contract[]
+  bills                 Bill[]
+  createdAt             DateTime   @default(now())
 }
 
 model Bill {
@@ -101,7 +107,7 @@ model Bill {
 model Payment {
   id            String        @id @default(cuid())
   billId        String        @unique
-  bill          Bill          @relation(fields: [billId], references: [id])
+  bill          Bill          @relation(fields: [billId], references: [id], onDelete: Cascade)
   amount        Float
   method        PaymentMethod
   transactionId String? // external MoMo transaction ID
@@ -128,4 +134,65 @@ model ContactMessage {
   tenant    User     @relation("ContactMessages", fields: [tenantId], references: [id])
   createdAt DateTime @default(now())
   isRead    Boolean  @default(false)
+}
+
+model Occupant {
+  id       String  @id @default(cuid())
+  tenantId String
+  tenant   Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  name     String
+  phone    String?
+  relation String? // e.g., spouse, child, etc.
+}
+
+model Contract {
+  id                String         @id @default(cuid())
+  tenantId          String
+  tenant            Tenant         @relation(fields: [tenantId], references: [id])
+  startDate         DateTime
+  endDate           DateTime
+  monthlyRent       Float
+  deposit           Float?
+  utilities         Json // e.g., { electricity: "tenant", water: "landlord", internet: "tenant" }
+  status            ContractStatus @default(PENDING_TENANT_SIGNATURE)
+  content           String? // full filled agreement text
+  tenantSignature   String?
+  tenantSignedAt    DateTime?
+  landlordSignature Boolean        @default(false)
+  landlordSignedAt  DateTime?
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
+}
+
+enum ContractStatus {
+  PENDING_TENANT_SIGNATURE
+  PENDING_LANDLORD_SIGNATURE
+  ACTIVE
+  EXPIRED
+  TERMINATED
+}
+
+model ClearanceCertificate {
+  id                    String   @id @default(cuid())
+  tenantName            String
+  nationalId            String?
+  propertyAddress       String
+  startDate             DateTime
+  endDate               DateTime
+  rentCleared           Boolean
+  utilitiesCleared      Boolean
+  serviceChargesCleared Boolean
+  damagesCleared        Boolean
+  propertyCondition     String // Good, Acceptable, Minor repairs required
+  repairDetails         String?
+  securityDeposit       Float?
+  depositRefunded       Boolean?
+  refundAmount          Float?
+  depositRetainedReason String?
+  landlordName          String
+  landlordSignature     String
+  landlordPhone         String
+  createdAt             DateTime @default(now())
+  tenantEmail           String?
+  tenantPhone           String?
 }

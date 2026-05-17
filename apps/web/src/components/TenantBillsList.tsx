@@ -24,10 +24,10 @@ export default function TenantBillsList({ bills }: TenantBillsListProps) {
             className="flex flex-col sm:flex-row sm:items-center justify-between border border-gray-200 rounded-lg p-4"
           >
             <div>
-              <p className="font-medium text-gray-800">
+              <p className="font-medium text-gray-800 dark:text-gray-300">
                 {bill.type} – {bill.period}
               </p>
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-gray-500 dark:text-gray-400">
                 Due: {new Date(bill.dueDate).toLocaleDateString()}
               </p>
             </div>

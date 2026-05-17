@@ -21,7 +21,7 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <SessionProvider>
             {children}
-            {/* <Toaster position="top-right" /> */}
+            <Toaster position="top-right" />
           </SessionProvider>
         </ThemeProvider>
       </body>

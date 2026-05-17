@@ -1,8 +1,9 @@
 "use client";
+
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import toast from "react-hot-toast";
 import { motion } from "framer-motion";
+import toast from "react-hot-toast";
 
 export default function PayButton({ billId }: { billId: string }) {
   const router = useRouter();
@@ -27,7 +28,9 @@ export default function PayButton({ billId }: { billId: string }) {
 
   const pollStatus = (paymentId: string) => {
     const interval = setInterval(async () => {
-      const res = await fetch(`/api/payments/momo/status?paymentId=${paymentId}`);
+      const res = await fetch(
+        `/api/payments/momo/status?paymentId=${paymentId}`
+      );
       const { status } = await res.json();
       if (status === "SUCCESSFUL") {
         toast.success("Payment successful!");
@@ -48,26 +51,34 @@ export default function PayButton({ billId }: { billId: string }) {
       whileTap={{ scale: 0.95 }}
       onClick={handlePay}
       disabled={loading}
-      className="inline-flex items-center gap-2 bg-accent-600 hover:bg-accent-700 text-white font-semibold py-2 px-4 rounded-lg transition disabled:opacity-50"
+      className="inline-flex items-center gap-2 bg-accent-600 hover:bg-accent-700 border border-yellow-600 text-yellow-600 dark:text-yellow-300 font-semibold py-2 px-4 rounded-lg transition disabled:opacity-50"
     >
-      <button
-        onClick={handlePay}
-        disabled={loading}
-        className="inline-flex items-center gap-2 bg-accent-600 hover:bg-accent-700 text-white font-semibold py-2 px-4 rounded-lg transition disabled:opacity-50"
-      >
-        {loading ? (
-          <>
-            <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
-              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-            </svg>
-            Processing...
-          </>
-        ) : (
-          "Pay with MoMo"
-        )}
-      </button>
+      {loading ? (
+        <>
+          <svg
+            className="animate-spin h-4 w-4"
+            viewBox="0 0 24 24"
+          >
+            <circle
+              className="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              strokeWidth="4"
+              fill="none"
+            />
+            <path
+              className="opacity-75"
+              fill="currentColor"
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+            />
+          </svg>
+          Processing...
+        </>
+      ) : (
+        "Pay with MoMo"
+      )}
     </motion.button>
-
   );
 }
