@@ -10,9 +10,20 @@ export default async function PendingContractsPage() {
   const contracts = await prisma.contract.findMany({
     where: {
       status: "PENDING_LANDLORD_SIGNATURE",
-      tenant: { unit: { property: { adminId: session.user.id } } },
+      tenant: { 
+        unit: { 
+          property: { adminId: session.user.id } 
+        } 
+      },
     },
-    include: { tenant: { include: { user: true, unit: true } } },
+    include: { 
+      tenant: { 
+        include: { 
+          user: true, 
+          unit: { include: { property: true } }, 
+        } 
+      } 
+    },
     orderBy: { createdAt: "desc" },
   });
 

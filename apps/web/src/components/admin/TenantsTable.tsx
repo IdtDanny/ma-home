@@ -92,7 +92,13 @@ export default function TenantsTable({
 
   // ── Contract ────────────────────────────────────────────
   const [contractTenantId, setContractTenantId] = useState<string | null>(null);
-  const [contractForm, setContractForm] = useState({
+  const [contractForm, setContractForm] = useState<{
+    startDate: string;
+    endDate: string;
+    monthlyRent: string;
+    deposit: string;
+    utilities: Record<string, string>;   // 👈 allow any string key
+  }>({
     startDate: "",
     endDate: "",
     monthlyRent: "",

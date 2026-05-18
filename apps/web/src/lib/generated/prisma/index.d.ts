@@ -13492,9 +13492,10 @@ export namespace Prisma {
     landlordName: string | null
     landlordSignature: string | null
     landlordPhone: string | null
-    createdAt: Date | null
     tenantEmail: string | null
     tenantPhone: string | null
+    content: string | null
+    createdAt: Date | null
   }
 
   export type ClearanceCertificateMaxAggregateOutputType = {
@@ -13517,9 +13518,10 @@ export namespace Prisma {
     landlordName: string | null
     landlordSignature: string | null
     landlordPhone: string | null
-    createdAt: Date | null
     tenantEmail: string | null
     tenantPhone: string | null
+    content: string | null
+    createdAt: Date | null
   }
 
   export type ClearanceCertificateCountAggregateOutputType = {
@@ -13542,9 +13544,10 @@ export namespace Prisma {
     landlordName: number
     landlordSignature: number
     landlordPhone: number
-    createdAt: number
     tenantEmail: number
     tenantPhone: number
+    content: number
+    createdAt: number
     _all: number
   }
 
@@ -13579,9 +13582,10 @@ export namespace Prisma {
     landlordName?: true
     landlordSignature?: true
     landlordPhone?: true
-    createdAt?: true
     tenantEmail?: true
     tenantPhone?: true
+    content?: true
+    createdAt?: true
   }
 
   export type ClearanceCertificateMaxAggregateInputType = {
@@ -13604,9 +13608,10 @@ export namespace Prisma {
     landlordName?: true
     landlordSignature?: true
     landlordPhone?: true
-    createdAt?: true
     tenantEmail?: true
     tenantPhone?: true
+    content?: true
+    createdAt?: true
   }
 
   export type ClearanceCertificateCountAggregateInputType = {
@@ -13629,9 +13634,10 @@ export namespace Prisma {
     landlordName?: true
     landlordSignature?: true
     landlordPhone?: true
-    createdAt?: true
     tenantEmail?: true
     tenantPhone?: true
+    content?: true
+    createdAt?: true
     _all?: true
   }
 
@@ -13741,9 +13747,10 @@ export namespace Prisma {
     landlordName: string
     landlordSignature: string
     landlordPhone: string
-    createdAt: Date
     tenantEmail: string | null
     tenantPhone: string | null
+    content: string | null
+    createdAt: Date
     _count: ClearanceCertificateCountAggregateOutputType | null
     _avg: ClearanceCertificateAvgAggregateOutputType | null
     _sum: ClearanceCertificateSumAggregateOutputType | null
@@ -13785,9 +13792,10 @@ export namespace Prisma {
     landlordName?: boolean
     landlordSignature?: boolean
     landlordPhone?: boolean
-    createdAt?: boolean
     tenantEmail?: boolean
     tenantPhone?: boolean
+    content?: boolean
+    createdAt?: boolean
   }, ExtArgs["result"]["clearanceCertificate"]>
 
   export type ClearanceCertificateSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -13810,9 +13818,10 @@ export namespace Prisma {
     landlordName?: boolean
     landlordSignature?: boolean
     landlordPhone?: boolean
-    createdAt?: boolean
     tenantEmail?: boolean
     tenantPhone?: boolean
+    content?: boolean
+    createdAt?: boolean
   }, ExtArgs["result"]["clearanceCertificate"]>
 
   export type ClearanceCertificateSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -13835,9 +13844,10 @@ export namespace Prisma {
     landlordName?: boolean
     landlordSignature?: boolean
     landlordPhone?: boolean
-    createdAt?: boolean
     tenantEmail?: boolean
     tenantPhone?: boolean
+    content?: boolean
+    createdAt?: boolean
   }, ExtArgs["result"]["clearanceCertificate"]>
 
   export type ClearanceCertificateSelectScalar = {
@@ -13860,12 +13870,13 @@ export namespace Prisma {
     landlordName?: boolean
     landlordSignature?: boolean
     landlordPhone?: boolean
-    createdAt?: boolean
     tenantEmail?: boolean
     tenantPhone?: boolean
+    content?: boolean
+    createdAt?: boolean
   }
 
-  export type ClearanceCertificateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantName" | "nationalId" | "propertyAddress" | "startDate" | "endDate" | "rentCleared" | "utilitiesCleared" | "serviceChargesCleared" | "damagesCleared" | "propertyCondition" | "repairDetails" | "securityDeposit" | "depositRefunded" | "refundAmount" | "depositRetainedReason" | "landlordName" | "landlordSignature" | "landlordPhone" | "createdAt" | "tenantEmail" | "tenantPhone", ExtArgs["result"]["clearanceCertificate"]>
+  export type ClearanceCertificateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantName" | "nationalId" | "propertyAddress" | "startDate" | "endDate" | "rentCleared" | "utilitiesCleared" | "serviceChargesCleared" | "damagesCleared" | "propertyCondition" | "repairDetails" | "securityDeposit" | "depositRefunded" | "refundAmount" | "depositRetainedReason" | "landlordName" | "landlordSignature" | "landlordPhone" | "tenantEmail" | "tenantPhone" | "content" | "createdAt", ExtArgs["result"]["clearanceCertificate"]>
 
   export type $ClearanceCertificatePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "ClearanceCertificate"
@@ -13890,9 +13901,10 @@ export namespace Prisma {
       landlordName: string
       landlordSignature: string
       landlordPhone: string
-      createdAt: Date
       tenantEmail: string | null
       tenantPhone: string | null
+      content: string | null
+      createdAt: Date
     }, ExtArgs["result"]["clearanceCertificate"]>
     composites: {}
   }
@@ -14335,9 +14347,10 @@ export namespace Prisma {
     readonly landlordName: FieldRef<"ClearanceCertificate", 'String'>
     readonly landlordSignature: FieldRef<"ClearanceCertificate", 'String'>
     readonly landlordPhone: FieldRef<"ClearanceCertificate", 'String'>
-    readonly createdAt: FieldRef<"ClearanceCertificate", 'DateTime'>
     readonly tenantEmail: FieldRef<"ClearanceCertificate", 'String'>
     readonly tenantPhone: FieldRef<"ClearanceCertificate", 'String'>
+    readonly content: FieldRef<"ClearanceCertificate", 'String'>
+    readonly createdAt: FieldRef<"ClearanceCertificate", 'DateTime'>
   }
     
 
@@ -14881,9 +14894,10 @@ export namespace Prisma {
     landlordName: 'landlordName',
     landlordSignature: 'landlordSignature',
     landlordPhone: 'landlordPhone',
-    createdAt: 'createdAt',
     tenantEmail: 'tenantEmail',
-    tenantPhone: 'tenantPhone'
+    tenantPhone: 'tenantPhone',
+    content: 'content',
+    createdAt: 'createdAt'
   };
 
   export type ClearanceCertificateScalarFieldEnum = (typeof ClearanceCertificateScalarFieldEnum)[keyof typeof ClearanceCertificateScalarFieldEnum]
@@ -15849,9 +15863,10 @@ export namespace Prisma {
     landlordName?: StringFilter<"ClearanceCertificate"> | string
     landlordSignature?: StringFilter<"ClearanceCertificate"> | string
     landlordPhone?: StringFilter<"ClearanceCertificate"> | string
-    createdAt?: DateTimeFilter<"ClearanceCertificate"> | Date | string
     tenantEmail?: StringNullableFilter<"ClearanceCertificate"> | string | null
     tenantPhone?: StringNullableFilter<"ClearanceCertificate"> | string | null
+    content?: StringNullableFilter<"ClearanceCertificate"> | string | null
+    createdAt?: DateTimeFilter<"ClearanceCertificate"> | Date | string
   }
 
   export type ClearanceCertificateOrderByWithRelationInput = {
@@ -15874,9 +15889,10 @@ export namespace Prisma {
     landlordName?: SortOrder
     landlordSignature?: SortOrder
     landlordPhone?: SortOrder
-    createdAt?: SortOrder
     tenantEmail?: SortOrderInput | SortOrder
     tenantPhone?: SortOrderInput | SortOrder
+    content?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
   }
 
   export type ClearanceCertificateWhereUniqueInput = Prisma.AtLeast<{
@@ -15902,9 +15918,10 @@ export namespace Prisma {
     landlordName?: StringFilter<"ClearanceCertificate"> | string
     landlordSignature?: StringFilter<"ClearanceCertificate"> | string
     landlordPhone?: StringFilter<"ClearanceCertificate"> | string
-    createdAt?: DateTimeFilter<"ClearanceCertificate"> | Date | string
     tenantEmail?: StringNullableFilter<"ClearanceCertificate"> | string | null
     tenantPhone?: StringNullableFilter<"ClearanceCertificate"> | string | null
+    content?: StringNullableFilter<"ClearanceCertificate"> | string | null
+    createdAt?: DateTimeFilter<"ClearanceCertificate"> | Date | string
   }, "id">
 
   export type ClearanceCertificateOrderByWithAggregationInput = {
@@ -15927,9 +15944,10 @@ export namespace Prisma {
     landlordName?: SortOrder
     landlordSignature?: SortOrder
     landlordPhone?: SortOrder
-    createdAt?: SortOrder
     tenantEmail?: SortOrderInput | SortOrder
     tenantPhone?: SortOrderInput | SortOrder
+    content?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
     _count?: ClearanceCertificateCountOrderByAggregateInput
     _avg?: ClearanceCertificateAvgOrderByAggregateInput
     _max?: ClearanceCertificateMaxOrderByAggregateInput
@@ -15960,9 +15978,10 @@ export namespace Prisma {
     landlordName?: StringWithAggregatesFilter<"ClearanceCertificate"> | string
     landlordSignature?: StringWithAggregatesFilter<"ClearanceCertificate"> | string
     landlordPhone?: StringWithAggregatesFilter<"ClearanceCertificate"> | string
-    createdAt?: DateTimeWithAggregatesFilter<"ClearanceCertificate"> | Date | string
     tenantEmail?: StringNullableWithAggregatesFilter<"ClearanceCertificate"> | string | null
     tenantPhone?: StringNullableWithAggregatesFilter<"ClearanceCertificate"> | string | null
+    content?: StringNullableWithAggregatesFilter<"ClearanceCertificate"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"ClearanceCertificate"> | Date | string
   }
 
   export type UserCreateInput = {
@@ -16774,9 +16793,10 @@ export namespace Prisma {
     landlordName: string
     landlordSignature: string
     landlordPhone: string
-    createdAt?: Date | string
     tenantEmail?: string | null
     tenantPhone?: string | null
+    content?: string | null
+    createdAt?: Date | string
   }
 
   export type ClearanceCertificateUncheckedCreateInput = {
@@ -16799,9 +16819,10 @@ export namespace Prisma {
     landlordName: string
     landlordSignature: string
     landlordPhone: string
-    createdAt?: Date | string
     tenantEmail?: string | null
     tenantPhone?: string | null
+    content?: string | null
+    createdAt?: Date | string
   }
 
   export type ClearanceCertificateUpdateInput = {
@@ -16824,9 +16845,10 @@ export namespace Prisma {
     landlordName?: StringFieldUpdateOperationsInput | string
     landlordSignature?: StringFieldUpdateOperationsInput | string
     landlordPhone?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantEmail?: NullableStringFieldUpdateOperationsInput | string | null
     tenantPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ClearanceCertificateUncheckedUpdateInput = {
@@ -16849,9 +16871,10 @@ export namespace Prisma {
     landlordName?: StringFieldUpdateOperationsInput | string
     landlordSignature?: StringFieldUpdateOperationsInput | string
     landlordPhone?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantEmail?: NullableStringFieldUpdateOperationsInput | string | null
     tenantPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ClearanceCertificateCreateManyInput = {
@@ -16874,9 +16897,10 @@ export namespace Prisma {
     landlordName: string
     landlordSignature: string
     landlordPhone: string
-    createdAt?: Date | string
     tenantEmail?: string | null
     tenantPhone?: string | null
+    content?: string | null
+    createdAt?: Date | string
   }
 
   export type ClearanceCertificateUpdateManyMutationInput = {
@@ -16899,9 +16923,10 @@ export namespace Prisma {
     landlordName?: StringFieldUpdateOperationsInput | string
     landlordSignature?: StringFieldUpdateOperationsInput | string
     landlordPhone?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantEmail?: NullableStringFieldUpdateOperationsInput | string | null
     tenantPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ClearanceCertificateUncheckedUpdateManyInput = {
@@ -16924,9 +16949,10 @@ export namespace Prisma {
     landlordName?: StringFieldUpdateOperationsInput | string
     landlordSignature?: StringFieldUpdateOperationsInput | string
     landlordPhone?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantEmail?: NullableStringFieldUpdateOperationsInput | string | null
     tenantPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -17823,9 +17849,10 @@ export namespace Prisma {
     landlordName?: SortOrder
     landlordSignature?: SortOrder
     landlordPhone?: SortOrder
-    createdAt?: SortOrder
     tenantEmail?: SortOrder
     tenantPhone?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type ClearanceCertificateAvgOrderByAggregateInput = {
@@ -17853,9 +17880,10 @@ export namespace Prisma {
     landlordName?: SortOrder
     landlordSignature?: SortOrder
     landlordPhone?: SortOrder
-    createdAt?: SortOrder
     tenantEmail?: SortOrder
     tenantPhone?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type ClearanceCertificateMinOrderByAggregateInput = {
@@ -17878,9 +17906,10 @@ export namespace Prisma {
     landlordName?: SortOrder
     landlordSignature?: SortOrder
     landlordPhone?: SortOrder
-    createdAt?: SortOrder
     tenantEmail?: SortOrder
     tenantPhone?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type ClearanceCertificateSumOrderByAggregateInput = {

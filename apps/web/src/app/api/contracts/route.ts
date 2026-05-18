@@ -9,7 +9,7 @@ const contractSchema = z.object({
   endDate: z.string(),
   monthlyRent: z.number().positive(),
   deposit: z.number().optional(),
-  utilities: z.record(z.string()).optional(), // e.g., { electricity: "tenant" }
+  utilities: z.record(z.string(), z.string()).optional(), // e.g., { electricity: "tenant" }
 });
 
 export async function POST(req: Request) {

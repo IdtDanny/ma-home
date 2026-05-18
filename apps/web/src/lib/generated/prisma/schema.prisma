@@ -192,7 +192,8 @@ model ClearanceCertificate {
   landlordName          String
   landlordSignature     String
   landlordPhone         String
-  createdAt             DateTime @default(now())
   tenantEmail           String?
   tenantPhone           String?
+  content               String?
+  createdAt             DateTime @default(now())
 }

@@ -248,9 +248,10 @@ exports.Prisma.ClearanceCertificateScalarFieldEnum = {
   landlordName: 'landlordName',
   landlordSignature: 'landlordSignature',
   landlordPhone: 'landlordPhone',
-  createdAt: 'createdAt',
   tenantEmail: 'tenantEmail',
-  tenantPhone: 'tenantPhone'
+  tenantPhone: 'tenantPhone',
+  content: 'content',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.SortOrder = {
