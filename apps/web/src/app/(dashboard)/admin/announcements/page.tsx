@@ -1,23 +1,23 @@
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
-import PropertyList from "@/components/admin/PropertyList";
+import AnnouncementsList from "@/components/admin/AnnouncementsList";
 
-export default async function AdminPropertiesPage() {
+export default async function AdminAnnouncementsPage() {
   const session = await auth();
   if (!session?.user || session.user.role !== "ADMIN") redirect("/login");
 
-  const properties = await prisma.property.findMany({
-    where: { adminId: session.user.id },
-    include: { units: true },
+  const announcements = await prisma.announcement.findMany({
+    orderBy: { createdAt: "desc" },
+    include: { author: { select: { name: true } } },
   });
 
   return (
     <div className="max-w-7xl mx-auto space-y-6">
       <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-100">
-        Property Management
+        Announcements
       </h1>
-      <PropertyList initialProperties={properties} />
+      <AnnouncementsList initialAnnouncements={announcements} />
     </div>
   );
 }

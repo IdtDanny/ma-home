@@ -21,7 +21,7 @@ import { Moon, Sun } from "lucide-react";
 import AdminNotificationBell from "../dashboard/AdminNotificationBell";
 
 const adminLinks = [
-  { href: "/admin", label: "Dashboard" },
+  { href: "/admin", label: "Dashboard", icon: "📊" },
   { href: "/admin/tenants", label: "Tenants" },
   { href: "/admin/bills", label: "Bills" },
   { href: "/admin/properties", label: "Properties" },
