@@ -15,10 +15,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import NotificationBell from "@/components/dashboard/NotificationBell";
+// import NotificationBell from "@/components/dashboard/NotificationBell";
 import { useTheme } from "next-themes";
 import { Moon, Sun } from "lucide-react";
-import AdminNotificationBell from "../dashboard/AdminNotificationBell";
+// import AdminNotificationBell from "../dashboard/AdminNotificationBell";
+// import TenantMessageBell from "@/components/dashboard/TenantMessageBell";
+import UnifiedNotificationBell from "@/components/dashboard/UnifiedNotificationBell";
 
 const adminLinks = [
   { href: "/admin", label: "Dashboard", icon: "📊" },
@@ -37,6 +39,7 @@ const tenantLinks = [
   { href: "/tenant/bills", label: "My Bills" },
   { href: "/tenant/profile", label: "Profile" },
   { href: "/tenant/contact", label: "Contact" },
+  { href: "/tenant/announcements", label: "Announcements", icon: "📢" },
 ];
 
 export function ThemeToggle() {
@@ -147,8 +150,10 @@ export default function Navbar() {
 
         {/* Right side */}
         <div className="ml-auto flex items-center gap-3">
-          {role === "ADMIN" && <AdminNotificationBell />}
-          {role === "TENANT" && <NotificationBell />}
+          {role === "ADMIN" && <UnifiedNotificationBell  />}
+          {role === "TENANT" && <UnifiedNotificationBell  />}
+
+          {/* <UnifiedNotificationBell /> */}
 
           <ThemeToggle />
 

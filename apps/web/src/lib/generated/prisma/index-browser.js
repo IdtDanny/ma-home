@@ -157,6 +157,7 @@ exports.Prisma.TenantScalarFieldEnum = {
   emergencyContactName: 'emergencyContactName',
   emergencyContactPhone: 'emergencyContactPhone',
   numberOfOccupants: 'numberOfOccupants',
+  lastAnnouncementReadAt: 'lastAnnouncementReadAt',
   createdAt: 'createdAt'
 };
 
@@ -199,7 +200,9 @@ exports.Prisma.ContactMessageScalarFieldEnum = {
   message: 'message',
   tenantId: 'tenantId',
   createdAt: 'createdAt',
-  isRead: 'isRead'
+  isRead: 'isRead',
+  parentId: 'parentId',
+  senderRole: 'senderRole'
 };
 
 exports.Prisma.OccupantScalarFieldEnum = {
@@ -252,6 +255,14 @@ exports.Prisma.ClearanceCertificateScalarFieldEnum = {
   tenantPhone: 'tenantPhone',
   content: 'content',
   createdAt: 'createdAt'
+};
+
+exports.Prisma.CommentScalarFieldEnum = {
+  id: 'id',
+  content: 'content',
+  createdAt: 'createdAt',
+  authorId: 'authorId',
+  announcementId: 'announcementId'
 };
 
 exports.Prisma.SortOrder = {
@@ -326,7 +337,8 @@ exports.Prisma.ModelName = {
   ContactMessage: 'ContactMessage',
   Occupant: 'Occupant',
   Contract: 'Contract',
-  ClearanceCertificate: 'ClearanceCertificate'
+  ClearanceCertificate: 'ClearanceCertificate',
+  Comment: 'Comment'
 };
 
 /**

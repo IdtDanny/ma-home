@@ -30,6 +30,7 @@ export async function GET() {
   const unreadMessages = await prisma.contactMessage.count({
     where: {
       isRead: false,
+      senderRole: "TENANT",   // only messages sent by tenants, not admin replies
       tenant: { tenantProfile: { unit: { property: { adminId } } } },
     },
   });

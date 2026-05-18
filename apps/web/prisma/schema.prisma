@@ -46,6 +46,7 @@ model User {
 
   announcements   Announcement[]   @relation("Announcements")
   contactMessages ContactMessage[] @relation("ContactMessages")
+  comments        Comment[]
 }
 
 model Property {
@@ -69,22 +70,23 @@ model Unit {
 }
 
 model Tenant {
-  id                    String     @id @default(cuid())
-  userId                String     @unique
-  user                  User       @relation(fields: [userId], references: [id], onDelete: Cascade)
-  unitId                String
-  unit                  Unit       @relation(fields: [unitId], references: [id])
-  rentAmount            Float
-  startDate             DateTime
-  isActive              Boolean    @default(true)
-  nationalId            String?
-  emergencyContactName  String?
-  emergencyContactPhone String?
-  numberOfOccupants     Int?
-  occupants             Occupant[]
-  contracts             Contract[]
-  bills                 Bill[]
-  createdAt             DateTime   @default(now())
+  id                     String     @id @default(cuid())
+  userId                 String     @unique
+  user                   User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  unitId                 String
+  unit                   Unit       @relation(fields: [unitId], references: [id])
+  rentAmount             Float
+  startDate              DateTime
+  isActive               Boolean    @default(true)
+  nationalId             String?
+  emergencyContactName   String?
+  emergencyContactPhone  String?
+  numberOfOccupants      Int?
+  occupants              Occupant[]
+  contracts              Contract[]
+  bills                  Bill[]
+  lastAnnouncementReadAt DateTime?
+  createdAt              DateTime   @default(now())
 }
 
 model Bill {
@@ -118,12 +120,13 @@ model Payment {
 }
 
 model Announcement {
-  id        String   @id @default(cuid())
+  id        String    @id @default(cuid())
   title     String
   body      String
-  createdAt DateTime @default(now())
+  createdAt DateTime  @default(now())
   authorId  String
-  author    User     @relation("Announcements", fields: [authorId], references: [id])
+  author    User      @relation("Announcements", fields: [authorId], references: [id])
+  comments  Comment[]
 }
 
 model ContactMessage {
@@ -134,6 +137,14 @@ model ContactMessage {
   tenant    User     @relation("ContactMessages", fields: [tenantId], references: [id])
   createdAt DateTime @default(now())
   isRead    Boolean  @default(false)
+
+  // Threading
+  parentId String?
+  parent   ContactMessage?  @relation("Replies", fields: [parentId], references: [id])
+  replies  ContactMessage[] @relation("Replies")
+
+  // Who sent this message
+  senderRole String @default("TENANT") // "TENANT" or "ADMIN"
 }
 
 model Occupant {
@@ -196,4 +207,14 @@ model ClearanceCertificate {
   tenantPhone           String?
   content               String?
   createdAt             DateTime @default(now())
+}
+
+model Comment {
+  id             String       @id @default(cuid())
+  content        String
+  createdAt      DateTime     @default(now())
+  authorId       String
+  author         User         @relation(fields: [authorId], references: [id])
+  announcementId String
+  announcement   Announcement @relation(fields: [announcementId], references: [id], onDelete: Cascade)
 }

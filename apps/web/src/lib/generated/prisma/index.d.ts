@@ -68,6 +68,11 @@ export type Contract = $Result.DefaultSelection<Prisma.$ContractPayload>
  * 
  */
 export type ClearanceCertificate = $Result.DefaultSelection<Prisma.$ClearanceCertificatePayload>
+/**
+ * Model Comment
+ * 
+ */
+export type Comment = $Result.DefaultSelection<Prisma.$CommentPayload>
 
 /**
  * Enums
@@ -371,6 +376,16 @@ export class PrismaClient<
     * ```
     */
   get clearanceCertificate(): Prisma.ClearanceCertificateDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.comment`: Exposes CRUD operations for the **Comment** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Comments
+    * const comments = await prisma.comment.findMany()
+    * ```
+    */
+  get comment(): Prisma.CommentDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -815,7 +830,8 @@ export namespace Prisma {
     ContactMessage: 'ContactMessage',
     Occupant: 'Occupant',
     Contract: 'Contract',
-    ClearanceCertificate: 'ClearanceCertificate'
+    ClearanceCertificate: 'ClearanceCertificate',
+    Comment: 'Comment'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -831,7 +847,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "property" | "unit" | "tenant" | "bill" | "payment" | "announcement" | "contactMessage" | "occupant" | "contract" | "clearanceCertificate"
+      modelProps: "user" | "property" | "unit" | "tenant" | "bill" | "payment" | "announcement" | "contactMessage" | "occupant" | "contract" | "clearanceCertificate" | "comment"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1649,6 +1665,80 @@ export namespace Prisma {
           }
         }
       }
+      Comment: {
+        payload: Prisma.$CommentPayload<ExtArgs>
+        fields: Prisma.CommentFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CommentFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommentPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CommentFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommentPayload>
+          }
+          findFirst: {
+            args: Prisma.CommentFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommentPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CommentFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommentPayload>
+          }
+          findMany: {
+            args: Prisma.CommentFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommentPayload>[]
+          }
+          create: {
+            args: Prisma.CommentCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommentPayload>
+          }
+          createMany: {
+            args: Prisma.CommentCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CommentCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommentPayload>[]
+          }
+          delete: {
+            args: Prisma.CommentDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommentPayload>
+          }
+          update: {
+            args: Prisma.CommentUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommentPayload>
+          }
+          deleteMany: {
+            args: Prisma.CommentDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CommentUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CommentUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommentPayload>[]
+          }
+          upsert: {
+            args: Prisma.CommentUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommentPayload>
+          }
+          aggregate: {
+            args: Prisma.CommentAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateComment>
+          }
+          groupBy: {
+            args: Prisma.CommentGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CommentGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CommentCountArgs<ExtArgs>
+            result: $Utils.Optional<CommentCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1768,6 +1858,7 @@ export namespace Prisma {
     occupant?: OccupantOmit
     contract?: ContractOmit
     clearanceCertificate?: ClearanceCertificateOmit
+    comment?: CommentOmit
   }
 
   /* Types for Logging */
@@ -1851,12 +1942,14 @@ export namespace Prisma {
     adminProperties: number
     announcements: number
     contactMessages: number
+    comments: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     adminProperties?: boolean | UserCountOutputTypeCountAdminPropertiesArgs
     announcements?: boolean | UserCountOutputTypeCountAnnouncementsArgs
     contactMessages?: boolean | UserCountOutputTypeCountContactMessagesArgs
+    comments?: boolean | UserCountOutputTypeCountCommentsArgs
   }
 
   // Custom InputTypes
@@ -1889,6 +1982,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountContactMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ContactMessageWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountCommentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CommentWhereInput
   }
 
 
@@ -2009,6 +2109,68 @@ export namespace Prisma {
    */
   export type TenantCountOutputTypeCountBillsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: BillWhereInput
+  }
+
+
+  /**
+   * Count Type AnnouncementCountOutputType
+   */
+
+  export type AnnouncementCountOutputType = {
+    comments: number
+  }
+
+  export type AnnouncementCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    comments?: boolean | AnnouncementCountOutputTypeCountCommentsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * AnnouncementCountOutputType without action
+   */
+  export type AnnouncementCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AnnouncementCountOutputType
+     */
+    select?: AnnouncementCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * AnnouncementCountOutputType without action
+   */
+  export type AnnouncementCountOutputTypeCountCommentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CommentWhereInput
+  }
+
+
+  /**
+   * Count Type ContactMessageCountOutputType
+   */
+
+  export type ContactMessageCountOutputType = {
+    replies: number
+  }
+
+  export type ContactMessageCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    replies?: boolean | ContactMessageCountOutputTypeCountRepliesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ContactMessageCountOutputType without action
+   */
+  export type ContactMessageCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactMessageCountOutputType
+     */
+    select?: ContactMessageCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ContactMessageCountOutputType without action
+   */
+  export type ContactMessageCountOutputTypeCountRepliesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ContactMessageWhereInput
   }
 
 
@@ -2208,6 +2370,7 @@ export namespace Prisma {
     adminProperties?: boolean | User$adminPropertiesArgs<ExtArgs>
     announcements?: boolean | User$announcementsArgs<ExtArgs>
     contactMessages?: boolean | User$contactMessagesArgs<ExtArgs>
+    comments?: boolean | User$commentsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -2250,6 +2413,7 @@ export namespace Prisma {
     adminProperties?: boolean | User$adminPropertiesArgs<ExtArgs>
     announcements?: boolean | User$announcementsArgs<ExtArgs>
     contactMessages?: boolean | User$contactMessagesArgs<ExtArgs>
+    comments?: boolean | User$commentsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2262,6 +2426,7 @@ export namespace Prisma {
       adminProperties: Prisma.$PropertyPayload<ExtArgs>[]
       announcements: Prisma.$AnnouncementPayload<ExtArgs>[]
       contactMessages: Prisma.$ContactMessagePayload<ExtArgs>[]
+      comments: Prisma.$CommentPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2670,6 +2835,7 @@ export namespace Prisma {
     adminProperties<T extends User$adminPropertiesArgs<ExtArgs> = {}>(args?: Subset<T, User$adminPropertiesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PropertyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     announcements<T extends User$announcementsArgs<ExtArgs> = {}>(args?: Subset<T, User$announcementsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AnnouncementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     contactMessages<T extends User$contactMessagesArgs<ExtArgs> = {}>(args?: Subset<T, User$contactMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContactMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    comments<T extends User$commentsArgs<ExtArgs> = {}>(args?: Subset<T, User$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3188,6 +3354,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ContactMessageScalarFieldEnum | ContactMessageScalarFieldEnum[]
+  }
+
+  /**
+   * User.comments
+   */
+  export type User$commentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+    where?: CommentWhereInput
+    orderBy?: CommentOrderByWithRelationInput | CommentOrderByWithRelationInput[]
+    cursor?: CommentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CommentScalarFieldEnum | CommentScalarFieldEnum[]
   }
 
   /**
@@ -5443,6 +5633,7 @@ export namespace Prisma {
     emergencyContactName: string | null
     emergencyContactPhone: string | null
     numberOfOccupants: number | null
+    lastAnnouncementReadAt: Date | null
     createdAt: Date | null
   }
 
@@ -5457,6 +5648,7 @@ export namespace Prisma {
     emergencyContactName: string | null
     emergencyContactPhone: string | null
     numberOfOccupants: number | null
+    lastAnnouncementReadAt: Date | null
     createdAt: Date | null
   }
 
@@ -5471,6 +5663,7 @@ export namespace Prisma {
     emergencyContactName: number
     emergencyContactPhone: number
     numberOfOccupants: number
+    lastAnnouncementReadAt: number
     createdAt: number
     _all: number
   }
@@ -5497,6 +5690,7 @@ export namespace Prisma {
     emergencyContactName?: true
     emergencyContactPhone?: true
     numberOfOccupants?: true
+    lastAnnouncementReadAt?: true
     createdAt?: true
   }
 
@@ -5511,6 +5705,7 @@ export namespace Prisma {
     emergencyContactName?: true
     emergencyContactPhone?: true
     numberOfOccupants?: true
+    lastAnnouncementReadAt?: true
     createdAt?: true
   }
 
@@ -5525,6 +5720,7 @@ export namespace Prisma {
     emergencyContactName?: true
     emergencyContactPhone?: true
     numberOfOccupants?: true
+    lastAnnouncementReadAt?: true
     createdAt?: true
     _all?: true
   }
@@ -5626,6 +5822,7 @@ export namespace Prisma {
     emergencyContactName: string | null
     emergencyContactPhone: string | null
     numberOfOccupants: number | null
+    lastAnnouncementReadAt: Date | null
     createdAt: Date
     _count: TenantCountAggregateOutputType | null
     _avg: TenantAvgAggregateOutputType | null
@@ -5659,6 +5856,7 @@ export namespace Prisma {
     emergencyContactName?: boolean
     emergencyContactPhone?: boolean
     numberOfOccupants?: boolean
+    lastAnnouncementReadAt?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     unit?: boolean | UnitDefaultArgs<ExtArgs>
@@ -5679,6 +5877,7 @@ export namespace Prisma {
     emergencyContactName?: boolean
     emergencyContactPhone?: boolean
     numberOfOccupants?: boolean
+    lastAnnouncementReadAt?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     unit?: boolean | UnitDefaultArgs<ExtArgs>
@@ -5695,6 +5894,7 @@ export namespace Prisma {
     emergencyContactName?: boolean
     emergencyContactPhone?: boolean
     numberOfOccupants?: boolean
+    lastAnnouncementReadAt?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     unit?: boolean | UnitDefaultArgs<ExtArgs>
@@ -5711,10 +5911,11 @@ export namespace Prisma {
     emergencyContactName?: boolean
     emergencyContactPhone?: boolean
     numberOfOccupants?: boolean
+    lastAnnouncementReadAt?: boolean
     createdAt?: boolean
   }
 
-  export type TenantOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "unitId" | "rentAmount" | "startDate" | "isActive" | "nationalId" | "emergencyContactName" | "emergencyContactPhone" | "numberOfOccupants" | "createdAt", ExtArgs["result"]["tenant"]>
+  export type TenantOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "unitId" | "rentAmount" | "startDate" | "isActive" | "nationalId" | "emergencyContactName" | "emergencyContactPhone" | "numberOfOccupants" | "lastAnnouncementReadAt" | "createdAt", ExtArgs["result"]["tenant"]>
   export type TenantInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     unit?: boolean | UnitDefaultArgs<ExtArgs>
@@ -5752,6 +5953,7 @@ export namespace Prisma {
       emergencyContactName: string | null
       emergencyContactPhone: string | null
       numberOfOccupants: number | null
+      lastAnnouncementReadAt: Date | null
       createdAt: Date
     }, ExtArgs["result"]["tenant"]>
     composites: {}
@@ -6191,6 +6393,7 @@ export namespace Prisma {
     readonly emergencyContactName: FieldRef<"Tenant", 'String'>
     readonly emergencyContactPhone: FieldRef<"Tenant", 'String'>
     readonly numberOfOccupants: FieldRef<"Tenant", 'Int'>
+    readonly lastAnnouncementReadAt: FieldRef<"Tenant", 'DateTime'>
     readonly createdAt: FieldRef<"Tenant", 'DateTime'>
   }
     
@@ -9186,6 +9389,8 @@ export namespace Prisma {
     createdAt?: boolean
     authorId?: boolean
     author?: boolean | UserDefaultArgs<ExtArgs>
+    comments?: boolean | Announcement$commentsArgs<ExtArgs>
+    _count?: boolean | AnnouncementCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["announcement"]>
 
   export type AnnouncementSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -9217,6 +9422,8 @@ export namespace Prisma {
   export type AnnouncementOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "body" | "createdAt" | "authorId", ExtArgs["result"]["announcement"]>
   export type AnnouncementInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     author?: boolean | UserDefaultArgs<ExtArgs>
+    comments?: boolean | Announcement$commentsArgs<ExtArgs>
+    _count?: boolean | AnnouncementCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type AnnouncementIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     author?: boolean | UserDefaultArgs<ExtArgs>
@@ -9229,6 +9436,7 @@ export namespace Prisma {
     name: "Announcement"
     objects: {
       author: Prisma.$UserPayload<ExtArgs>
+      comments: Prisma.$CommentPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -9631,6 +9839,7 @@ export namespace Prisma {
   export interface Prisma__AnnouncementClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     author<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    comments<T extends Announcement$commentsArgs<ExtArgs> = {}>(args?: Subset<T, Announcement$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10066,6 +10275,30 @@ export namespace Prisma {
   }
 
   /**
+   * Announcement.comments
+   */
+  export type Announcement$commentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+    where?: CommentWhereInput
+    orderBy?: CommentOrderByWithRelationInput | CommentOrderByWithRelationInput[]
+    cursor?: CommentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CommentScalarFieldEnum | CommentScalarFieldEnum[]
+  }
+
+  /**
    * Announcement without action
    */
   export type AnnouncementDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -10101,6 +10334,8 @@ export namespace Prisma {
     tenantId: string | null
     createdAt: Date | null
     isRead: boolean | null
+    parentId: string | null
+    senderRole: string | null
   }
 
   export type ContactMessageMaxAggregateOutputType = {
@@ -10110,6 +10345,8 @@ export namespace Prisma {
     tenantId: string | null
     createdAt: Date | null
     isRead: boolean | null
+    parentId: string | null
+    senderRole: string | null
   }
 
   export type ContactMessageCountAggregateOutputType = {
@@ -10119,6 +10356,8 @@ export namespace Prisma {
     tenantId: number
     createdAt: number
     isRead: number
+    parentId: number
+    senderRole: number
     _all: number
   }
 
@@ -10130,6 +10369,8 @@ export namespace Prisma {
     tenantId?: true
     createdAt?: true
     isRead?: true
+    parentId?: true
+    senderRole?: true
   }
 
   export type ContactMessageMaxAggregateInputType = {
@@ -10139,6 +10380,8 @@ export namespace Prisma {
     tenantId?: true
     createdAt?: true
     isRead?: true
+    parentId?: true
+    senderRole?: true
   }
 
   export type ContactMessageCountAggregateInputType = {
@@ -10148,6 +10391,8 @@ export namespace Prisma {
     tenantId?: true
     createdAt?: true
     isRead?: true
+    parentId?: true
+    senderRole?: true
     _all?: true
   }
 
@@ -10230,6 +10475,8 @@ export namespace Prisma {
     tenantId: string
     createdAt: Date
     isRead: boolean
+    parentId: string | null
+    senderRole: string
     _count: ContactMessageCountAggregateOutputType | null
     _min: ContactMessageMinAggregateOutputType | null
     _max: ContactMessageMaxAggregateOutputType | null
@@ -10256,7 +10503,12 @@ export namespace Prisma {
     tenantId?: boolean
     createdAt?: boolean
     isRead?: boolean
+    parentId?: boolean
+    senderRole?: boolean
     tenant?: boolean | UserDefaultArgs<ExtArgs>
+    parent?: boolean | ContactMessage$parentArgs<ExtArgs>
+    replies?: boolean | ContactMessage$repliesArgs<ExtArgs>
+    _count?: boolean | ContactMessageCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["contactMessage"]>
 
   export type ContactMessageSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -10266,7 +10518,10 @@ export namespace Prisma {
     tenantId?: boolean
     createdAt?: boolean
     isRead?: boolean
+    parentId?: boolean
+    senderRole?: boolean
     tenant?: boolean | UserDefaultArgs<ExtArgs>
+    parent?: boolean | ContactMessage$parentArgs<ExtArgs>
   }, ExtArgs["result"]["contactMessage"]>
 
   export type ContactMessageSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -10276,7 +10531,10 @@ export namespace Prisma {
     tenantId?: boolean
     createdAt?: boolean
     isRead?: boolean
+    parentId?: boolean
+    senderRole?: boolean
     tenant?: boolean | UserDefaultArgs<ExtArgs>
+    parent?: boolean | ContactMessage$parentArgs<ExtArgs>
   }, ExtArgs["result"]["contactMessage"]>
 
   export type ContactMessageSelectScalar = {
@@ -10286,23 +10544,32 @@ export namespace Prisma {
     tenantId?: boolean
     createdAt?: boolean
     isRead?: boolean
+    parentId?: boolean
+    senderRole?: boolean
   }
 
-  export type ContactMessageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "subject" | "message" | "tenantId" | "createdAt" | "isRead", ExtArgs["result"]["contactMessage"]>
+  export type ContactMessageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "subject" | "message" | "tenantId" | "createdAt" | "isRead" | "parentId" | "senderRole", ExtArgs["result"]["contactMessage"]>
   export type ContactMessageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tenant?: boolean | UserDefaultArgs<ExtArgs>
+    parent?: boolean | ContactMessage$parentArgs<ExtArgs>
+    replies?: boolean | ContactMessage$repliesArgs<ExtArgs>
+    _count?: boolean | ContactMessageCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ContactMessageIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tenant?: boolean | UserDefaultArgs<ExtArgs>
+    parent?: boolean | ContactMessage$parentArgs<ExtArgs>
   }
   export type ContactMessageIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tenant?: boolean | UserDefaultArgs<ExtArgs>
+    parent?: boolean | ContactMessage$parentArgs<ExtArgs>
   }
 
   export type $ContactMessagePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "ContactMessage"
     objects: {
       tenant: Prisma.$UserPayload<ExtArgs>
+      parent: Prisma.$ContactMessagePayload<ExtArgs> | null
+      replies: Prisma.$ContactMessagePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -10311,6 +10578,8 @@ export namespace Prisma {
       tenantId: string
       createdAt: Date
       isRead: boolean
+      parentId: string | null
+      senderRole: string
     }, ExtArgs["result"]["contactMessage"]>
     composites: {}
   }
@@ -10706,6 +10975,8 @@ export namespace Prisma {
   export interface Prisma__ContactMessageClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     tenant<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    parent<T extends ContactMessage$parentArgs<ExtArgs> = {}>(args?: Subset<T, ContactMessage$parentArgs<ExtArgs>>): Prisma__ContactMessageClient<$Result.GetResult<Prisma.$ContactMessagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    replies<T extends ContactMessage$repliesArgs<ExtArgs> = {}>(args?: Subset<T, ContactMessage$repliesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContactMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10741,6 +11012,8 @@ export namespace Prisma {
     readonly tenantId: FieldRef<"ContactMessage", 'String'>
     readonly createdAt: FieldRef<"ContactMessage", 'DateTime'>
     readonly isRead: FieldRef<"ContactMessage", 'Boolean'>
+    readonly parentId: FieldRef<"ContactMessage", 'String'>
+    readonly senderRole: FieldRef<"ContactMessage", 'String'>
   }
     
 
@@ -11139,6 +11412,49 @@ export namespace Prisma {
      * Limit how many ContactMessages to delete.
      */
     limit?: number
+  }
+
+  /**
+   * ContactMessage.parent
+   */
+  export type ContactMessage$parentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactMessage
+     */
+    select?: ContactMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactMessage
+     */
+    omit?: ContactMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactMessageInclude<ExtArgs> | null
+    where?: ContactMessageWhereInput
+  }
+
+  /**
+   * ContactMessage.replies
+   */
+  export type ContactMessage$repliesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactMessage
+     */
+    select?: ContactMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactMessage
+     */
+    omit?: ContactMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactMessageInclude<ExtArgs> | null
+    where?: ContactMessageWhereInput
+    orderBy?: ContactMessageOrderByWithRelationInput | ContactMessageOrderByWithRelationInput[]
+    cursor?: ContactMessageWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ContactMessageScalarFieldEnum | ContactMessageScalarFieldEnum[]
   }
 
   /**
@@ -14723,6 +15039,1077 @@ export namespace Prisma {
 
 
   /**
+   * Model Comment
+   */
+
+  export type AggregateComment = {
+    _count: CommentCountAggregateOutputType | null
+    _min: CommentMinAggregateOutputType | null
+    _max: CommentMaxAggregateOutputType | null
+  }
+
+  export type CommentMinAggregateOutputType = {
+    id: string | null
+    content: string | null
+    createdAt: Date | null
+    authorId: string | null
+    announcementId: string | null
+  }
+
+  export type CommentMaxAggregateOutputType = {
+    id: string | null
+    content: string | null
+    createdAt: Date | null
+    authorId: string | null
+    announcementId: string | null
+  }
+
+  export type CommentCountAggregateOutputType = {
+    id: number
+    content: number
+    createdAt: number
+    authorId: number
+    announcementId: number
+    _all: number
+  }
+
+
+  export type CommentMinAggregateInputType = {
+    id?: true
+    content?: true
+    createdAt?: true
+    authorId?: true
+    announcementId?: true
+  }
+
+  export type CommentMaxAggregateInputType = {
+    id?: true
+    content?: true
+    createdAt?: true
+    authorId?: true
+    announcementId?: true
+  }
+
+  export type CommentCountAggregateInputType = {
+    id?: true
+    content?: true
+    createdAt?: true
+    authorId?: true
+    announcementId?: true
+    _all?: true
+  }
+
+  export type CommentAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Comment to aggregate.
+     */
+    where?: CommentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Comments to fetch.
+     */
+    orderBy?: CommentOrderByWithRelationInput | CommentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CommentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Comments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Comments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Comments
+    **/
+    _count?: true | CommentCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CommentMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CommentMaxAggregateInputType
+  }
+
+  export type GetCommentAggregateType<T extends CommentAggregateArgs> = {
+        [P in keyof T & keyof AggregateComment]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateComment[P]>
+      : GetScalarType<T[P], AggregateComment[P]>
+  }
+
+
+
+
+  export type CommentGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CommentWhereInput
+    orderBy?: CommentOrderByWithAggregationInput | CommentOrderByWithAggregationInput[]
+    by: CommentScalarFieldEnum[] | CommentScalarFieldEnum
+    having?: CommentScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CommentCountAggregateInputType | true
+    _min?: CommentMinAggregateInputType
+    _max?: CommentMaxAggregateInputType
+  }
+
+  export type CommentGroupByOutputType = {
+    id: string
+    content: string
+    createdAt: Date
+    authorId: string
+    announcementId: string
+    _count: CommentCountAggregateOutputType | null
+    _min: CommentMinAggregateOutputType | null
+    _max: CommentMaxAggregateOutputType | null
+  }
+
+  type GetCommentGroupByPayload<T extends CommentGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CommentGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CommentGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CommentGroupByOutputType[P]>
+            : GetScalarType<T[P], CommentGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CommentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    content?: boolean
+    createdAt?: boolean
+    authorId?: boolean
+    announcementId?: boolean
+    author?: boolean | UserDefaultArgs<ExtArgs>
+    announcement?: boolean | AnnouncementDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["comment"]>
+
+  export type CommentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    content?: boolean
+    createdAt?: boolean
+    authorId?: boolean
+    announcementId?: boolean
+    author?: boolean | UserDefaultArgs<ExtArgs>
+    announcement?: boolean | AnnouncementDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["comment"]>
+
+  export type CommentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    content?: boolean
+    createdAt?: boolean
+    authorId?: boolean
+    announcementId?: boolean
+    author?: boolean | UserDefaultArgs<ExtArgs>
+    announcement?: boolean | AnnouncementDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["comment"]>
+
+  export type CommentSelectScalar = {
+    id?: boolean
+    content?: boolean
+    createdAt?: boolean
+    authorId?: boolean
+    announcementId?: boolean
+  }
+
+  export type CommentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "content" | "createdAt" | "authorId" | "announcementId", ExtArgs["result"]["comment"]>
+  export type CommentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    author?: boolean | UserDefaultArgs<ExtArgs>
+    announcement?: boolean | AnnouncementDefaultArgs<ExtArgs>
+  }
+  export type CommentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    author?: boolean | UserDefaultArgs<ExtArgs>
+    announcement?: boolean | AnnouncementDefaultArgs<ExtArgs>
+  }
+  export type CommentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    author?: boolean | UserDefaultArgs<ExtArgs>
+    announcement?: boolean | AnnouncementDefaultArgs<ExtArgs>
+  }
+
+  export type $CommentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Comment"
+    objects: {
+      author: Prisma.$UserPayload<ExtArgs>
+      announcement: Prisma.$AnnouncementPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      content: string
+      createdAt: Date
+      authorId: string
+      announcementId: string
+    }, ExtArgs["result"]["comment"]>
+    composites: {}
+  }
+
+  type CommentGetPayload<S extends boolean | null | undefined | CommentDefaultArgs> = $Result.GetResult<Prisma.$CommentPayload, S>
+
+  type CommentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CommentFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CommentCountAggregateInputType | true
+    }
+
+  export interface CommentDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Comment'], meta: { name: 'Comment' } }
+    /**
+     * Find zero or one Comment that matches the filter.
+     * @param {CommentFindUniqueArgs} args - Arguments to find a Comment
+     * @example
+     * // Get one Comment
+     * const comment = await prisma.comment.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CommentFindUniqueArgs>(args: SelectSubset<T, CommentFindUniqueArgs<ExtArgs>>): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Comment that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CommentFindUniqueOrThrowArgs} args - Arguments to find a Comment
+     * @example
+     * // Get one Comment
+     * const comment = await prisma.comment.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CommentFindUniqueOrThrowArgs>(args: SelectSubset<T, CommentFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Comment that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommentFindFirstArgs} args - Arguments to find a Comment
+     * @example
+     * // Get one Comment
+     * const comment = await prisma.comment.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CommentFindFirstArgs>(args?: SelectSubset<T, CommentFindFirstArgs<ExtArgs>>): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Comment that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommentFindFirstOrThrowArgs} args - Arguments to find a Comment
+     * @example
+     * // Get one Comment
+     * const comment = await prisma.comment.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CommentFindFirstOrThrowArgs>(args?: SelectSubset<T, CommentFindFirstOrThrowArgs<ExtArgs>>): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Comments that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommentFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Comments
+     * const comments = await prisma.comment.findMany()
+     * 
+     * // Get first 10 Comments
+     * const comments = await prisma.comment.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const commentWithIdOnly = await prisma.comment.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CommentFindManyArgs>(args?: SelectSubset<T, CommentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Comment.
+     * @param {CommentCreateArgs} args - Arguments to create a Comment.
+     * @example
+     * // Create one Comment
+     * const Comment = await prisma.comment.create({
+     *   data: {
+     *     // ... data to create a Comment
+     *   }
+     * })
+     * 
+     */
+    create<T extends CommentCreateArgs>(args: SelectSubset<T, CommentCreateArgs<ExtArgs>>): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Comments.
+     * @param {CommentCreateManyArgs} args - Arguments to create many Comments.
+     * @example
+     * // Create many Comments
+     * const comment = await prisma.comment.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CommentCreateManyArgs>(args?: SelectSubset<T, CommentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Comments and returns the data saved in the database.
+     * @param {CommentCreateManyAndReturnArgs} args - Arguments to create many Comments.
+     * @example
+     * // Create many Comments
+     * const comment = await prisma.comment.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Comments and only return the `id`
+     * const commentWithIdOnly = await prisma.comment.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CommentCreateManyAndReturnArgs>(args?: SelectSubset<T, CommentCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Comment.
+     * @param {CommentDeleteArgs} args - Arguments to delete one Comment.
+     * @example
+     * // Delete one Comment
+     * const Comment = await prisma.comment.delete({
+     *   where: {
+     *     // ... filter to delete one Comment
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CommentDeleteArgs>(args: SelectSubset<T, CommentDeleteArgs<ExtArgs>>): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Comment.
+     * @param {CommentUpdateArgs} args - Arguments to update one Comment.
+     * @example
+     * // Update one Comment
+     * const comment = await prisma.comment.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CommentUpdateArgs>(args: SelectSubset<T, CommentUpdateArgs<ExtArgs>>): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Comments.
+     * @param {CommentDeleteManyArgs} args - Arguments to filter Comments to delete.
+     * @example
+     * // Delete a few Comments
+     * const { count } = await prisma.comment.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CommentDeleteManyArgs>(args?: SelectSubset<T, CommentDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Comments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommentUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Comments
+     * const comment = await prisma.comment.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CommentUpdateManyArgs>(args: SelectSubset<T, CommentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Comments and returns the data updated in the database.
+     * @param {CommentUpdateManyAndReturnArgs} args - Arguments to update many Comments.
+     * @example
+     * // Update many Comments
+     * const comment = await prisma.comment.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Comments and only return the `id`
+     * const commentWithIdOnly = await prisma.comment.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CommentUpdateManyAndReturnArgs>(args: SelectSubset<T, CommentUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Comment.
+     * @param {CommentUpsertArgs} args - Arguments to update or create a Comment.
+     * @example
+     * // Update or create a Comment
+     * const comment = await prisma.comment.upsert({
+     *   create: {
+     *     // ... data to create a Comment
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Comment we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CommentUpsertArgs>(args: SelectSubset<T, CommentUpsertArgs<ExtArgs>>): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Comments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommentCountArgs} args - Arguments to filter Comments to count.
+     * @example
+     * // Count the number of Comments
+     * const count = await prisma.comment.count({
+     *   where: {
+     *     // ... the filter for the Comments we want to count
+     *   }
+     * })
+    **/
+    count<T extends CommentCountArgs>(
+      args?: Subset<T, CommentCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CommentCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Comment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CommentAggregateArgs>(args: Subset<T, CommentAggregateArgs>): Prisma.PrismaPromise<GetCommentAggregateType<T>>
+
+    /**
+     * Group by Comment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommentGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CommentGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CommentGroupByArgs['orderBy'] }
+        : { orderBy?: CommentGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CommentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCommentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Comment model
+   */
+  readonly fields: CommentFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Comment.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CommentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    author<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    announcement<T extends AnnouncementDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AnnouncementDefaultArgs<ExtArgs>>): Prisma__AnnouncementClient<$Result.GetResult<Prisma.$AnnouncementPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Comment model
+   */
+  interface CommentFieldRefs {
+    readonly id: FieldRef<"Comment", 'String'>
+    readonly content: FieldRef<"Comment", 'String'>
+    readonly createdAt: FieldRef<"Comment", 'DateTime'>
+    readonly authorId: FieldRef<"Comment", 'String'>
+    readonly announcementId: FieldRef<"Comment", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Comment findUnique
+   */
+  export type CommentFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+    /**
+     * Filter, which Comment to fetch.
+     */
+    where: CommentWhereUniqueInput
+  }
+
+  /**
+   * Comment findUniqueOrThrow
+   */
+  export type CommentFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+    /**
+     * Filter, which Comment to fetch.
+     */
+    where: CommentWhereUniqueInput
+  }
+
+  /**
+   * Comment findFirst
+   */
+  export type CommentFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+    /**
+     * Filter, which Comment to fetch.
+     */
+    where?: CommentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Comments to fetch.
+     */
+    orderBy?: CommentOrderByWithRelationInput | CommentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Comments.
+     */
+    cursor?: CommentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Comments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Comments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Comments.
+     */
+    distinct?: CommentScalarFieldEnum | CommentScalarFieldEnum[]
+  }
+
+  /**
+   * Comment findFirstOrThrow
+   */
+  export type CommentFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+    /**
+     * Filter, which Comment to fetch.
+     */
+    where?: CommentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Comments to fetch.
+     */
+    orderBy?: CommentOrderByWithRelationInput | CommentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Comments.
+     */
+    cursor?: CommentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Comments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Comments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Comments.
+     */
+    distinct?: CommentScalarFieldEnum | CommentScalarFieldEnum[]
+  }
+
+  /**
+   * Comment findMany
+   */
+  export type CommentFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+    /**
+     * Filter, which Comments to fetch.
+     */
+    where?: CommentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Comments to fetch.
+     */
+    orderBy?: CommentOrderByWithRelationInput | CommentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Comments.
+     */
+    cursor?: CommentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Comments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Comments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Comments.
+     */
+    distinct?: CommentScalarFieldEnum | CommentScalarFieldEnum[]
+  }
+
+  /**
+   * Comment create
+   */
+  export type CommentCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Comment.
+     */
+    data: XOR<CommentCreateInput, CommentUncheckedCreateInput>
+  }
+
+  /**
+   * Comment createMany
+   */
+  export type CommentCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Comments.
+     */
+    data: CommentCreateManyInput | CommentCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Comment createManyAndReturn
+   */
+  export type CommentCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * The data used to create many Comments.
+     */
+    data: CommentCreateManyInput | CommentCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Comment update
+   */
+  export type CommentUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Comment.
+     */
+    data: XOR<CommentUpdateInput, CommentUncheckedUpdateInput>
+    /**
+     * Choose, which Comment to update.
+     */
+    where: CommentWhereUniqueInput
+  }
+
+  /**
+   * Comment updateMany
+   */
+  export type CommentUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Comments.
+     */
+    data: XOR<CommentUpdateManyMutationInput, CommentUncheckedUpdateManyInput>
+    /**
+     * Filter which Comments to update
+     */
+    where?: CommentWhereInput
+    /**
+     * Limit how many Comments to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Comment updateManyAndReturn
+   */
+  export type CommentUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * The data used to update Comments.
+     */
+    data: XOR<CommentUpdateManyMutationInput, CommentUncheckedUpdateManyInput>
+    /**
+     * Filter which Comments to update
+     */
+    where?: CommentWhereInput
+    /**
+     * Limit how many Comments to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Comment upsert
+   */
+  export type CommentUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Comment to update in case it exists.
+     */
+    where: CommentWhereUniqueInput
+    /**
+     * In case the Comment found by the `where` argument doesn't exist, create a new Comment with this data.
+     */
+    create: XOR<CommentCreateInput, CommentUncheckedCreateInput>
+    /**
+     * In case the Comment was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CommentUpdateInput, CommentUncheckedUpdateInput>
+  }
+
+  /**
+   * Comment delete
+   */
+  export type CommentDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+    /**
+     * Filter which Comment to delete.
+     */
+    where: CommentWhereUniqueInput
+  }
+
+  /**
+   * Comment deleteMany
+   */
+  export type CommentDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Comments to delete
+     */
+    where?: CommentWhereInput
+    /**
+     * Limit how many Comments to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Comment without action
+   */
+  export type CommentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -14782,6 +16169,7 @@ export namespace Prisma {
     emergencyContactName: 'emergencyContactName',
     emergencyContactPhone: 'emergencyContactPhone',
     numberOfOccupants: 'numberOfOccupants',
+    lastAnnouncementReadAt: 'lastAnnouncementReadAt',
     createdAt: 'createdAt'
   };
 
@@ -14836,7 +16224,9 @@ export namespace Prisma {
     message: 'message',
     tenantId: 'tenantId',
     createdAt: 'createdAt',
-    isRead: 'isRead'
+    isRead: 'isRead',
+    parentId: 'parentId',
+    senderRole: 'senderRole'
   };
 
   export type ContactMessageScalarFieldEnum = (typeof ContactMessageScalarFieldEnum)[keyof typeof ContactMessageScalarFieldEnum]
@@ -14901,6 +16291,17 @@ export namespace Prisma {
   };
 
   export type ClearanceCertificateScalarFieldEnum = (typeof ClearanceCertificateScalarFieldEnum)[keyof typeof ClearanceCertificateScalarFieldEnum]
+
+
+  export const CommentScalarFieldEnum: {
+    id: 'id',
+    content: 'content',
+    createdAt: 'createdAt',
+    authorId: 'authorId',
+    announcementId: 'announcementId'
+  };
+
+  export type CommentScalarFieldEnum = (typeof CommentScalarFieldEnum)[keyof typeof CommentScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -15122,6 +16523,7 @@ export namespace Prisma {
     adminProperties?: PropertyListRelationFilter
     announcements?: AnnouncementListRelationFilter
     contactMessages?: ContactMessageListRelationFilter
+    comments?: CommentListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -15137,6 +16539,7 @@ export namespace Prisma {
     adminProperties?: PropertyOrderByRelationAggregateInput
     announcements?: AnnouncementOrderByRelationAggregateInput
     contactMessages?: ContactMessageOrderByRelationAggregateInput
+    comments?: CommentOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -15155,6 +16558,7 @@ export namespace Prisma {
     adminProperties?: PropertyListRelationFilter
     announcements?: AnnouncementListRelationFilter
     contactMessages?: ContactMessageListRelationFilter
+    comments?: CommentListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -15313,6 +16717,7 @@ export namespace Prisma {
     emergencyContactName?: StringNullableFilter<"Tenant"> | string | null
     emergencyContactPhone?: StringNullableFilter<"Tenant"> | string | null
     numberOfOccupants?: IntNullableFilter<"Tenant"> | number | null
+    lastAnnouncementReadAt?: DateTimeNullableFilter<"Tenant"> | Date | string | null
     createdAt?: DateTimeFilter<"Tenant"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     unit?: XOR<UnitScalarRelationFilter, UnitWhereInput>
@@ -15332,6 +16737,7 @@ export namespace Prisma {
     emergencyContactName?: SortOrderInput | SortOrder
     emergencyContactPhone?: SortOrderInput | SortOrder
     numberOfOccupants?: SortOrderInput | SortOrder
+    lastAnnouncementReadAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     user?: UserOrderByWithRelationInput
     unit?: UnitOrderByWithRelationInput
@@ -15354,6 +16760,7 @@ export namespace Prisma {
     emergencyContactName?: StringNullableFilter<"Tenant"> | string | null
     emergencyContactPhone?: StringNullableFilter<"Tenant"> | string | null
     numberOfOccupants?: IntNullableFilter<"Tenant"> | number | null
+    lastAnnouncementReadAt?: DateTimeNullableFilter<"Tenant"> | Date | string | null
     createdAt?: DateTimeFilter<"Tenant"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     unit?: XOR<UnitScalarRelationFilter, UnitWhereInput>
@@ -15373,6 +16780,7 @@ export namespace Prisma {
     emergencyContactName?: SortOrderInput | SortOrder
     emergencyContactPhone?: SortOrderInput | SortOrder
     numberOfOccupants?: SortOrderInput | SortOrder
+    lastAnnouncementReadAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     _count?: TenantCountOrderByAggregateInput
     _avg?: TenantAvgOrderByAggregateInput
@@ -15395,6 +16803,7 @@ export namespace Prisma {
     emergencyContactName?: StringNullableWithAggregatesFilter<"Tenant"> | string | null
     emergencyContactPhone?: StringNullableWithAggregatesFilter<"Tenant"> | string | null
     numberOfOccupants?: IntNullableWithAggregatesFilter<"Tenant"> | number | null
+    lastAnnouncementReadAt?: DateTimeNullableWithAggregatesFilter<"Tenant"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Tenant"> | Date | string
   }
 
@@ -15573,6 +16982,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Announcement"> | Date | string
     authorId?: StringFilter<"Announcement"> | string
     author?: XOR<UserScalarRelationFilter, UserWhereInput>
+    comments?: CommentListRelationFilter
   }
 
   export type AnnouncementOrderByWithRelationInput = {
@@ -15582,6 +16992,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     authorId?: SortOrder
     author?: UserOrderByWithRelationInput
+    comments?: CommentOrderByRelationAggregateInput
   }
 
   export type AnnouncementWhereUniqueInput = Prisma.AtLeast<{
@@ -15594,6 +17005,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Announcement"> | Date | string
     authorId?: StringFilter<"Announcement"> | string
     author?: XOR<UserScalarRelationFilter, UserWhereInput>
+    comments?: CommentListRelationFilter
   }, "id">
 
   export type AnnouncementOrderByWithAggregationInput = {
@@ -15628,7 +17040,11 @@ export namespace Prisma {
     tenantId?: StringFilter<"ContactMessage"> | string
     createdAt?: DateTimeFilter<"ContactMessage"> | Date | string
     isRead?: BoolFilter<"ContactMessage"> | boolean
+    parentId?: StringNullableFilter<"ContactMessage"> | string | null
+    senderRole?: StringFilter<"ContactMessage"> | string
     tenant?: XOR<UserScalarRelationFilter, UserWhereInput>
+    parent?: XOR<ContactMessageNullableScalarRelationFilter, ContactMessageWhereInput> | null
+    replies?: ContactMessageListRelationFilter
   }
 
   export type ContactMessageOrderByWithRelationInput = {
@@ -15638,7 +17054,11 @@ export namespace Prisma {
     tenantId?: SortOrder
     createdAt?: SortOrder
     isRead?: SortOrder
+    parentId?: SortOrderInput | SortOrder
+    senderRole?: SortOrder
     tenant?: UserOrderByWithRelationInput
+    parent?: ContactMessageOrderByWithRelationInput
+    replies?: ContactMessageOrderByRelationAggregateInput
   }
 
   export type ContactMessageWhereUniqueInput = Prisma.AtLeast<{
@@ -15651,7 +17071,11 @@ export namespace Prisma {
     tenantId?: StringFilter<"ContactMessage"> | string
     createdAt?: DateTimeFilter<"ContactMessage"> | Date | string
     isRead?: BoolFilter<"ContactMessage"> | boolean
+    parentId?: StringNullableFilter<"ContactMessage"> | string | null
+    senderRole?: StringFilter<"ContactMessage"> | string
     tenant?: XOR<UserScalarRelationFilter, UserWhereInput>
+    parent?: XOR<ContactMessageNullableScalarRelationFilter, ContactMessageWhereInput> | null
+    replies?: ContactMessageListRelationFilter
   }, "id">
 
   export type ContactMessageOrderByWithAggregationInput = {
@@ -15661,6 +17085,8 @@ export namespace Prisma {
     tenantId?: SortOrder
     createdAt?: SortOrder
     isRead?: SortOrder
+    parentId?: SortOrderInput | SortOrder
+    senderRole?: SortOrder
     _count?: ContactMessageCountOrderByAggregateInput
     _max?: ContactMessageMaxOrderByAggregateInput
     _min?: ContactMessageMinOrderByAggregateInput
@@ -15676,6 +17102,8 @@ export namespace Prisma {
     tenantId?: StringWithAggregatesFilter<"ContactMessage"> | string
     createdAt?: DateTimeWithAggregatesFilter<"ContactMessage"> | Date | string
     isRead?: BoolWithAggregatesFilter<"ContactMessage"> | boolean
+    parentId?: StringNullableWithAggregatesFilter<"ContactMessage"> | string | null
+    senderRole?: StringWithAggregatesFilter<"ContactMessage"> | string
   }
 
   export type OccupantWhereInput = {
@@ -15984,6 +17412,64 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"ClearanceCertificate"> | Date | string
   }
 
+  export type CommentWhereInput = {
+    AND?: CommentWhereInput | CommentWhereInput[]
+    OR?: CommentWhereInput[]
+    NOT?: CommentWhereInput | CommentWhereInput[]
+    id?: StringFilter<"Comment"> | string
+    content?: StringFilter<"Comment"> | string
+    createdAt?: DateTimeFilter<"Comment"> | Date | string
+    authorId?: StringFilter<"Comment"> | string
+    announcementId?: StringFilter<"Comment"> | string
+    author?: XOR<UserScalarRelationFilter, UserWhereInput>
+    announcement?: XOR<AnnouncementScalarRelationFilter, AnnouncementWhereInput>
+  }
+
+  export type CommentOrderByWithRelationInput = {
+    id?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+    authorId?: SortOrder
+    announcementId?: SortOrder
+    author?: UserOrderByWithRelationInput
+    announcement?: AnnouncementOrderByWithRelationInput
+  }
+
+  export type CommentWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: CommentWhereInput | CommentWhereInput[]
+    OR?: CommentWhereInput[]
+    NOT?: CommentWhereInput | CommentWhereInput[]
+    content?: StringFilter<"Comment"> | string
+    createdAt?: DateTimeFilter<"Comment"> | Date | string
+    authorId?: StringFilter<"Comment"> | string
+    announcementId?: StringFilter<"Comment"> | string
+    author?: XOR<UserScalarRelationFilter, UserWhereInput>
+    announcement?: XOR<AnnouncementScalarRelationFilter, AnnouncementWhereInput>
+  }, "id">
+
+  export type CommentOrderByWithAggregationInput = {
+    id?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+    authorId?: SortOrder
+    announcementId?: SortOrder
+    _count?: CommentCountOrderByAggregateInput
+    _max?: CommentMaxOrderByAggregateInput
+    _min?: CommentMinOrderByAggregateInput
+  }
+
+  export type CommentScalarWhereWithAggregatesInput = {
+    AND?: CommentScalarWhereWithAggregatesInput | CommentScalarWhereWithAggregatesInput[]
+    OR?: CommentScalarWhereWithAggregatesInput[]
+    NOT?: CommentScalarWhereWithAggregatesInput | CommentScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Comment"> | string
+    content?: StringWithAggregatesFilter<"Comment"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Comment"> | Date | string
+    authorId?: StringWithAggregatesFilter<"Comment"> | string
+    announcementId?: StringWithAggregatesFilter<"Comment"> | string
+  }
+
   export type UserCreateInput = {
     id?: string
     email: string
@@ -15997,6 +17483,7 @@ export namespace Prisma {
     adminProperties?: PropertyCreateNestedManyWithoutAdminInput
     announcements?: AnnouncementCreateNestedManyWithoutAuthorInput
     contactMessages?: ContactMessageCreateNestedManyWithoutTenantInput
+    comments?: CommentCreateNestedManyWithoutAuthorInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -16012,6 +17499,7 @@ export namespace Prisma {
     adminProperties?: PropertyUncheckedCreateNestedManyWithoutAdminInput
     announcements?: AnnouncementUncheckedCreateNestedManyWithoutAuthorInput
     contactMessages?: ContactMessageUncheckedCreateNestedManyWithoutTenantInput
+    comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput
   }
 
   export type UserUpdateInput = {
@@ -16027,6 +17515,7 @@ export namespace Prisma {
     adminProperties?: PropertyUpdateManyWithoutAdminNestedInput
     announcements?: AnnouncementUpdateManyWithoutAuthorNestedInput
     contactMessages?: ContactMessageUpdateManyWithoutTenantNestedInput
+    comments?: CommentUpdateManyWithoutAuthorNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -16042,6 +17531,7 @@ export namespace Prisma {
     adminProperties?: PropertyUncheckedUpdateManyWithoutAdminNestedInput
     announcements?: AnnouncementUncheckedUpdateManyWithoutAuthorNestedInput
     contactMessages?: ContactMessageUncheckedUpdateManyWithoutTenantNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -16201,6 +17691,7 @@ export namespace Prisma {
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     numberOfOccupants?: number | null
+    lastAnnouncementReadAt?: Date | string | null
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutTenantProfileInput
     unit: UnitCreateNestedOneWithoutTenantsInput
@@ -16220,6 +17711,7 @@ export namespace Prisma {
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     numberOfOccupants?: number | null
+    lastAnnouncementReadAt?: Date | string | null
     createdAt?: Date | string
     occupants?: OccupantUncheckedCreateNestedManyWithoutTenantInput
     contracts?: ContractUncheckedCreateNestedManyWithoutTenantInput
@@ -16235,6 +17727,7 @@ export namespace Prisma {
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     numberOfOccupants?: NullableIntFieldUpdateOperationsInput | number | null
+    lastAnnouncementReadAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantProfileNestedInput
     unit?: UnitUpdateOneRequiredWithoutTenantsNestedInput
@@ -16254,6 +17747,7 @@ export namespace Prisma {
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     numberOfOccupants?: NullableIntFieldUpdateOperationsInput | number | null
+    lastAnnouncementReadAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     occupants?: OccupantUncheckedUpdateManyWithoutTenantNestedInput
     contracts?: ContractUncheckedUpdateManyWithoutTenantNestedInput
@@ -16271,6 +17765,7 @@ export namespace Prisma {
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     numberOfOccupants?: number | null
+    lastAnnouncementReadAt?: Date | string | null
     createdAt?: Date | string
   }
 
@@ -16283,6 +17778,7 @@ export namespace Prisma {
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     numberOfOccupants?: NullableIntFieldUpdateOperationsInput | number | null
+    lastAnnouncementReadAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -16297,6 +17793,7 @@ export namespace Prisma {
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     numberOfOccupants?: NullableIntFieldUpdateOperationsInput | number | null
+    lastAnnouncementReadAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -16482,6 +17979,7 @@ export namespace Prisma {
     body: string
     createdAt?: Date | string
     author: UserCreateNestedOneWithoutAnnouncementsInput
+    comments?: CommentCreateNestedManyWithoutAnnouncementInput
   }
 
   export type AnnouncementUncheckedCreateInput = {
@@ -16490,6 +17988,7 @@ export namespace Prisma {
     body: string
     createdAt?: Date | string
     authorId: string
+    comments?: CommentUncheckedCreateNestedManyWithoutAnnouncementInput
   }
 
   export type AnnouncementUpdateInput = {
@@ -16498,6 +17997,7 @@ export namespace Prisma {
     body?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     author?: UserUpdateOneRequiredWithoutAnnouncementsNestedInput
+    comments?: CommentUpdateManyWithoutAnnouncementNestedInput
   }
 
   export type AnnouncementUncheckedUpdateInput = {
@@ -16506,6 +18006,7 @@ export namespace Prisma {
     body?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     authorId?: StringFieldUpdateOperationsInput | string
+    comments?: CommentUncheckedUpdateManyWithoutAnnouncementNestedInput
   }
 
   export type AnnouncementCreateManyInput = {
@@ -16537,7 +18038,10 @@ export namespace Prisma {
     message: string
     createdAt?: Date | string
     isRead?: boolean
+    senderRole?: string
     tenant: UserCreateNestedOneWithoutContactMessagesInput
+    parent?: ContactMessageCreateNestedOneWithoutRepliesInput
+    replies?: ContactMessageCreateNestedManyWithoutParentInput
   }
 
   export type ContactMessageUncheckedCreateInput = {
@@ -16547,6 +18051,9 @@ export namespace Prisma {
     tenantId: string
     createdAt?: Date | string
     isRead?: boolean
+    parentId?: string | null
+    senderRole?: string
+    replies?: ContactMessageUncheckedCreateNestedManyWithoutParentInput
   }
 
   export type ContactMessageUpdateInput = {
@@ -16555,7 +18062,10 @@ export namespace Prisma {
     message?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isRead?: BoolFieldUpdateOperationsInput | boolean
+    senderRole?: StringFieldUpdateOperationsInput | string
     tenant?: UserUpdateOneRequiredWithoutContactMessagesNestedInput
+    parent?: ContactMessageUpdateOneWithoutRepliesNestedInput
+    replies?: ContactMessageUpdateManyWithoutParentNestedInput
   }
 
   export type ContactMessageUncheckedUpdateInput = {
@@ -16565,6 +18075,9 @@ export namespace Prisma {
     tenantId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isRead?: BoolFieldUpdateOperationsInput | boolean
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    senderRole?: StringFieldUpdateOperationsInput | string
+    replies?: ContactMessageUncheckedUpdateManyWithoutParentNestedInput
   }
 
   export type ContactMessageCreateManyInput = {
@@ -16574,6 +18087,8 @@ export namespace Prisma {
     tenantId: string
     createdAt?: Date | string
     isRead?: boolean
+    parentId?: string | null
+    senderRole?: string
   }
 
   export type ContactMessageUpdateManyMutationInput = {
@@ -16582,6 +18097,7 @@ export namespace Prisma {
     message?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isRead?: BoolFieldUpdateOperationsInput | boolean
+    senderRole?: StringFieldUpdateOperationsInput | string
   }
 
   export type ContactMessageUncheckedUpdateManyInput = {
@@ -16591,6 +18107,8 @@ export namespace Prisma {
     tenantId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isRead?: BoolFieldUpdateOperationsInput | boolean
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    senderRole?: StringFieldUpdateOperationsInput | string
   }
 
   export type OccupantCreateInput = {
@@ -16955,6 +18473,60 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type CommentCreateInput = {
+    id?: string
+    content: string
+    createdAt?: Date | string
+    author: UserCreateNestedOneWithoutCommentsInput
+    announcement: AnnouncementCreateNestedOneWithoutCommentsInput
+  }
+
+  export type CommentUncheckedCreateInput = {
+    id?: string
+    content: string
+    createdAt?: Date | string
+    authorId: string
+    announcementId: string
+  }
+
+  export type CommentUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    author?: UserUpdateOneRequiredWithoutCommentsNestedInput
+    announcement?: AnnouncementUpdateOneRequiredWithoutCommentsNestedInput
+  }
+
+  export type CommentUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    authorId?: StringFieldUpdateOperationsInput | string
+    announcementId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type CommentCreateManyInput = {
+    id?: string
+    content: string
+    createdAt?: Date | string
+    authorId: string
+    announcementId: string
+  }
+
+  export type CommentUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommentUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    authorId?: StringFieldUpdateOperationsInput | string
+    announcementId?: StringFieldUpdateOperationsInput | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -17026,6 +18598,12 @@ export namespace Prisma {
     none?: ContactMessageWhereInput
   }
 
+  export type CommentListRelationFilter = {
+    every?: CommentWhereInput
+    some?: CommentWhereInput
+    none?: CommentWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -17040,6 +18618,10 @@ export namespace Prisma {
   }
 
   export type ContactMessageOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CommentOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -17248,6 +18830,17 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type UnitScalarRelationFilter = {
     is?: UnitWhereInput
     isNot?: UnitWhereInput
@@ -17284,6 +18877,7 @@ export namespace Prisma {
     emergencyContactName?: SortOrder
     emergencyContactPhone?: SortOrder
     numberOfOccupants?: SortOrder
+    lastAnnouncementReadAt?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -17303,6 +18897,7 @@ export namespace Prisma {
     emergencyContactName?: SortOrder
     emergencyContactPhone?: SortOrder
     numberOfOccupants?: SortOrder
+    lastAnnouncementReadAt?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -17317,6 +18912,7 @@ export namespace Prisma {
     emergencyContactName?: SortOrder
     emergencyContactPhone?: SortOrder
     numberOfOccupants?: SortOrder
+    lastAnnouncementReadAt?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -17365,14 +18961,7 @@ export namespace Prisma {
     _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
-  export type EnumBillTypeFilter<$PrismaModel = never> = {
-    equals?: $Enums.BillType | EnumBillTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.BillType[] | ListEnumBillTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.BillType[] | ListEnumBillTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumBillTypeFilter<$PrismaModel> | $Enums.BillType
-  }
-
-  export type DateTimeNullableFilter<$PrismaModel = never> = {
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
     notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
@@ -17380,7 +18969,17 @@ export namespace Prisma {
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type EnumBillTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.BillType | EnumBillTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.BillType[] | ListEnumBillTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BillType[] | ListEnumBillTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumBillTypeFilter<$PrismaModel> | $Enums.BillType
   }
 
   export type EnumPaymentStatusFilter<$PrismaModel = never> = {
@@ -17455,20 +19054,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumBillTypeFilter<$PrismaModel>
     _max?: NestedEnumBillTypeFilter<$PrismaModel>
-  }
-
-  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type EnumPaymentStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -17618,6 +19203,11 @@ export namespace Prisma {
     authorId?: SortOrder
   }
 
+  export type ContactMessageNullableScalarRelationFilter = {
+    is?: ContactMessageWhereInput | null
+    isNot?: ContactMessageWhereInput | null
+  }
+
   export type ContactMessageCountOrderByAggregateInput = {
     id?: SortOrder
     subject?: SortOrder
@@ -17625,6 +19215,8 @@ export namespace Prisma {
     tenantId?: SortOrder
     createdAt?: SortOrder
     isRead?: SortOrder
+    parentId?: SortOrder
+    senderRole?: SortOrder
   }
 
   export type ContactMessageMaxOrderByAggregateInput = {
@@ -17634,6 +19226,8 @@ export namespace Prisma {
     tenantId?: SortOrder
     createdAt?: SortOrder
     isRead?: SortOrder
+    parentId?: SortOrder
+    senderRole?: SortOrder
   }
 
   export type ContactMessageMinOrderByAggregateInput = {
@@ -17643,6 +19237,8 @@ export namespace Prisma {
     tenantId?: SortOrder
     createdAt?: SortOrder
     isRead?: SortOrder
+    parentId?: SortOrder
+    senderRole?: SortOrder
   }
 
   export type OccupantCountOrderByAggregateInput = {
@@ -17925,6 +19521,35 @@ export namespace Prisma {
     _max?: NestedBoolNullableFilter<$PrismaModel>
   }
 
+  export type AnnouncementScalarRelationFilter = {
+    is?: AnnouncementWhereInput
+    isNot?: AnnouncementWhereInput
+  }
+
+  export type CommentCountOrderByAggregateInput = {
+    id?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+    authorId?: SortOrder
+    announcementId?: SortOrder
+  }
+
+  export type CommentMaxOrderByAggregateInput = {
+    id?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+    authorId?: SortOrder
+    announcementId?: SortOrder
+  }
+
+  export type CommentMinOrderByAggregateInput = {
+    id?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+    authorId?: SortOrder
+    announcementId?: SortOrder
+  }
+
   export type TenantCreateNestedOneWithoutUserInput = {
     create?: XOR<TenantCreateWithoutUserInput, TenantUncheckedCreateWithoutUserInput>
     connectOrCreate?: TenantCreateOrConnectWithoutUserInput
@@ -17952,6 +19577,13 @@ export namespace Prisma {
     connect?: ContactMessageWhereUniqueInput | ContactMessageWhereUniqueInput[]
   }
 
+  export type CommentCreateNestedManyWithoutAuthorInput = {
+    create?: XOR<CommentCreateWithoutAuthorInput, CommentUncheckedCreateWithoutAuthorInput> | CommentCreateWithoutAuthorInput[] | CommentUncheckedCreateWithoutAuthorInput[]
+    connectOrCreate?: CommentCreateOrConnectWithoutAuthorInput | CommentCreateOrConnectWithoutAuthorInput[]
+    createMany?: CommentCreateManyAuthorInputEnvelope
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+  }
+
   export type TenantUncheckedCreateNestedOneWithoutUserInput = {
     create?: XOR<TenantCreateWithoutUserInput, TenantUncheckedCreateWithoutUserInput>
     connectOrCreate?: TenantCreateOrConnectWithoutUserInput
@@ -17977,6 +19609,13 @@ export namespace Prisma {
     connectOrCreate?: ContactMessageCreateOrConnectWithoutTenantInput | ContactMessageCreateOrConnectWithoutTenantInput[]
     createMany?: ContactMessageCreateManyTenantInputEnvelope
     connect?: ContactMessageWhereUniqueInput | ContactMessageWhereUniqueInput[]
+  }
+
+  export type CommentUncheckedCreateNestedManyWithoutAuthorInput = {
+    create?: XOR<CommentCreateWithoutAuthorInput, CommentUncheckedCreateWithoutAuthorInput> | CommentCreateWithoutAuthorInput[] | CommentUncheckedCreateWithoutAuthorInput[]
+    connectOrCreate?: CommentCreateOrConnectWithoutAuthorInput | CommentCreateOrConnectWithoutAuthorInput[]
+    createMany?: CommentCreateManyAuthorInputEnvelope
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -18047,6 +19686,20 @@ export namespace Prisma {
     deleteMany?: ContactMessageScalarWhereInput | ContactMessageScalarWhereInput[]
   }
 
+  export type CommentUpdateManyWithoutAuthorNestedInput = {
+    create?: XOR<CommentCreateWithoutAuthorInput, CommentUncheckedCreateWithoutAuthorInput> | CommentCreateWithoutAuthorInput[] | CommentUncheckedCreateWithoutAuthorInput[]
+    connectOrCreate?: CommentCreateOrConnectWithoutAuthorInput | CommentCreateOrConnectWithoutAuthorInput[]
+    upsert?: CommentUpsertWithWhereUniqueWithoutAuthorInput | CommentUpsertWithWhereUniqueWithoutAuthorInput[]
+    createMany?: CommentCreateManyAuthorInputEnvelope
+    set?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    disconnect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    delete?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    update?: CommentUpdateWithWhereUniqueWithoutAuthorInput | CommentUpdateWithWhereUniqueWithoutAuthorInput[]
+    updateMany?: CommentUpdateManyWithWhereWithoutAuthorInput | CommentUpdateManyWithWhereWithoutAuthorInput[]
+    deleteMany?: CommentScalarWhereInput | CommentScalarWhereInput[]
+  }
+
   export type TenantUncheckedUpdateOneWithoutUserNestedInput = {
     create?: XOR<TenantCreateWithoutUserInput, TenantUncheckedCreateWithoutUserInput>
     connectOrCreate?: TenantCreateOrConnectWithoutUserInput
@@ -18097,6 +19750,20 @@ export namespace Prisma {
     update?: ContactMessageUpdateWithWhereUniqueWithoutTenantInput | ContactMessageUpdateWithWhereUniqueWithoutTenantInput[]
     updateMany?: ContactMessageUpdateManyWithWhereWithoutTenantInput | ContactMessageUpdateManyWithWhereWithoutTenantInput[]
     deleteMany?: ContactMessageScalarWhereInput | ContactMessageScalarWhereInput[]
+  }
+
+  export type CommentUncheckedUpdateManyWithoutAuthorNestedInput = {
+    create?: XOR<CommentCreateWithoutAuthorInput, CommentUncheckedCreateWithoutAuthorInput> | CommentCreateWithoutAuthorInput[] | CommentUncheckedCreateWithoutAuthorInput[]
+    connectOrCreate?: CommentCreateOrConnectWithoutAuthorInput | CommentCreateOrConnectWithoutAuthorInput[]
+    upsert?: CommentUpsertWithWhereUniqueWithoutAuthorInput | CommentUpsertWithWhereUniqueWithoutAuthorInput[]
+    createMany?: CommentCreateManyAuthorInputEnvelope
+    set?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    disconnect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    delete?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    update?: CommentUpdateWithWhereUniqueWithoutAuthorInput | CommentUpdateWithWhereUniqueWithoutAuthorInput[]
+    updateMany?: CommentUpdateManyWithWhereWithoutAuthorInput | CommentUpdateManyWithWhereWithoutAuthorInput[]
+    deleteMany?: CommentScalarWhereInput | CommentScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutAdminPropertiesInput = {
@@ -18327,6 +19994,10 @@ export namespace Prisma {
     divide?: number
   }
 
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+  }
+
   export type UserUpdateOneRequiredWithoutTenantProfileNestedInput = {
     create?: XOR<UserCreateWithoutTenantProfileInput, UserUncheckedCreateWithoutTenantProfileInput>
     connectOrCreate?: UserCreateOrConnectWithoutTenantProfileInput
@@ -18455,10 +20126,6 @@ export namespace Prisma {
     set?: $Enums.BillType
   }
 
-  export type NullableDateTimeFieldUpdateOperationsInput = {
-    set?: Date | string | null
-  }
-
   export type EnumPaymentStatusFieldUpdateOperationsInput = {
     set?: $Enums.PaymentStatus
   }
@@ -18523,6 +20190,20 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type CommentCreateNestedManyWithoutAnnouncementInput = {
+    create?: XOR<CommentCreateWithoutAnnouncementInput, CommentUncheckedCreateWithoutAnnouncementInput> | CommentCreateWithoutAnnouncementInput[] | CommentUncheckedCreateWithoutAnnouncementInput[]
+    connectOrCreate?: CommentCreateOrConnectWithoutAnnouncementInput | CommentCreateOrConnectWithoutAnnouncementInput[]
+    createMany?: CommentCreateManyAnnouncementInputEnvelope
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+  }
+
+  export type CommentUncheckedCreateNestedManyWithoutAnnouncementInput = {
+    create?: XOR<CommentCreateWithoutAnnouncementInput, CommentUncheckedCreateWithoutAnnouncementInput> | CommentCreateWithoutAnnouncementInput[] | CommentUncheckedCreateWithoutAnnouncementInput[]
+    connectOrCreate?: CommentCreateOrConnectWithoutAnnouncementInput | CommentCreateOrConnectWithoutAnnouncementInput[]
+    createMany?: CommentCreateManyAnnouncementInputEnvelope
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+  }
+
   export type UserUpdateOneRequiredWithoutAnnouncementsNestedInput = {
     create?: XOR<UserCreateWithoutAnnouncementsInput, UserUncheckedCreateWithoutAnnouncementsInput>
     connectOrCreate?: UserCreateOrConnectWithoutAnnouncementsInput
@@ -18531,10 +20212,58 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAnnouncementsInput, UserUpdateWithoutAnnouncementsInput>, UserUncheckedUpdateWithoutAnnouncementsInput>
   }
 
+  export type CommentUpdateManyWithoutAnnouncementNestedInput = {
+    create?: XOR<CommentCreateWithoutAnnouncementInput, CommentUncheckedCreateWithoutAnnouncementInput> | CommentCreateWithoutAnnouncementInput[] | CommentUncheckedCreateWithoutAnnouncementInput[]
+    connectOrCreate?: CommentCreateOrConnectWithoutAnnouncementInput | CommentCreateOrConnectWithoutAnnouncementInput[]
+    upsert?: CommentUpsertWithWhereUniqueWithoutAnnouncementInput | CommentUpsertWithWhereUniqueWithoutAnnouncementInput[]
+    createMany?: CommentCreateManyAnnouncementInputEnvelope
+    set?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    disconnect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    delete?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    update?: CommentUpdateWithWhereUniqueWithoutAnnouncementInput | CommentUpdateWithWhereUniqueWithoutAnnouncementInput[]
+    updateMany?: CommentUpdateManyWithWhereWithoutAnnouncementInput | CommentUpdateManyWithWhereWithoutAnnouncementInput[]
+    deleteMany?: CommentScalarWhereInput | CommentScalarWhereInput[]
+  }
+
+  export type CommentUncheckedUpdateManyWithoutAnnouncementNestedInput = {
+    create?: XOR<CommentCreateWithoutAnnouncementInput, CommentUncheckedCreateWithoutAnnouncementInput> | CommentCreateWithoutAnnouncementInput[] | CommentUncheckedCreateWithoutAnnouncementInput[]
+    connectOrCreate?: CommentCreateOrConnectWithoutAnnouncementInput | CommentCreateOrConnectWithoutAnnouncementInput[]
+    upsert?: CommentUpsertWithWhereUniqueWithoutAnnouncementInput | CommentUpsertWithWhereUniqueWithoutAnnouncementInput[]
+    createMany?: CommentCreateManyAnnouncementInputEnvelope
+    set?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    disconnect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    delete?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    update?: CommentUpdateWithWhereUniqueWithoutAnnouncementInput | CommentUpdateWithWhereUniqueWithoutAnnouncementInput[]
+    updateMany?: CommentUpdateManyWithWhereWithoutAnnouncementInput | CommentUpdateManyWithWhereWithoutAnnouncementInput[]
+    deleteMany?: CommentScalarWhereInput | CommentScalarWhereInput[]
+  }
+
   export type UserCreateNestedOneWithoutContactMessagesInput = {
     create?: XOR<UserCreateWithoutContactMessagesInput, UserUncheckedCreateWithoutContactMessagesInput>
     connectOrCreate?: UserCreateOrConnectWithoutContactMessagesInput
     connect?: UserWhereUniqueInput
+  }
+
+  export type ContactMessageCreateNestedOneWithoutRepliesInput = {
+    create?: XOR<ContactMessageCreateWithoutRepliesInput, ContactMessageUncheckedCreateWithoutRepliesInput>
+    connectOrCreate?: ContactMessageCreateOrConnectWithoutRepliesInput
+    connect?: ContactMessageWhereUniqueInput
+  }
+
+  export type ContactMessageCreateNestedManyWithoutParentInput = {
+    create?: XOR<ContactMessageCreateWithoutParentInput, ContactMessageUncheckedCreateWithoutParentInput> | ContactMessageCreateWithoutParentInput[] | ContactMessageUncheckedCreateWithoutParentInput[]
+    connectOrCreate?: ContactMessageCreateOrConnectWithoutParentInput | ContactMessageCreateOrConnectWithoutParentInput[]
+    createMany?: ContactMessageCreateManyParentInputEnvelope
+    connect?: ContactMessageWhereUniqueInput | ContactMessageWhereUniqueInput[]
+  }
+
+  export type ContactMessageUncheckedCreateNestedManyWithoutParentInput = {
+    create?: XOR<ContactMessageCreateWithoutParentInput, ContactMessageUncheckedCreateWithoutParentInput> | ContactMessageCreateWithoutParentInput[] | ContactMessageUncheckedCreateWithoutParentInput[]
+    connectOrCreate?: ContactMessageCreateOrConnectWithoutParentInput | ContactMessageCreateOrConnectWithoutParentInput[]
+    createMany?: ContactMessageCreateManyParentInputEnvelope
+    connect?: ContactMessageWhereUniqueInput | ContactMessageWhereUniqueInput[]
   }
 
   export type UserUpdateOneRequiredWithoutContactMessagesNestedInput = {
@@ -18543,6 +20272,44 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutContactMessagesInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutContactMessagesInput, UserUpdateWithoutContactMessagesInput>, UserUncheckedUpdateWithoutContactMessagesInput>
+  }
+
+  export type ContactMessageUpdateOneWithoutRepliesNestedInput = {
+    create?: XOR<ContactMessageCreateWithoutRepliesInput, ContactMessageUncheckedCreateWithoutRepliesInput>
+    connectOrCreate?: ContactMessageCreateOrConnectWithoutRepliesInput
+    upsert?: ContactMessageUpsertWithoutRepliesInput
+    disconnect?: ContactMessageWhereInput | boolean
+    delete?: ContactMessageWhereInput | boolean
+    connect?: ContactMessageWhereUniqueInput
+    update?: XOR<XOR<ContactMessageUpdateToOneWithWhereWithoutRepliesInput, ContactMessageUpdateWithoutRepliesInput>, ContactMessageUncheckedUpdateWithoutRepliesInput>
+  }
+
+  export type ContactMessageUpdateManyWithoutParentNestedInput = {
+    create?: XOR<ContactMessageCreateWithoutParentInput, ContactMessageUncheckedCreateWithoutParentInput> | ContactMessageCreateWithoutParentInput[] | ContactMessageUncheckedCreateWithoutParentInput[]
+    connectOrCreate?: ContactMessageCreateOrConnectWithoutParentInput | ContactMessageCreateOrConnectWithoutParentInput[]
+    upsert?: ContactMessageUpsertWithWhereUniqueWithoutParentInput | ContactMessageUpsertWithWhereUniqueWithoutParentInput[]
+    createMany?: ContactMessageCreateManyParentInputEnvelope
+    set?: ContactMessageWhereUniqueInput | ContactMessageWhereUniqueInput[]
+    disconnect?: ContactMessageWhereUniqueInput | ContactMessageWhereUniqueInput[]
+    delete?: ContactMessageWhereUniqueInput | ContactMessageWhereUniqueInput[]
+    connect?: ContactMessageWhereUniqueInput | ContactMessageWhereUniqueInput[]
+    update?: ContactMessageUpdateWithWhereUniqueWithoutParentInput | ContactMessageUpdateWithWhereUniqueWithoutParentInput[]
+    updateMany?: ContactMessageUpdateManyWithWhereWithoutParentInput | ContactMessageUpdateManyWithWhereWithoutParentInput[]
+    deleteMany?: ContactMessageScalarWhereInput | ContactMessageScalarWhereInput[]
+  }
+
+  export type ContactMessageUncheckedUpdateManyWithoutParentNestedInput = {
+    create?: XOR<ContactMessageCreateWithoutParentInput, ContactMessageUncheckedCreateWithoutParentInput> | ContactMessageCreateWithoutParentInput[] | ContactMessageUncheckedCreateWithoutParentInput[]
+    connectOrCreate?: ContactMessageCreateOrConnectWithoutParentInput | ContactMessageCreateOrConnectWithoutParentInput[]
+    upsert?: ContactMessageUpsertWithWhereUniqueWithoutParentInput | ContactMessageUpsertWithWhereUniqueWithoutParentInput[]
+    createMany?: ContactMessageCreateManyParentInputEnvelope
+    set?: ContactMessageWhereUniqueInput | ContactMessageWhereUniqueInput[]
+    disconnect?: ContactMessageWhereUniqueInput | ContactMessageWhereUniqueInput[]
+    delete?: ContactMessageWhereUniqueInput | ContactMessageWhereUniqueInput[]
+    connect?: ContactMessageWhereUniqueInput | ContactMessageWhereUniqueInput[]
+    update?: ContactMessageUpdateWithWhereUniqueWithoutParentInput | ContactMessageUpdateWithWhereUniqueWithoutParentInput[]
+    updateMany?: ContactMessageUpdateManyWithWhereWithoutParentInput | ContactMessageUpdateManyWithWhereWithoutParentInput[]
+    deleteMany?: ContactMessageScalarWhereInput | ContactMessageScalarWhereInput[]
   }
 
   export type TenantCreateNestedOneWithoutOccupantsInput = {
@@ -18587,6 +20354,34 @@ export namespace Prisma {
 
   export type NullableBoolFieldUpdateOperationsInput = {
     set?: boolean | null
+  }
+
+  export type UserCreateNestedOneWithoutCommentsInput = {
+    create?: XOR<UserCreateWithoutCommentsInput, UserUncheckedCreateWithoutCommentsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCommentsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type AnnouncementCreateNestedOneWithoutCommentsInput = {
+    create?: XOR<AnnouncementCreateWithoutCommentsInput, AnnouncementUncheckedCreateWithoutCommentsInput>
+    connectOrCreate?: AnnouncementCreateOrConnectWithoutCommentsInput
+    connect?: AnnouncementWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutCommentsNestedInput = {
+    create?: XOR<UserCreateWithoutCommentsInput, UserUncheckedCreateWithoutCommentsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCommentsInput
+    upsert?: UserUpsertWithoutCommentsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCommentsInput, UserUpdateWithoutCommentsInput>, UserUncheckedUpdateWithoutCommentsInput>
+  }
+
+  export type AnnouncementUpdateOneRequiredWithoutCommentsNestedInput = {
+    create?: XOR<AnnouncementCreateWithoutCommentsInput, AnnouncementUncheckedCreateWithoutCommentsInput>
+    connectOrCreate?: AnnouncementCreateOrConnectWithoutCommentsInput
+    upsert?: AnnouncementUpsertWithoutCommentsInput
+    connect?: AnnouncementWhereUniqueInput
+    update?: XOR<XOR<AnnouncementUpdateToOneWithWhereWithoutCommentsInput, AnnouncementUpdateWithoutCommentsInput>, AnnouncementUncheckedUpdateWithoutCommentsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -18731,6 +20526,17 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel>
     in?: number[] | ListFloatFieldRefInput<$PrismaModel>
@@ -18782,14 +20588,7 @@ export namespace Prisma {
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
-  export type NestedEnumBillTypeFilter<$PrismaModel = never> = {
-    equals?: $Enums.BillType | EnumBillTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.BillType[] | ListEnumBillTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.BillType[] | ListEnumBillTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumBillTypeFilter<$PrismaModel> | $Enums.BillType
-  }
-
-  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
     notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
@@ -18797,7 +20596,17 @@ export namespace Prisma {
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumBillTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.BillType | EnumBillTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.BillType[] | ListEnumBillTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BillType[] | ListEnumBillTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumBillTypeFilter<$PrismaModel> | $Enums.BillType
   }
 
   export type NestedEnumPaymentStatusFilter<$PrismaModel = never> = {
@@ -18815,20 +20624,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumBillTypeFilter<$PrismaModel>
     _max?: NestedEnumBillTypeFilter<$PrismaModel>
-  }
-
-  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type NestedEnumPaymentStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -18959,6 +20754,7 @@ export namespace Prisma {
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     numberOfOccupants?: number | null
+    lastAnnouncementReadAt?: Date | string | null
     createdAt?: Date | string
     unit: UnitCreateNestedOneWithoutTenantsInput
     occupants?: OccupantCreateNestedManyWithoutTenantInput
@@ -18976,6 +20772,7 @@ export namespace Prisma {
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     numberOfOccupants?: number | null
+    lastAnnouncementReadAt?: Date | string | null
     createdAt?: Date | string
     occupants?: OccupantUncheckedCreateNestedManyWithoutTenantInput
     contracts?: ContractUncheckedCreateNestedManyWithoutTenantInput
@@ -19018,6 +20815,7 @@ export namespace Prisma {
     title: string
     body: string
     createdAt?: Date | string
+    comments?: CommentCreateNestedManyWithoutAnnouncementInput
   }
 
   export type AnnouncementUncheckedCreateWithoutAuthorInput = {
@@ -19025,6 +20823,7 @@ export namespace Prisma {
     title: string
     body: string
     createdAt?: Date | string
+    comments?: CommentUncheckedCreateNestedManyWithoutAnnouncementInput
   }
 
   export type AnnouncementCreateOrConnectWithoutAuthorInput = {
@@ -19043,6 +20842,9 @@ export namespace Prisma {
     message: string
     createdAt?: Date | string
     isRead?: boolean
+    senderRole?: string
+    parent?: ContactMessageCreateNestedOneWithoutRepliesInput
+    replies?: ContactMessageCreateNestedManyWithoutParentInput
   }
 
   export type ContactMessageUncheckedCreateWithoutTenantInput = {
@@ -19051,6 +20853,9 @@ export namespace Prisma {
     message: string
     createdAt?: Date | string
     isRead?: boolean
+    parentId?: string | null
+    senderRole?: string
+    replies?: ContactMessageUncheckedCreateNestedManyWithoutParentInput
   }
 
   export type ContactMessageCreateOrConnectWithoutTenantInput = {
@@ -19060,6 +20865,30 @@ export namespace Prisma {
 
   export type ContactMessageCreateManyTenantInputEnvelope = {
     data: ContactMessageCreateManyTenantInput | ContactMessageCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CommentCreateWithoutAuthorInput = {
+    id?: string
+    content: string
+    createdAt?: Date | string
+    announcement: AnnouncementCreateNestedOneWithoutCommentsInput
+  }
+
+  export type CommentUncheckedCreateWithoutAuthorInput = {
+    id?: string
+    content: string
+    createdAt?: Date | string
+    announcementId: string
+  }
+
+  export type CommentCreateOrConnectWithoutAuthorInput = {
+    where: CommentWhereUniqueInput
+    create: XOR<CommentCreateWithoutAuthorInput, CommentUncheckedCreateWithoutAuthorInput>
+  }
+
+  export type CommentCreateManyAuthorInputEnvelope = {
+    data: CommentCreateManyAuthorInput | CommentCreateManyAuthorInput[]
     skipDuplicates?: boolean
   }
 
@@ -19083,6 +20912,7 @@ export namespace Prisma {
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     numberOfOccupants?: NullableIntFieldUpdateOperationsInput | number | null
+    lastAnnouncementReadAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     unit?: UnitUpdateOneRequiredWithoutTenantsNestedInput
     occupants?: OccupantUpdateManyWithoutTenantNestedInput
@@ -19100,6 +20930,7 @@ export namespace Prisma {
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     numberOfOccupants?: NullableIntFieldUpdateOperationsInput | number | null
+    lastAnnouncementReadAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     occupants?: OccupantUncheckedUpdateManyWithoutTenantNestedInput
     contracts?: ContractUncheckedUpdateManyWithoutTenantNestedInput
@@ -19186,6 +21017,35 @@ export namespace Prisma {
     tenantId?: StringFilter<"ContactMessage"> | string
     createdAt?: DateTimeFilter<"ContactMessage"> | Date | string
     isRead?: BoolFilter<"ContactMessage"> | boolean
+    parentId?: StringNullableFilter<"ContactMessage"> | string | null
+    senderRole?: StringFilter<"ContactMessage"> | string
+  }
+
+  export type CommentUpsertWithWhereUniqueWithoutAuthorInput = {
+    where: CommentWhereUniqueInput
+    update: XOR<CommentUpdateWithoutAuthorInput, CommentUncheckedUpdateWithoutAuthorInput>
+    create: XOR<CommentCreateWithoutAuthorInput, CommentUncheckedCreateWithoutAuthorInput>
+  }
+
+  export type CommentUpdateWithWhereUniqueWithoutAuthorInput = {
+    where: CommentWhereUniqueInput
+    data: XOR<CommentUpdateWithoutAuthorInput, CommentUncheckedUpdateWithoutAuthorInput>
+  }
+
+  export type CommentUpdateManyWithWhereWithoutAuthorInput = {
+    where: CommentScalarWhereInput
+    data: XOR<CommentUpdateManyMutationInput, CommentUncheckedUpdateManyWithoutAuthorInput>
+  }
+
+  export type CommentScalarWhereInput = {
+    AND?: CommentScalarWhereInput | CommentScalarWhereInput[]
+    OR?: CommentScalarWhereInput[]
+    NOT?: CommentScalarWhereInput | CommentScalarWhereInput[]
+    id?: StringFilter<"Comment"> | string
+    content?: StringFilter<"Comment"> | string
+    createdAt?: DateTimeFilter<"Comment"> | Date | string
+    authorId?: StringFilter<"Comment"> | string
+    announcementId?: StringFilter<"Comment"> | string
   }
 
   export type UserCreateWithoutAdminPropertiesInput = {
@@ -19200,6 +21060,7 @@ export namespace Prisma {
     tenantProfile?: TenantCreateNestedOneWithoutUserInput
     announcements?: AnnouncementCreateNestedManyWithoutAuthorInput
     contactMessages?: ContactMessageCreateNestedManyWithoutTenantInput
+    comments?: CommentCreateNestedManyWithoutAuthorInput
   }
 
   export type UserUncheckedCreateWithoutAdminPropertiesInput = {
@@ -19214,6 +21075,7 @@ export namespace Prisma {
     tenantProfile?: TenantUncheckedCreateNestedOneWithoutUserInput
     announcements?: AnnouncementUncheckedCreateNestedManyWithoutAuthorInput
     contactMessages?: ContactMessageUncheckedCreateNestedManyWithoutTenantInput
+    comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput
   }
 
   export type UserCreateOrConnectWithoutAdminPropertiesInput = {
@@ -19270,6 +21132,7 @@ export namespace Prisma {
     tenantProfile?: TenantUpdateOneWithoutUserNestedInput
     announcements?: AnnouncementUpdateManyWithoutAuthorNestedInput
     contactMessages?: ContactMessageUpdateManyWithoutTenantNestedInput
+    comments?: CommentUpdateManyWithoutAuthorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAdminPropertiesInput = {
@@ -19284,6 +21147,7 @@ export namespace Prisma {
     tenantProfile?: TenantUncheckedUpdateOneWithoutUserNestedInput
     announcements?: AnnouncementUncheckedUpdateManyWithoutAuthorNestedInput
     contactMessages?: ContactMessageUncheckedUpdateManyWithoutTenantNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
   }
 
   export type UnitUpsertWithWhereUniqueWithoutPropertyInput = {
@@ -19342,6 +21206,7 @@ export namespace Prisma {
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     numberOfOccupants?: number | null
+    lastAnnouncementReadAt?: Date | string | null
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutTenantProfileInput
     occupants?: OccupantCreateNestedManyWithoutTenantInput
@@ -19359,6 +21224,7 @@ export namespace Prisma {
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     numberOfOccupants?: number | null
+    lastAnnouncementReadAt?: Date | string | null
     createdAt?: Date | string
     occupants?: OccupantUncheckedCreateNestedManyWithoutTenantInput
     contracts?: ContractUncheckedCreateNestedManyWithoutTenantInput
@@ -19468,6 +21334,7 @@ export namespace Prisma {
     emergencyContactName?: StringNullableFilter<"Tenant"> | string | null
     emergencyContactPhone?: StringNullableFilter<"Tenant"> | string | null
     numberOfOccupants?: IntNullableFilter<"Tenant"> | number | null
+    lastAnnouncementReadAt?: DateTimeNullableFilter<"Tenant"> | Date | string | null
     createdAt?: DateTimeFilter<"Tenant"> | Date | string
   }
 
@@ -19515,6 +21382,7 @@ export namespace Prisma {
     adminProperties?: PropertyCreateNestedManyWithoutAdminInput
     announcements?: AnnouncementCreateNestedManyWithoutAuthorInput
     contactMessages?: ContactMessageCreateNestedManyWithoutTenantInput
+    comments?: CommentCreateNestedManyWithoutAuthorInput
   }
 
   export type UserUncheckedCreateWithoutTenantProfileInput = {
@@ -19529,6 +21397,7 @@ export namespace Prisma {
     adminProperties?: PropertyUncheckedCreateNestedManyWithoutAdminInput
     announcements?: AnnouncementUncheckedCreateNestedManyWithoutAuthorInput
     contactMessages?: ContactMessageUncheckedCreateNestedManyWithoutTenantInput
+    comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput
   }
 
   export type UserCreateOrConnectWithoutTenantProfileInput = {
@@ -19684,6 +21553,7 @@ export namespace Prisma {
     adminProperties?: PropertyUpdateManyWithoutAdminNestedInput
     announcements?: AnnouncementUpdateManyWithoutAuthorNestedInput
     contactMessages?: ContactMessageUpdateManyWithoutTenantNestedInput
+    comments?: CommentUpdateManyWithoutAuthorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTenantProfileInput = {
@@ -19698,6 +21568,7 @@ export namespace Prisma {
     adminProperties?: PropertyUncheckedUpdateManyWithoutAdminNestedInput
     announcements?: AnnouncementUncheckedUpdateManyWithoutAuthorNestedInput
     contactMessages?: ContactMessageUncheckedUpdateManyWithoutTenantNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
   }
 
   export type UnitUpsertWithoutTenantsInput = {
@@ -19816,6 +21687,7 @@ export namespace Prisma {
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     numberOfOccupants?: number | null
+    lastAnnouncementReadAt?: Date | string | null
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutTenantProfileInput
     unit: UnitCreateNestedOneWithoutTenantsInput
@@ -19834,6 +21706,7 @@ export namespace Prisma {
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     numberOfOccupants?: number | null
+    lastAnnouncementReadAt?: Date | string | null
     createdAt?: Date | string
     occupants?: OccupantUncheckedCreateNestedManyWithoutTenantInput
     contracts?: ContractUncheckedCreateNestedManyWithoutTenantInput
@@ -19912,6 +21785,7 @@ export namespace Prisma {
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     numberOfOccupants?: NullableIntFieldUpdateOperationsInput | number | null
+    lastAnnouncementReadAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantProfileNestedInput
     unit?: UnitUpdateOneRequiredWithoutTenantsNestedInput
@@ -19930,6 +21804,7 @@ export namespace Prisma {
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     numberOfOccupants?: NullableIntFieldUpdateOperationsInput | number | null
+    lastAnnouncementReadAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     occupants?: OccupantUncheckedUpdateManyWithoutTenantNestedInput
     contracts?: ContractUncheckedUpdateManyWithoutTenantNestedInput
@@ -20075,6 +21950,7 @@ export namespace Prisma {
     tenantProfile?: TenantCreateNestedOneWithoutUserInput
     adminProperties?: PropertyCreateNestedManyWithoutAdminInput
     contactMessages?: ContactMessageCreateNestedManyWithoutTenantInput
+    comments?: CommentCreateNestedManyWithoutAuthorInput
   }
 
   export type UserUncheckedCreateWithoutAnnouncementsInput = {
@@ -20089,11 +21965,36 @@ export namespace Prisma {
     tenantProfile?: TenantUncheckedCreateNestedOneWithoutUserInput
     adminProperties?: PropertyUncheckedCreateNestedManyWithoutAdminInput
     contactMessages?: ContactMessageUncheckedCreateNestedManyWithoutTenantInput
+    comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput
   }
 
   export type UserCreateOrConnectWithoutAnnouncementsInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutAnnouncementsInput, UserUncheckedCreateWithoutAnnouncementsInput>
+  }
+
+  export type CommentCreateWithoutAnnouncementInput = {
+    id?: string
+    content: string
+    createdAt?: Date | string
+    author: UserCreateNestedOneWithoutCommentsInput
+  }
+
+  export type CommentUncheckedCreateWithoutAnnouncementInput = {
+    id?: string
+    content: string
+    createdAt?: Date | string
+    authorId: string
+  }
+
+  export type CommentCreateOrConnectWithoutAnnouncementInput = {
+    where: CommentWhereUniqueInput
+    create: XOR<CommentCreateWithoutAnnouncementInput, CommentUncheckedCreateWithoutAnnouncementInput>
+  }
+
+  export type CommentCreateManyAnnouncementInputEnvelope = {
+    data: CommentCreateManyAnnouncementInput | CommentCreateManyAnnouncementInput[]
+    skipDuplicates?: boolean
   }
 
   export type UserUpsertWithoutAnnouncementsInput = {
@@ -20119,6 +22020,7 @@ export namespace Prisma {
     tenantProfile?: TenantUpdateOneWithoutUserNestedInput
     adminProperties?: PropertyUpdateManyWithoutAdminNestedInput
     contactMessages?: ContactMessageUpdateManyWithoutTenantNestedInput
+    comments?: CommentUpdateManyWithoutAuthorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAnnouncementsInput = {
@@ -20133,6 +22035,23 @@ export namespace Prisma {
     tenantProfile?: TenantUncheckedUpdateOneWithoutUserNestedInput
     adminProperties?: PropertyUncheckedUpdateManyWithoutAdminNestedInput
     contactMessages?: ContactMessageUncheckedUpdateManyWithoutTenantNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
+  }
+
+  export type CommentUpsertWithWhereUniqueWithoutAnnouncementInput = {
+    where: CommentWhereUniqueInput
+    update: XOR<CommentUpdateWithoutAnnouncementInput, CommentUncheckedUpdateWithoutAnnouncementInput>
+    create: XOR<CommentCreateWithoutAnnouncementInput, CommentUncheckedCreateWithoutAnnouncementInput>
+  }
+
+  export type CommentUpdateWithWhereUniqueWithoutAnnouncementInput = {
+    where: CommentWhereUniqueInput
+    data: XOR<CommentUpdateWithoutAnnouncementInput, CommentUncheckedUpdateWithoutAnnouncementInput>
+  }
+
+  export type CommentUpdateManyWithWhereWithoutAnnouncementInput = {
+    where: CommentScalarWhereInput
+    data: XOR<CommentUpdateManyMutationInput, CommentUncheckedUpdateManyWithoutAnnouncementInput>
   }
 
   export type UserCreateWithoutContactMessagesInput = {
@@ -20147,6 +22066,7 @@ export namespace Prisma {
     tenantProfile?: TenantCreateNestedOneWithoutUserInput
     adminProperties?: PropertyCreateNestedManyWithoutAdminInput
     announcements?: AnnouncementCreateNestedManyWithoutAuthorInput
+    comments?: CommentCreateNestedManyWithoutAuthorInput
   }
 
   export type UserUncheckedCreateWithoutContactMessagesInput = {
@@ -20161,11 +22081,71 @@ export namespace Prisma {
     tenantProfile?: TenantUncheckedCreateNestedOneWithoutUserInput
     adminProperties?: PropertyUncheckedCreateNestedManyWithoutAdminInput
     announcements?: AnnouncementUncheckedCreateNestedManyWithoutAuthorInput
+    comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput
   }
 
   export type UserCreateOrConnectWithoutContactMessagesInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutContactMessagesInput, UserUncheckedCreateWithoutContactMessagesInput>
+  }
+
+  export type ContactMessageCreateWithoutRepliesInput = {
+    id?: string
+    subject: string
+    message: string
+    createdAt?: Date | string
+    isRead?: boolean
+    senderRole?: string
+    tenant: UserCreateNestedOneWithoutContactMessagesInput
+    parent?: ContactMessageCreateNestedOneWithoutRepliesInput
+  }
+
+  export type ContactMessageUncheckedCreateWithoutRepliesInput = {
+    id?: string
+    subject: string
+    message: string
+    tenantId: string
+    createdAt?: Date | string
+    isRead?: boolean
+    parentId?: string | null
+    senderRole?: string
+  }
+
+  export type ContactMessageCreateOrConnectWithoutRepliesInput = {
+    where: ContactMessageWhereUniqueInput
+    create: XOR<ContactMessageCreateWithoutRepliesInput, ContactMessageUncheckedCreateWithoutRepliesInput>
+  }
+
+  export type ContactMessageCreateWithoutParentInput = {
+    id?: string
+    subject: string
+    message: string
+    createdAt?: Date | string
+    isRead?: boolean
+    senderRole?: string
+    tenant: UserCreateNestedOneWithoutContactMessagesInput
+    replies?: ContactMessageCreateNestedManyWithoutParentInput
+  }
+
+  export type ContactMessageUncheckedCreateWithoutParentInput = {
+    id?: string
+    subject: string
+    message: string
+    tenantId: string
+    createdAt?: Date | string
+    isRead?: boolean
+    senderRole?: string
+    replies?: ContactMessageUncheckedCreateNestedManyWithoutParentInput
+  }
+
+  export type ContactMessageCreateOrConnectWithoutParentInput = {
+    where: ContactMessageWhereUniqueInput
+    create: XOR<ContactMessageCreateWithoutParentInput, ContactMessageUncheckedCreateWithoutParentInput>
+  }
+
+  export type ContactMessageCreateManyParentInputEnvelope = {
+    data: ContactMessageCreateManyParentInput | ContactMessageCreateManyParentInput[]
+    skipDuplicates?: boolean
   }
 
   export type UserUpsertWithoutContactMessagesInput = {
@@ -20191,6 +22171,7 @@ export namespace Prisma {
     tenantProfile?: TenantUpdateOneWithoutUserNestedInput
     adminProperties?: PropertyUpdateManyWithoutAdminNestedInput
     announcements?: AnnouncementUpdateManyWithoutAuthorNestedInput
+    comments?: CommentUpdateManyWithoutAuthorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutContactMessagesInput = {
@@ -20205,6 +22186,56 @@ export namespace Prisma {
     tenantProfile?: TenantUncheckedUpdateOneWithoutUserNestedInput
     adminProperties?: PropertyUncheckedUpdateManyWithoutAdminNestedInput
     announcements?: AnnouncementUncheckedUpdateManyWithoutAuthorNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
+  }
+
+  export type ContactMessageUpsertWithoutRepliesInput = {
+    update: XOR<ContactMessageUpdateWithoutRepliesInput, ContactMessageUncheckedUpdateWithoutRepliesInput>
+    create: XOR<ContactMessageCreateWithoutRepliesInput, ContactMessageUncheckedCreateWithoutRepliesInput>
+    where?: ContactMessageWhereInput
+  }
+
+  export type ContactMessageUpdateToOneWithWhereWithoutRepliesInput = {
+    where?: ContactMessageWhereInput
+    data: XOR<ContactMessageUpdateWithoutRepliesInput, ContactMessageUncheckedUpdateWithoutRepliesInput>
+  }
+
+  export type ContactMessageUpdateWithoutRepliesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    subject?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    senderRole?: StringFieldUpdateOperationsInput | string
+    tenant?: UserUpdateOneRequiredWithoutContactMessagesNestedInput
+    parent?: ContactMessageUpdateOneWithoutRepliesNestedInput
+  }
+
+  export type ContactMessageUncheckedUpdateWithoutRepliesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    subject?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    senderRole?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ContactMessageUpsertWithWhereUniqueWithoutParentInput = {
+    where: ContactMessageWhereUniqueInput
+    update: XOR<ContactMessageUpdateWithoutParentInput, ContactMessageUncheckedUpdateWithoutParentInput>
+    create: XOR<ContactMessageCreateWithoutParentInput, ContactMessageUncheckedCreateWithoutParentInput>
+  }
+
+  export type ContactMessageUpdateWithWhereUniqueWithoutParentInput = {
+    where: ContactMessageWhereUniqueInput
+    data: XOR<ContactMessageUpdateWithoutParentInput, ContactMessageUncheckedUpdateWithoutParentInput>
+  }
+
+  export type ContactMessageUpdateManyWithWhereWithoutParentInput = {
+    where: ContactMessageScalarWhereInput
+    data: XOR<ContactMessageUpdateManyMutationInput, ContactMessageUncheckedUpdateManyWithoutParentInput>
   }
 
   export type TenantCreateWithoutOccupantsInput = {
@@ -20216,6 +22247,7 @@ export namespace Prisma {
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     numberOfOccupants?: number | null
+    lastAnnouncementReadAt?: Date | string | null
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutTenantProfileInput
     unit: UnitCreateNestedOneWithoutTenantsInput
@@ -20234,6 +22266,7 @@ export namespace Prisma {
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     numberOfOccupants?: number | null
+    lastAnnouncementReadAt?: Date | string | null
     createdAt?: Date | string
     contracts?: ContractUncheckedCreateNestedManyWithoutTenantInput
     bills?: BillUncheckedCreateNestedManyWithoutTenantInput
@@ -20264,6 +22297,7 @@ export namespace Prisma {
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     numberOfOccupants?: NullableIntFieldUpdateOperationsInput | number | null
+    lastAnnouncementReadAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantProfileNestedInput
     unit?: UnitUpdateOneRequiredWithoutTenantsNestedInput
@@ -20282,6 +22316,7 @@ export namespace Prisma {
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     numberOfOccupants?: NullableIntFieldUpdateOperationsInput | number | null
+    lastAnnouncementReadAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     contracts?: ContractUncheckedUpdateManyWithoutTenantNestedInput
     bills?: BillUncheckedUpdateManyWithoutTenantNestedInput
@@ -20296,6 +22331,7 @@ export namespace Prisma {
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     numberOfOccupants?: number | null
+    lastAnnouncementReadAt?: Date | string | null
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutTenantProfileInput
     unit: UnitCreateNestedOneWithoutTenantsInput
@@ -20314,6 +22350,7 @@ export namespace Prisma {
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     numberOfOccupants?: number | null
+    lastAnnouncementReadAt?: Date | string | null
     createdAt?: Date | string
     occupants?: OccupantUncheckedCreateNestedManyWithoutTenantInput
     bills?: BillUncheckedCreateNestedManyWithoutTenantInput
@@ -20344,6 +22381,7 @@ export namespace Prisma {
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     numberOfOccupants?: NullableIntFieldUpdateOperationsInput | number | null
+    lastAnnouncementReadAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantProfileNestedInput
     unit?: UnitUpdateOneRequiredWithoutTenantsNestedInput
@@ -20362,9 +22400,134 @@ export namespace Prisma {
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     numberOfOccupants?: NullableIntFieldUpdateOperationsInput | number | null
+    lastAnnouncementReadAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     occupants?: OccupantUncheckedUpdateManyWithoutTenantNestedInput
     bills?: BillUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type UserCreateWithoutCommentsInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    name: string
+    role?: $Enums.Role
+    phone?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenantProfile?: TenantCreateNestedOneWithoutUserInput
+    adminProperties?: PropertyCreateNestedManyWithoutAdminInput
+    announcements?: AnnouncementCreateNestedManyWithoutAuthorInput
+    contactMessages?: ContactMessageCreateNestedManyWithoutTenantInput
+  }
+
+  export type UserUncheckedCreateWithoutCommentsInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    name: string
+    role?: $Enums.Role
+    phone?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenantProfile?: TenantUncheckedCreateNestedOneWithoutUserInput
+    adminProperties?: PropertyUncheckedCreateNestedManyWithoutAdminInput
+    announcements?: AnnouncementUncheckedCreateNestedManyWithoutAuthorInput
+    contactMessages?: ContactMessageUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type UserCreateOrConnectWithoutCommentsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutCommentsInput, UserUncheckedCreateWithoutCommentsInput>
+  }
+
+  export type AnnouncementCreateWithoutCommentsInput = {
+    id?: string
+    title: string
+    body: string
+    createdAt?: Date | string
+    author: UserCreateNestedOneWithoutAnnouncementsInput
+  }
+
+  export type AnnouncementUncheckedCreateWithoutCommentsInput = {
+    id?: string
+    title: string
+    body: string
+    createdAt?: Date | string
+    authorId: string
+  }
+
+  export type AnnouncementCreateOrConnectWithoutCommentsInput = {
+    where: AnnouncementWhereUniqueInput
+    create: XOR<AnnouncementCreateWithoutCommentsInput, AnnouncementUncheckedCreateWithoutCommentsInput>
+  }
+
+  export type UserUpsertWithoutCommentsInput = {
+    update: XOR<UserUpdateWithoutCommentsInput, UserUncheckedUpdateWithoutCommentsInput>
+    create: XOR<UserCreateWithoutCommentsInput, UserUncheckedCreateWithoutCommentsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutCommentsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutCommentsInput, UserUncheckedUpdateWithoutCommentsInput>
+  }
+
+  export type UserUpdateWithoutCommentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenantProfile?: TenantUpdateOneWithoutUserNestedInput
+    adminProperties?: PropertyUpdateManyWithoutAdminNestedInput
+    announcements?: AnnouncementUpdateManyWithoutAuthorNestedInput
+    contactMessages?: ContactMessageUpdateManyWithoutTenantNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutCommentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenantProfile?: TenantUncheckedUpdateOneWithoutUserNestedInput
+    adminProperties?: PropertyUncheckedUpdateManyWithoutAdminNestedInput
+    announcements?: AnnouncementUncheckedUpdateManyWithoutAuthorNestedInput
+    contactMessages?: ContactMessageUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type AnnouncementUpsertWithoutCommentsInput = {
+    update: XOR<AnnouncementUpdateWithoutCommentsInput, AnnouncementUncheckedUpdateWithoutCommentsInput>
+    create: XOR<AnnouncementCreateWithoutCommentsInput, AnnouncementUncheckedCreateWithoutCommentsInput>
+    where?: AnnouncementWhereInput
+  }
+
+  export type AnnouncementUpdateToOneWithWhereWithoutCommentsInput = {
+    where?: AnnouncementWhereInput
+    data: XOR<AnnouncementUpdateWithoutCommentsInput, AnnouncementUncheckedUpdateWithoutCommentsInput>
+  }
+
+  export type AnnouncementUpdateWithoutCommentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    body?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    author?: UserUpdateOneRequiredWithoutAnnouncementsNestedInput
+  }
+
+  export type AnnouncementUncheckedUpdateWithoutCommentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    body?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    authorId?: StringFieldUpdateOperationsInput | string
   }
 
   export type PropertyCreateManyAdminInput = {
@@ -20387,6 +22550,15 @@ export namespace Prisma {
     message: string
     createdAt?: Date | string
     isRead?: boolean
+    parentId?: string | null
+    senderRole?: string
+  }
+
+  export type CommentCreateManyAuthorInput = {
+    id?: string
+    content: string
+    createdAt?: Date | string
+    announcementId: string
   }
 
   export type PropertyUpdateWithoutAdminInput = {
@@ -20417,6 +22589,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     body?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    comments?: CommentUpdateManyWithoutAnnouncementNestedInput
   }
 
   export type AnnouncementUncheckedUpdateWithoutAuthorInput = {
@@ -20424,6 +22597,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     body?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    comments?: CommentUncheckedUpdateManyWithoutAnnouncementNestedInput
   }
 
   export type AnnouncementUncheckedUpdateManyWithoutAuthorInput = {
@@ -20439,6 +22613,9 @@ export namespace Prisma {
     message?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isRead?: BoolFieldUpdateOperationsInput | boolean
+    senderRole?: StringFieldUpdateOperationsInput | string
+    parent?: ContactMessageUpdateOneWithoutRepliesNestedInput
+    replies?: ContactMessageUpdateManyWithoutParentNestedInput
   }
 
   export type ContactMessageUncheckedUpdateWithoutTenantInput = {
@@ -20447,6 +22624,9 @@ export namespace Prisma {
     message?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isRead?: BoolFieldUpdateOperationsInput | boolean
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    senderRole?: StringFieldUpdateOperationsInput | string
+    replies?: ContactMessageUncheckedUpdateManyWithoutParentNestedInput
   }
 
   export type ContactMessageUncheckedUpdateManyWithoutTenantInput = {
@@ -20455,6 +22635,29 @@ export namespace Prisma {
     message?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isRead?: BoolFieldUpdateOperationsInput | boolean
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    senderRole?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type CommentUpdateWithoutAuthorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    announcement?: AnnouncementUpdateOneRequiredWithoutCommentsNestedInput
+  }
+
+  export type CommentUncheckedUpdateWithoutAuthorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    announcementId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type CommentUncheckedUpdateManyWithoutAuthorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    announcementId?: StringFieldUpdateOperationsInput | string
   }
 
   export type UnitCreateManyPropertyInput = {
@@ -20495,6 +22698,7 @@ export namespace Prisma {
     emergencyContactName?: string | null
     emergencyContactPhone?: string | null
     numberOfOccupants?: number | null
+    lastAnnouncementReadAt?: Date | string | null
     createdAt?: Date | string
   }
 
@@ -20519,6 +22723,7 @@ export namespace Prisma {
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     numberOfOccupants?: NullableIntFieldUpdateOperationsInput | number | null
+    lastAnnouncementReadAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTenantProfileNestedInput
     occupants?: OccupantUpdateManyWithoutTenantNestedInput
@@ -20536,6 +22741,7 @@ export namespace Prisma {
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     numberOfOccupants?: NullableIntFieldUpdateOperationsInput | number | null
+    lastAnnouncementReadAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     occupants?: OccupantUncheckedUpdateManyWithoutTenantNestedInput
     contracts?: ContractUncheckedUpdateManyWithoutTenantNestedInput
@@ -20552,6 +22758,7 @@ export namespace Prisma {
     emergencyContactName?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
     numberOfOccupants?: NullableIntFieldUpdateOperationsInput | number | null
+    lastAnnouncementReadAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -20737,6 +22944,76 @@ export namespace Prisma {
     paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommentCreateManyAnnouncementInput = {
+    id?: string
+    content: string
+    createdAt?: Date | string
+    authorId: string
+  }
+
+  export type CommentUpdateWithoutAnnouncementInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    author?: UserUpdateOneRequiredWithoutCommentsNestedInput
+  }
+
+  export type CommentUncheckedUpdateWithoutAnnouncementInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    authorId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type CommentUncheckedUpdateManyWithoutAnnouncementInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    authorId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ContactMessageCreateManyParentInput = {
+    id?: string
+    subject: string
+    message: string
+    tenantId: string
+    createdAt?: Date | string
+    isRead?: boolean
+    senderRole?: string
+  }
+
+  export type ContactMessageUpdateWithoutParentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    subject?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    senderRole?: StringFieldUpdateOperationsInput | string
+    tenant?: UserUpdateOneRequiredWithoutContactMessagesNestedInput
+    replies?: ContactMessageUpdateManyWithoutParentNestedInput
+  }
+
+  export type ContactMessageUncheckedUpdateWithoutParentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    subject?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    senderRole?: StringFieldUpdateOperationsInput | string
+    replies?: ContactMessageUncheckedUpdateManyWithoutParentNestedInput
+  }
+
+  export type ContactMessageUncheckedUpdateManyWithoutParentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    subject?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    senderRole?: StringFieldUpdateOperationsInput | string
   }
 
 

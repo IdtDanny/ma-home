@@ -7,8 +7,10 @@ export default async function AdminMessagesPage() {
   const session = await auth();
   if (!session?.user || session.user.role !== "ADMIN") redirect("/login");
 
+  // Fetch all root messages (tenant messages that start a thread)
   const messages = await prisma.contactMessage.findMany({
     where: {
+      parentId: null,
       tenant: {
         tenantProfile: {
           unit: { property: { adminId: session.user.id } },
@@ -17,6 +19,9 @@ export default async function AdminMessagesPage() {
     },
     include: {
       tenant: { select: { name: true, email: true } },
+      replies: {
+        orderBy: { createdAt: "asc" },
+      },
     },
     orderBy: { createdAt: "desc" },
   });
