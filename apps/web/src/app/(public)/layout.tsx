@@ -14,7 +14,7 @@ export default function PublicLayout({
       <header className="sticky top-0 z-50 w-full border-b bg-white/80 backdrop-blur-lg dark:bg-gray-900/80 dark:border-gray-800">
         <div className="max-w-7xl mx-auto flex h-16 items-center justify-between px-4 md:px-6">
           <Link href="/" className="flex items-center gap-2">
-            <div className="h-8 w-8 rounded-lg bg-primary-600 text-white flex items-center justify-center font-bold">M</div>
+            {/* <div className="h-8 w-8 rounded-lg bg-primary-600 text-white flex items-center justify-center font-bold">M</div> */}
             <span className="font-bold text-xl text-gray-900 dark:text-gray-100">MA Home</span>
           </Link>
           <div className="flex items-center gap-3">

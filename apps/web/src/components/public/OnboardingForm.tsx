@@ -15,7 +15,11 @@ import {
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
-export default function OnboardingForm() {
+interface OnboardingFormProps {
+  variant?: "default" | "outline" | "secondary" | "ghost";
+}
+
+export default function OnboardingForm({ variant = "outline" }: OnboardingFormProps) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
@@ -46,7 +50,8 @@ export default function OnboardingForm() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" size="lg" className="w-full sm:w-auto md:ml-4 text-base px-10 py-6 bg-white dark:bg-gray-800 text-primary-700 hover:bg-gray-100">
+        <Button variant={variant} size="lg" className="w-full sm:w-auto md:ml-4 text-base px-10 py-6 bg-gray-200 dark:bg-gray-800 text-primary-700 hover:bg-gray-100">
+        {/* <Button variant={variant} size="lg" className="w-full sm:w-auto text-base px-10 py-6 bg-gray-600 dark:bg-gray-700 dark:text-gray-200 hover:bg-gray-100"> */}
           Request Access
         </Button>
       </DialogTrigger>

@@ -108,7 +108,7 @@ export default function LandingPage() {
             >
               <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-gray-100 leading-tight">
                 Manage Rentals
-                <span className="text-primary-600 dark:text-primary-400"> Simply</span>
+                <span className="text-blue-600 dark:text-blue-400"> Simply</span>
               </h1>
               <p className="mt-6 text-lg text-gray-600 dark:text-gray-300 max-w-lg">
                 The all‑in‑one platform for landlords and tenants in Rwanda. Collect rent,
@@ -116,13 +116,13 @@ export default function LandingPage() {
               </p>
               <div className="mt-8 flex flex-wrap gap-4">
                 <Link href="/login">
-                  <Button size="lg" className="gap-2 text-base px-8">
+                  <Button size="lg" className="gap-2 text-base px-8 py-6 bg-blue-500 dark:bg-blue-500 text-white hover:bg-blue-800">
                     Get Started
                     <ChevronRight className="h-5 w-5" />
                   </Button>
                 </Link>
                 <Link href="#features">
-                  <Button variant="outline" size="lg" className="text-base px-8">
+                  <Button variant="outline" size="lg" className="text-base px-8 py-6 bg-white dark:bg-gray-800 text-primary-700 hover:bg-gray-100">
                     Learn More
                   </Button>
                 </Link>
@@ -289,38 +289,22 @@ export default function LandingPage() {
       </section>
 
       {/* ── CTA Section ────────────────────────────────── */}
-      <section className="py-20 bg-primary-600 dark:bg-primary-800">
+      <section className="py-20 bg-gray-50 dark:bg-gray-900">
         <div className="max-w-4xl mx-auto text-center px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-white">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 dark:text-gray-300">
               Ready to simplify your rental management?
             </h2>
-            <p className="mt-4 text-primary-100 text-lg">
+            <p className="mt-4 text-gray-700 dark:text-gray-400 text-lg">
               Join hundreds of landlords and tenants already using MA Home.
             </p>
-
-            {/* <div className="mt-8 flex flex-col sm:flex-row flex-wrap gap-3">
+            <div className="mt-8 flex flex-col sm:flex-row justify-center gap-3">
               <Link href="/login">
-                <Button size="lg" className="w-full sm:w-auto text-base px-8">
-                  Get Started
-                  <ChevronRight className="ml-2 h-5 w-5" />
-                </Button>
-              </Link>
-              <OnboardingForm />
-              <Link href="#features">
-                <Button variant="outline" size="lg" className="w-full sm:w-auto text-base px-8">
-                  Learn More
-                </Button>
-              </Link>
-            </div> */}
-
-            <div className="mt-8">
-              <Link href="/login">
-                <Button size="lg" variant="secondary" className="w-full sm:w-auto mb-2 text-base px-10 py-6 bg-white dark:bg-gray-700 text-primary-700 hover:bg-gray-100">
+                <Button size="lg" variant="outline" className="w-full sm:w-auto text-base px-10 py-6 bg-white dark:bg-gray-600 text-primary-200 hover:bg-gray-100">
                   Get Started Free
                   <ChevronRight className="ml-2 h-5 w-5" />
                 </Button>
@@ -330,6 +314,7 @@ export default function LandingPage() {
           </motion.div>
         </div>
       </section>
+
     </div>
   );
 }
