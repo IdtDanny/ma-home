@@ -9,7 +9,7 @@ import { Eye } from "lucide-react";
 
 export default async function AdminTenantsPage() {
   const session = await auth();
-  if (!session?.user || session.user.role !== "ADMIN") redirect("/login");
+  if (!session?.user || session.user.role !== "LANDLORD") redirect("/login");
 
   const tenants = await prisma.tenant.findMany({
     where: { unit: { property: { adminId: session.user.id } } },

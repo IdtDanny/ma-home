@@ -5,7 +5,7 @@ import ContractsTabs from "@/components/admin/ContractsTabs";
 
 export default async function AdminContractsPage() {
   const session = await auth();
-  if (!session?.user || session.user.role !== "ADMIN") redirect("/login");
+  if (!session?.user || session.user.role !== "LANDLORD") redirect("/login");
 
   // Fetch all contracts for tenants in admin's properties
   const contracts = await prisma.contract.findMany({

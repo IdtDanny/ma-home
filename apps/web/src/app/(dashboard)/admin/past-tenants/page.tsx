@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 
 export default async function PastTenantsPage() {
   const session = await auth();
-  if (!session?.user || session.user.role !== "ADMIN") redirect("/login");
+  if (!session?.user || session.user.role !== "LANDLORD") redirect("/login");
 
   const certificates = await prisma.clearanceCertificate.findMany({
     orderBy: { createdAt: "desc" },

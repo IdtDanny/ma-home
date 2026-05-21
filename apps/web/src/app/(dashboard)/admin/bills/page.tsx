@@ -9,7 +9,7 @@ export default async function AdminBillsPage({
   searchParams: Promise<{ status?: string; type?: string }>;
 }) {
   const session = await auth();
-  if (!session?.user || session.user.role !== "ADMIN") redirect("/login");
+  if (!session?.user || session.user.role !== "LANDLORD") redirect("/login");
 
   const { status, type } = await searchParams;
 

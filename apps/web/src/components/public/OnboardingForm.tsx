@@ -46,7 +46,7 @@ export default function OnboardingForm() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" size="lg" className="text-base px-8 border-white text-white hover:bg-white/10">
+        <Button variant="outline" size="lg" className="w-full sm:w-auto md:ml-4 text-base px-10 py-6 bg-white dark:bg-gray-800 text-primary-700 hover:bg-gray-100">
           Request Access
         </Button>
       </DialogTrigger>

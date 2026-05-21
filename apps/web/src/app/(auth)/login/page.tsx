@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { useTheme } from "next-themes";
-import { Moon, Sun } from "lucide-react";
+import { Moon, Sun, Home } from "lucide-react";
 import { useMounted } from "@/hooks/useMounted";
 
 
@@ -30,11 +30,16 @@ export default function LoginPage() {
     } else {
       const sessionRes = await fetch("/api/auth/session");
       const session = await sessionRes.json();
-      if (session?.user?.role === "ADMIN") {
-        router.push("/admin");
-      } else {
-        router.push("/tenant");
-      }
+
+      if (session?.user?.role === "SUPER_ADMIN") router.push("/super-admin");
+      else if (session?.user?.role === "LANDLORD") router.push("/admin");
+      else router.push("/tenant");
+
+      // if (session?.user?.role === "ADMIN") {
+      //   router.push("/admin");
+      // } else {
+      //   router.push("/tenant");
+      // }
     }
   };
 
@@ -47,13 +52,45 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-100 via-white to-accent-50 p-4">
-      <button
+      <div className="absolute top-4 right-4 flex gap-2">
+        {/* Back to home button */}
+        <button
+          onClick={() => router.push("/")}
+          className="p-2 rounded-full bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+          aria-label="Back to home"
+        >
+          <Home className="h-5 w-5" />
+        </button>
+
+        {/* Theme toggle button (keep existing) */}
+        <button
+          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+          className="p-2 rounded-full bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+          aria-label="Toggle theme"
+        >
+          {themeIcon}
+        </button>
+      </div>
+
+      {/* Back to home button */}
+      {/* <button
+        onClick={() => router.push("/")}
+        className="absolute top-4 right-15 p-2 rounded-full bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+        // className="p-2 rounded-full bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+        aria-label="Back to home"
+      >
+        <Home className="h-5 w-5" />
+      </button> */}
+
+      {/* Theme toggle button */}
+      {/* <button
         onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
         className="absolute top-4 right-4 p-2 rounded-full bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition"
         aria-label="Toggle theme"
       >
         {themeIcon}
-      </button>
+      </button> */}
+      
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

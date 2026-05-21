@@ -5,7 +5,7 @@ import MessagesList from "@/components/admin/MessagesList";
 
 export default async function AdminMessagesPage() {
   const session = await auth();
-  if (!session?.user || session.user.role !== "ADMIN") redirect("/login");
+  if (!session?.user || session.user.role !== "LANDLORD") redirect("/login");
 
   // Fetch all root messages (tenant messages that start a thread)
   const messages = await prisma.contactMessage.findMany({

@@ -18,7 +18,7 @@ import {
 
 export default async function AdminDashboard() {
   const session = await auth();
-  if (!session?.user || session.user.role !== "ADMIN") redirect("/login");
+  if (!session?.user || session.user.role !== "LANDLORD") redirect("/login");
 
   // ── High‑level stats ────────────────────────────────
   const totalCollected = await prisma.payment.aggregate({

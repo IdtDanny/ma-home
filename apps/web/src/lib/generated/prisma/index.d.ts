@@ -84,7 +84,8 @@ export type OnboardingRequest = $Result.DefaultSelection<Prisma.$OnboardingReque
  */
 export namespace $Enums {
   export const Role: {
-  ADMIN: 'ADMIN',
+  SUPER_ADMIN: 'SUPER_ADMIN',
+  LANDLORD: 'LANDLORD',
   TENANT: 'TENANT'
 };
 

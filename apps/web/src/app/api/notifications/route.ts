@@ -9,7 +9,7 @@ export async function GET() {
   const role = session.user.role;
   const userId = session.user.id;
 
-  if (role === "ADMIN") {
+  if (role === "LANDLORD") {
     const adminId = userId;
 
     const [pendingContracts, unreadMessages, recentPayments] = await Promise.all([
@@ -71,7 +71,7 @@ export async function GET() {
       prisma.contactMessage.count({
         where: {
           tenantId: userId,
-          senderRole: "ADMIN",
+          senderRole: "LANDLORD",
           isRead: false,
         },
       }),

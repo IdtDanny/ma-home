@@ -67,8 +67,10 @@ const statusConfig: Record<string, { label: string; color: string }> = {
 
 export default function TenantsTable({
   tenants,
+  contractBasePath = "/admin/contracts"
 }: {
   tenants: TenantWithRelations[];
+  contractBasePath?: string;
 }) {
   const router = useRouter();
   const [tenantList, setTenantList] = useState(tenants);
@@ -335,7 +337,7 @@ export default function TenantsTable({
         <Button
           variant="ghost"
           size="icon"
-          onClick={() => router.push(`/admin/contracts?tenantId=${tenant.id}`)}
+          onClick={() => router.push(`${contractBasePath}?tenantId=${tenant.id}`)}
           title="View Contract"
         >
           <FileText className="h-4 w-4 text-blue-600" />

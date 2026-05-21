@@ -10,7 +10,7 @@ export async function GET() {
   const count = await prisma.contactMessage.count({
     where: {
       tenantId: session.user.id,
-      senderRole: "ADMIN", // only admin replies
+      senderRole: "LANDLORD", // only admin replies
       isRead: false,
     },
   });

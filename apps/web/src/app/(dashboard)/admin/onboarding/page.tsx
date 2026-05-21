@@ -4,7 +4,7 @@ import { prisma } from "@/lib/prisma";
 
 export default async function OnboardingRequestsPage() {
   const session = await auth();
-  if (!session?.user || session.user.role !== "ADMIN") redirect("/login");
+  if (!session?.user || session.user.role !== "LANDLORD") redirect("/login");
 
   const requests = await prisma.onboardingRequest.findMany({
     orderBy: { createdAt: "desc" },

@@ -302,9 +302,25 @@ export default function LandingPage() {
             <p className="mt-4 text-primary-100 text-lg">
               Join hundreds of landlords and tenants already using MA Home.
             </p>
+
+            {/* <div className="mt-8 flex flex-col sm:flex-row flex-wrap gap-3">
+              <Link href="/login">
+                <Button size="lg" className="w-full sm:w-auto text-base px-8">
+                  Get Started
+                  <ChevronRight className="ml-2 h-5 w-5" />
+                </Button>
+              </Link>
+              <OnboardingForm />
+              <Link href="#features">
+                <Button variant="outline" size="lg" className="w-full sm:w-auto text-base px-8">
+                  Learn More
+                </Button>
+              </Link>
+            </div> */}
+
             <div className="mt-8">
               <Link href="/login">
-                <Button size="lg" variant="secondary" className="text-base px-10 py-6 bg-white dark:bg-gray-700 text-primary-700 hover:bg-gray-100">
+                <Button size="lg" variant="secondary" className="w-full sm:w-auto mb-2 text-base px-10 py-6 bg-white dark:bg-gray-700 text-primary-700 hover:bg-gray-100">
                   Get Started Free
                   <ChevronRight className="ml-2 h-5 w-5" />
                 </Button>

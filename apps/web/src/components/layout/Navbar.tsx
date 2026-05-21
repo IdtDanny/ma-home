@@ -58,8 +58,8 @@ export default function Navbar() {
 
   if (!session?.user) return null;
 
-  const role = session.user.role as "ADMIN" | "TENANT";
-  const links = role === "ADMIN" ? adminLinks : tenantLinks;
+  const role = session.user.role as "LANDLORD" | "TENANT";
+  const links = role === "LANDLORD" ? adminLinks : tenantLinks;
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 backdrop-blur-lg">
@@ -124,7 +124,7 @@ export default function Navbar() {
         </Sheet>
 
         {/* Logo */}
-        <Link href={role === "ADMIN" ? "/admin" : "/tenant"} className="flex items-center gap-2 mr-6">
+        <Link href={role === "LANDLORD" ? "/admin" : "/tenant"} className="flex items-center gap-2 mr-6">
           {/* <div className="h-8 w-8 rounded-lg bg-primary-600 text-white flex items-center justify-center font-bold">
             MA
           </div> */}
@@ -150,7 +150,7 @@ export default function Navbar() {
 
         {/* Right side */}
         <div className="ml-auto flex items-center gap-3">
-          {role === "ADMIN" && <UnifiedNotificationBell  />}
+          {role === "LANDLORD" && <UnifiedNotificationBell  />}
           {role === "TENANT" && <UnifiedNotificationBell  />}
 
           {/* <UnifiedNotificationBell /> */}

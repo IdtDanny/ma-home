@@ -5,7 +5,7 @@ import PropertyList from "@/components/admin/PropertyList";
 
 export default async function AdminPropertiesPage() {
   const session = await auth();
-  if (!session?.user || session.user.role !== "ADMIN") redirect("/login");
+  if (!session?.user || session.user.role !== "LANDLORD") redirect("/login");
 
   const properties = await prisma.property.findMany({
     where: { adminId: session.user.id },

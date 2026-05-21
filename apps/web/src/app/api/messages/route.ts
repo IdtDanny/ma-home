@@ -4,7 +4,7 @@ import { prisma } from "@/lib/prisma";
 
 export async function GET() {
   const session = await auth();
-  if (!session?.user || session.user.role !== "ADMIN")
+  if (!session?.user || session.user.role !== "LANDLORD")
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const messages = await prisma.contactMessage.findMany({

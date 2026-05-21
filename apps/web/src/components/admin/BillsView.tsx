@@ -32,6 +32,7 @@ interface BillsViewProps {
   currentStatus: string;
   currentType: string;
   counts: Record<string, number>;
+  basePath?: string;
 }
 
 const statusOptions = [
@@ -55,6 +56,7 @@ export default function BillsView({
   currentStatus,
   currentType,
   counts,
+  basePath = "/super-admin/bills",
 }: BillsViewProps) {
   const router = useRouter();
   const [status, setStatus] = useState(currentStatus);
@@ -65,7 +67,8 @@ export default function BillsView({
     if (newStatus && newStatus !== "ALL") params.set("status", newStatus);
     if (newType && newType !== "ALL") params.set("type", newType);
     const query = params.toString();
-    router.push(`/admin/bills${query ? `?${query}` : ""}`);
+    router.push(`${basePath}${query ? `?${query}` : ""}`);
+    // router.push(`/admin/bills${query ? `?${query}` : ""}`);
   };
 
   return (

@@ -5,7 +5,7 @@ import AnnouncementsList from "@/components/admin/AnnouncementsList";
 
 export default async function AdminAnnouncementsPage() {
   const session = await auth();
-  if (!session?.user || session.user.role !== "ADMIN") redirect("/login");
+  if (!session?.user || session.user.role !== "LANDLORD") redirect("/login");
 
   const announcements = await prisma.announcement.findMany({
     orderBy: { createdAt: "desc" },

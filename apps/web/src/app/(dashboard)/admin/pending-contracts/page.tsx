@@ -5,7 +5,7 @@ import PendingContractsList from "@/components/admin/PendingContractsList";
 
 export default async function PendingContractsPage() {
   const session = await auth();
-  if (!session?.user || session.user.role !== "ADMIN") redirect("/login");
+  if (!session?.user || session.user.role !== "LANDLORD") redirect("/login");
 
   const contracts = await prisma.contract.findMany({
     where: {

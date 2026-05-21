@@ -206,7 +206,7 @@ export async function POST(
 ) {
   // 1. Auth check
   const session = await auth();
-  if (!session?.user || session.user.role !== "ADMIN")
+  if (!session?.user || session.user.role !== "LANDLORD")
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   // 2. Fetch the admin user to get phone and name (avoid session type issues)
