@@ -265,6 +265,15 @@ exports.Prisma.CommentScalarFieldEnum = {
   announcementId: 'announcementId'
 };
 
+exports.Prisma.OnboardingRequestScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  email: 'email',
+  phone: 'phone',
+  message: 'message',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -338,7 +347,8 @@ exports.Prisma.ModelName = {
   Occupant: 'Occupant',
   Contract: 'Contract',
   ClearanceCertificate: 'ClearanceCertificate',
-  Comment: 'Comment'
+  Comment: 'Comment',
+  OnboardingRequest: 'OnboardingRequest'
 };
 
 /**

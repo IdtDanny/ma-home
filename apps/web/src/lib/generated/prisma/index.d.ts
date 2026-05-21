@@ -73,6 +73,11 @@ export type ClearanceCertificate = $Result.DefaultSelection<Prisma.$ClearanceCer
  * 
  */
 export type Comment = $Result.DefaultSelection<Prisma.$CommentPayload>
+/**
+ * Model OnboardingRequest
+ * 
+ */
+export type OnboardingRequest = $Result.DefaultSelection<Prisma.$OnboardingRequestPayload>
 
 /**
  * Enums
@@ -386,6 +391,16 @@ export class PrismaClient<
     * ```
     */
   get comment(): Prisma.CommentDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.onboardingRequest`: Exposes CRUD operations for the **OnboardingRequest** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more OnboardingRequests
+    * const onboardingRequests = await prisma.onboardingRequest.findMany()
+    * ```
+    */
+  get onboardingRequest(): Prisma.OnboardingRequestDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -831,7 +846,8 @@ export namespace Prisma {
     Occupant: 'Occupant',
     Contract: 'Contract',
     ClearanceCertificate: 'ClearanceCertificate',
-    Comment: 'Comment'
+    Comment: 'Comment',
+    OnboardingRequest: 'OnboardingRequest'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -847,7 +863,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "property" | "unit" | "tenant" | "bill" | "payment" | "announcement" | "contactMessage" | "occupant" | "contract" | "clearanceCertificate" | "comment"
+      modelProps: "user" | "property" | "unit" | "tenant" | "bill" | "payment" | "announcement" | "contactMessage" | "occupant" | "contract" | "clearanceCertificate" | "comment" | "onboardingRequest"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1739,6 +1755,80 @@ export namespace Prisma {
           }
         }
       }
+      OnboardingRequest: {
+        payload: Prisma.$OnboardingRequestPayload<ExtArgs>
+        fields: Prisma.OnboardingRequestFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.OnboardingRequestFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OnboardingRequestPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.OnboardingRequestFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OnboardingRequestPayload>
+          }
+          findFirst: {
+            args: Prisma.OnboardingRequestFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OnboardingRequestPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.OnboardingRequestFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OnboardingRequestPayload>
+          }
+          findMany: {
+            args: Prisma.OnboardingRequestFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OnboardingRequestPayload>[]
+          }
+          create: {
+            args: Prisma.OnboardingRequestCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OnboardingRequestPayload>
+          }
+          createMany: {
+            args: Prisma.OnboardingRequestCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.OnboardingRequestCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OnboardingRequestPayload>[]
+          }
+          delete: {
+            args: Prisma.OnboardingRequestDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OnboardingRequestPayload>
+          }
+          update: {
+            args: Prisma.OnboardingRequestUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OnboardingRequestPayload>
+          }
+          deleteMany: {
+            args: Prisma.OnboardingRequestDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.OnboardingRequestUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.OnboardingRequestUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OnboardingRequestPayload>[]
+          }
+          upsert: {
+            args: Prisma.OnboardingRequestUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OnboardingRequestPayload>
+          }
+          aggregate: {
+            args: Prisma.OnboardingRequestAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateOnboardingRequest>
+          }
+          groupBy: {
+            args: Prisma.OnboardingRequestGroupByArgs<ExtArgs>
+            result: $Utils.Optional<OnboardingRequestGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.OnboardingRequestCountArgs<ExtArgs>
+            result: $Utils.Optional<OnboardingRequestCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1859,6 +1949,7 @@ export namespace Prisma {
     contract?: ContractOmit
     clearanceCertificate?: ClearanceCertificateOmit
     comment?: CommentOmit
+    onboardingRequest?: OnboardingRequestOmit
   }
 
   /* Types for Logging */
@@ -16110,6 +16201,1019 @@ export namespace Prisma {
 
 
   /**
+   * Model OnboardingRequest
+   */
+
+  export type AggregateOnboardingRequest = {
+    _count: OnboardingRequestCountAggregateOutputType | null
+    _min: OnboardingRequestMinAggregateOutputType | null
+    _max: OnboardingRequestMaxAggregateOutputType | null
+  }
+
+  export type OnboardingRequestMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    email: string | null
+    phone: string | null
+    message: string | null
+    createdAt: Date | null
+  }
+
+  export type OnboardingRequestMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    email: string | null
+    phone: string | null
+    message: string | null
+    createdAt: Date | null
+  }
+
+  export type OnboardingRequestCountAggregateOutputType = {
+    id: number
+    name: number
+    email: number
+    phone: number
+    message: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type OnboardingRequestMinAggregateInputType = {
+    id?: true
+    name?: true
+    email?: true
+    phone?: true
+    message?: true
+    createdAt?: true
+  }
+
+  export type OnboardingRequestMaxAggregateInputType = {
+    id?: true
+    name?: true
+    email?: true
+    phone?: true
+    message?: true
+    createdAt?: true
+  }
+
+  export type OnboardingRequestCountAggregateInputType = {
+    id?: true
+    name?: true
+    email?: true
+    phone?: true
+    message?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type OnboardingRequestAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which OnboardingRequest to aggregate.
+     */
+    where?: OnboardingRequestWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OnboardingRequests to fetch.
+     */
+    orderBy?: OnboardingRequestOrderByWithRelationInput | OnboardingRequestOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: OnboardingRequestWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OnboardingRequests from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OnboardingRequests.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned OnboardingRequests
+    **/
+    _count?: true | OnboardingRequestCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: OnboardingRequestMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: OnboardingRequestMaxAggregateInputType
+  }
+
+  export type GetOnboardingRequestAggregateType<T extends OnboardingRequestAggregateArgs> = {
+        [P in keyof T & keyof AggregateOnboardingRequest]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateOnboardingRequest[P]>
+      : GetScalarType<T[P], AggregateOnboardingRequest[P]>
+  }
+
+
+
+
+  export type OnboardingRequestGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OnboardingRequestWhereInput
+    orderBy?: OnboardingRequestOrderByWithAggregationInput | OnboardingRequestOrderByWithAggregationInput[]
+    by: OnboardingRequestScalarFieldEnum[] | OnboardingRequestScalarFieldEnum
+    having?: OnboardingRequestScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: OnboardingRequestCountAggregateInputType | true
+    _min?: OnboardingRequestMinAggregateInputType
+    _max?: OnboardingRequestMaxAggregateInputType
+  }
+
+  export type OnboardingRequestGroupByOutputType = {
+    id: string
+    name: string
+    email: string
+    phone: string | null
+    message: string | null
+    createdAt: Date
+    _count: OnboardingRequestCountAggregateOutputType | null
+    _min: OnboardingRequestMinAggregateOutputType | null
+    _max: OnboardingRequestMaxAggregateOutputType | null
+  }
+
+  type GetOnboardingRequestGroupByPayload<T extends OnboardingRequestGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<OnboardingRequestGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof OnboardingRequestGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], OnboardingRequestGroupByOutputType[P]>
+            : GetScalarType<T[P], OnboardingRequestGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type OnboardingRequestSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    email?: boolean
+    phone?: boolean
+    message?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["onboardingRequest"]>
+
+  export type OnboardingRequestSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    email?: boolean
+    phone?: boolean
+    message?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["onboardingRequest"]>
+
+  export type OnboardingRequestSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    email?: boolean
+    phone?: boolean
+    message?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["onboardingRequest"]>
+
+  export type OnboardingRequestSelectScalar = {
+    id?: boolean
+    name?: boolean
+    email?: boolean
+    phone?: boolean
+    message?: boolean
+    createdAt?: boolean
+  }
+
+  export type OnboardingRequestOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "phone" | "message" | "createdAt", ExtArgs["result"]["onboardingRequest"]>
+
+  export type $OnboardingRequestPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "OnboardingRequest"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      email: string
+      phone: string | null
+      message: string | null
+      createdAt: Date
+    }, ExtArgs["result"]["onboardingRequest"]>
+    composites: {}
+  }
+
+  type OnboardingRequestGetPayload<S extends boolean | null | undefined | OnboardingRequestDefaultArgs> = $Result.GetResult<Prisma.$OnboardingRequestPayload, S>
+
+  type OnboardingRequestCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<OnboardingRequestFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: OnboardingRequestCountAggregateInputType | true
+    }
+
+  export interface OnboardingRequestDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['OnboardingRequest'], meta: { name: 'OnboardingRequest' } }
+    /**
+     * Find zero or one OnboardingRequest that matches the filter.
+     * @param {OnboardingRequestFindUniqueArgs} args - Arguments to find a OnboardingRequest
+     * @example
+     * // Get one OnboardingRequest
+     * const onboardingRequest = await prisma.onboardingRequest.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends OnboardingRequestFindUniqueArgs>(args: SelectSubset<T, OnboardingRequestFindUniqueArgs<ExtArgs>>): Prisma__OnboardingRequestClient<$Result.GetResult<Prisma.$OnboardingRequestPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one OnboardingRequest that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {OnboardingRequestFindUniqueOrThrowArgs} args - Arguments to find a OnboardingRequest
+     * @example
+     * // Get one OnboardingRequest
+     * const onboardingRequest = await prisma.onboardingRequest.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends OnboardingRequestFindUniqueOrThrowArgs>(args: SelectSubset<T, OnboardingRequestFindUniqueOrThrowArgs<ExtArgs>>): Prisma__OnboardingRequestClient<$Result.GetResult<Prisma.$OnboardingRequestPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first OnboardingRequest that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OnboardingRequestFindFirstArgs} args - Arguments to find a OnboardingRequest
+     * @example
+     * // Get one OnboardingRequest
+     * const onboardingRequest = await prisma.onboardingRequest.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends OnboardingRequestFindFirstArgs>(args?: SelectSubset<T, OnboardingRequestFindFirstArgs<ExtArgs>>): Prisma__OnboardingRequestClient<$Result.GetResult<Prisma.$OnboardingRequestPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first OnboardingRequest that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OnboardingRequestFindFirstOrThrowArgs} args - Arguments to find a OnboardingRequest
+     * @example
+     * // Get one OnboardingRequest
+     * const onboardingRequest = await prisma.onboardingRequest.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends OnboardingRequestFindFirstOrThrowArgs>(args?: SelectSubset<T, OnboardingRequestFindFirstOrThrowArgs<ExtArgs>>): Prisma__OnboardingRequestClient<$Result.GetResult<Prisma.$OnboardingRequestPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more OnboardingRequests that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OnboardingRequestFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all OnboardingRequests
+     * const onboardingRequests = await prisma.onboardingRequest.findMany()
+     * 
+     * // Get first 10 OnboardingRequests
+     * const onboardingRequests = await prisma.onboardingRequest.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const onboardingRequestWithIdOnly = await prisma.onboardingRequest.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends OnboardingRequestFindManyArgs>(args?: SelectSubset<T, OnboardingRequestFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OnboardingRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a OnboardingRequest.
+     * @param {OnboardingRequestCreateArgs} args - Arguments to create a OnboardingRequest.
+     * @example
+     * // Create one OnboardingRequest
+     * const OnboardingRequest = await prisma.onboardingRequest.create({
+     *   data: {
+     *     // ... data to create a OnboardingRequest
+     *   }
+     * })
+     * 
+     */
+    create<T extends OnboardingRequestCreateArgs>(args: SelectSubset<T, OnboardingRequestCreateArgs<ExtArgs>>): Prisma__OnboardingRequestClient<$Result.GetResult<Prisma.$OnboardingRequestPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many OnboardingRequests.
+     * @param {OnboardingRequestCreateManyArgs} args - Arguments to create many OnboardingRequests.
+     * @example
+     * // Create many OnboardingRequests
+     * const onboardingRequest = await prisma.onboardingRequest.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends OnboardingRequestCreateManyArgs>(args?: SelectSubset<T, OnboardingRequestCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many OnboardingRequests and returns the data saved in the database.
+     * @param {OnboardingRequestCreateManyAndReturnArgs} args - Arguments to create many OnboardingRequests.
+     * @example
+     * // Create many OnboardingRequests
+     * const onboardingRequest = await prisma.onboardingRequest.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many OnboardingRequests and only return the `id`
+     * const onboardingRequestWithIdOnly = await prisma.onboardingRequest.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends OnboardingRequestCreateManyAndReturnArgs>(args?: SelectSubset<T, OnboardingRequestCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OnboardingRequestPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a OnboardingRequest.
+     * @param {OnboardingRequestDeleteArgs} args - Arguments to delete one OnboardingRequest.
+     * @example
+     * // Delete one OnboardingRequest
+     * const OnboardingRequest = await prisma.onboardingRequest.delete({
+     *   where: {
+     *     // ... filter to delete one OnboardingRequest
+     *   }
+     * })
+     * 
+     */
+    delete<T extends OnboardingRequestDeleteArgs>(args: SelectSubset<T, OnboardingRequestDeleteArgs<ExtArgs>>): Prisma__OnboardingRequestClient<$Result.GetResult<Prisma.$OnboardingRequestPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one OnboardingRequest.
+     * @param {OnboardingRequestUpdateArgs} args - Arguments to update one OnboardingRequest.
+     * @example
+     * // Update one OnboardingRequest
+     * const onboardingRequest = await prisma.onboardingRequest.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends OnboardingRequestUpdateArgs>(args: SelectSubset<T, OnboardingRequestUpdateArgs<ExtArgs>>): Prisma__OnboardingRequestClient<$Result.GetResult<Prisma.$OnboardingRequestPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more OnboardingRequests.
+     * @param {OnboardingRequestDeleteManyArgs} args - Arguments to filter OnboardingRequests to delete.
+     * @example
+     * // Delete a few OnboardingRequests
+     * const { count } = await prisma.onboardingRequest.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends OnboardingRequestDeleteManyArgs>(args?: SelectSubset<T, OnboardingRequestDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more OnboardingRequests.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OnboardingRequestUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many OnboardingRequests
+     * const onboardingRequest = await prisma.onboardingRequest.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends OnboardingRequestUpdateManyArgs>(args: SelectSubset<T, OnboardingRequestUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more OnboardingRequests and returns the data updated in the database.
+     * @param {OnboardingRequestUpdateManyAndReturnArgs} args - Arguments to update many OnboardingRequests.
+     * @example
+     * // Update many OnboardingRequests
+     * const onboardingRequest = await prisma.onboardingRequest.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more OnboardingRequests and only return the `id`
+     * const onboardingRequestWithIdOnly = await prisma.onboardingRequest.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends OnboardingRequestUpdateManyAndReturnArgs>(args: SelectSubset<T, OnboardingRequestUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OnboardingRequestPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one OnboardingRequest.
+     * @param {OnboardingRequestUpsertArgs} args - Arguments to update or create a OnboardingRequest.
+     * @example
+     * // Update or create a OnboardingRequest
+     * const onboardingRequest = await prisma.onboardingRequest.upsert({
+     *   create: {
+     *     // ... data to create a OnboardingRequest
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the OnboardingRequest we want to update
+     *   }
+     * })
+     */
+    upsert<T extends OnboardingRequestUpsertArgs>(args: SelectSubset<T, OnboardingRequestUpsertArgs<ExtArgs>>): Prisma__OnboardingRequestClient<$Result.GetResult<Prisma.$OnboardingRequestPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of OnboardingRequests.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OnboardingRequestCountArgs} args - Arguments to filter OnboardingRequests to count.
+     * @example
+     * // Count the number of OnboardingRequests
+     * const count = await prisma.onboardingRequest.count({
+     *   where: {
+     *     // ... the filter for the OnboardingRequests we want to count
+     *   }
+     * })
+    **/
+    count<T extends OnboardingRequestCountArgs>(
+      args?: Subset<T, OnboardingRequestCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], OnboardingRequestCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a OnboardingRequest.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OnboardingRequestAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends OnboardingRequestAggregateArgs>(args: Subset<T, OnboardingRequestAggregateArgs>): Prisma.PrismaPromise<GetOnboardingRequestAggregateType<T>>
+
+    /**
+     * Group by OnboardingRequest.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OnboardingRequestGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends OnboardingRequestGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: OnboardingRequestGroupByArgs['orderBy'] }
+        : { orderBy?: OnboardingRequestGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, OnboardingRequestGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetOnboardingRequestGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the OnboardingRequest model
+   */
+  readonly fields: OnboardingRequestFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for OnboardingRequest.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__OnboardingRequestClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the OnboardingRequest model
+   */
+  interface OnboardingRequestFieldRefs {
+    readonly id: FieldRef<"OnboardingRequest", 'String'>
+    readonly name: FieldRef<"OnboardingRequest", 'String'>
+    readonly email: FieldRef<"OnboardingRequest", 'String'>
+    readonly phone: FieldRef<"OnboardingRequest", 'String'>
+    readonly message: FieldRef<"OnboardingRequest", 'String'>
+    readonly createdAt: FieldRef<"OnboardingRequest", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * OnboardingRequest findUnique
+   */
+  export type OnboardingRequestFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OnboardingRequest
+     */
+    select?: OnboardingRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OnboardingRequest
+     */
+    omit?: OnboardingRequestOmit<ExtArgs> | null
+    /**
+     * Filter, which OnboardingRequest to fetch.
+     */
+    where: OnboardingRequestWhereUniqueInput
+  }
+
+  /**
+   * OnboardingRequest findUniqueOrThrow
+   */
+  export type OnboardingRequestFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OnboardingRequest
+     */
+    select?: OnboardingRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OnboardingRequest
+     */
+    omit?: OnboardingRequestOmit<ExtArgs> | null
+    /**
+     * Filter, which OnboardingRequest to fetch.
+     */
+    where: OnboardingRequestWhereUniqueInput
+  }
+
+  /**
+   * OnboardingRequest findFirst
+   */
+  export type OnboardingRequestFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OnboardingRequest
+     */
+    select?: OnboardingRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OnboardingRequest
+     */
+    omit?: OnboardingRequestOmit<ExtArgs> | null
+    /**
+     * Filter, which OnboardingRequest to fetch.
+     */
+    where?: OnboardingRequestWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OnboardingRequests to fetch.
+     */
+    orderBy?: OnboardingRequestOrderByWithRelationInput | OnboardingRequestOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for OnboardingRequests.
+     */
+    cursor?: OnboardingRequestWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OnboardingRequests from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OnboardingRequests.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of OnboardingRequests.
+     */
+    distinct?: OnboardingRequestScalarFieldEnum | OnboardingRequestScalarFieldEnum[]
+  }
+
+  /**
+   * OnboardingRequest findFirstOrThrow
+   */
+  export type OnboardingRequestFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OnboardingRequest
+     */
+    select?: OnboardingRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OnboardingRequest
+     */
+    omit?: OnboardingRequestOmit<ExtArgs> | null
+    /**
+     * Filter, which OnboardingRequest to fetch.
+     */
+    where?: OnboardingRequestWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OnboardingRequests to fetch.
+     */
+    orderBy?: OnboardingRequestOrderByWithRelationInput | OnboardingRequestOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for OnboardingRequests.
+     */
+    cursor?: OnboardingRequestWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OnboardingRequests from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OnboardingRequests.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of OnboardingRequests.
+     */
+    distinct?: OnboardingRequestScalarFieldEnum | OnboardingRequestScalarFieldEnum[]
+  }
+
+  /**
+   * OnboardingRequest findMany
+   */
+  export type OnboardingRequestFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OnboardingRequest
+     */
+    select?: OnboardingRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OnboardingRequest
+     */
+    omit?: OnboardingRequestOmit<ExtArgs> | null
+    /**
+     * Filter, which OnboardingRequests to fetch.
+     */
+    where?: OnboardingRequestWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OnboardingRequests to fetch.
+     */
+    orderBy?: OnboardingRequestOrderByWithRelationInput | OnboardingRequestOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing OnboardingRequests.
+     */
+    cursor?: OnboardingRequestWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OnboardingRequests from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OnboardingRequests.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of OnboardingRequests.
+     */
+    distinct?: OnboardingRequestScalarFieldEnum | OnboardingRequestScalarFieldEnum[]
+  }
+
+  /**
+   * OnboardingRequest create
+   */
+  export type OnboardingRequestCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OnboardingRequest
+     */
+    select?: OnboardingRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OnboardingRequest
+     */
+    omit?: OnboardingRequestOmit<ExtArgs> | null
+    /**
+     * The data needed to create a OnboardingRequest.
+     */
+    data: XOR<OnboardingRequestCreateInput, OnboardingRequestUncheckedCreateInput>
+  }
+
+  /**
+   * OnboardingRequest createMany
+   */
+  export type OnboardingRequestCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many OnboardingRequests.
+     */
+    data: OnboardingRequestCreateManyInput | OnboardingRequestCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * OnboardingRequest createManyAndReturn
+   */
+  export type OnboardingRequestCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OnboardingRequest
+     */
+    select?: OnboardingRequestSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the OnboardingRequest
+     */
+    omit?: OnboardingRequestOmit<ExtArgs> | null
+    /**
+     * The data used to create many OnboardingRequests.
+     */
+    data: OnboardingRequestCreateManyInput | OnboardingRequestCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * OnboardingRequest update
+   */
+  export type OnboardingRequestUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OnboardingRequest
+     */
+    select?: OnboardingRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OnboardingRequest
+     */
+    omit?: OnboardingRequestOmit<ExtArgs> | null
+    /**
+     * The data needed to update a OnboardingRequest.
+     */
+    data: XOR<OnboardingRequestUpdateInput, OnboardingRequestUncheckedUpdateInput>
+    /**
+     * Choose, which OnboardingRequest to update.
+     */
+    where: OnboardingRequestWhereUniqueInput
+  }
+
+  /**
+   * OnboardingRequest updateMany
+   */
+  export type OnboardingRequestUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update OnboardingRequests.
+     */
+    data: XOR<OnboardingRequestUpdateManyMutationInput, OnboardingRequestUncheckedUpdateManyInput>
+    /**
+     * Filter which OnboardingRequests to update
+     */
+    where?: OnboardingRequestWhereInput
+    /**
+     * Limit how many OnboardingRequests to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * OnboardingRequest updateManyAndReturn
+   */
+  export type OnboardingRequestUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OnboardingRequest
+     */
+    select?: OnboardingRequestSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the OnboardingRequest
+     */
+    omit?: OnboardingRequestOmit<ExtArgs> | null
+    /**
+     * The data used to update OnboardingRequests.
+     */
+    data: XOR<OnboardingRequestUpdateManyMutationInput, OnboardingRequestUncheckedUpdateManyInput>
+    /**
+     * Filter which OnboardingRequests to update
+     */
+    where?: OnboardingRequestWhereInput
+    /**
+     * Limit how many OnboardingRequests to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * OnboardingRequest upsert
+   */
+  export type OnboardingRequestUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OnboardingRequest
+     */
+    select?: OnboardingRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OnboardingRequest
+     */
+    omit?: OnboardingRequestOmit<ExtArgs> | null
+    /**
+     * The filter to search for the OnboardingRequest to update in case it exists.
+     */
+    where: OnboardingRequestWhereUniqueInput
+    /**
+     * In case the OnboardingRequest found by the `where` argument doesn't exist, create a new OnboardingRequest with this data.
+     */
+    create: XOR<OnboardingRequestCreateInput, OnboardingRequestUncheckedCreateInput>
+    /**
+     * In case the OnboardingRequest was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<OnboardingRequestUpdateInput, OnboardingRequestUncheckedUpdateInput>
+  }
+
+  /**
+   * OnboardingRequest delete
+   */
+  export type OnboardingRequestDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OnboardingRequest
+     */
+    select?: OnboardingRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OnboardingRequest
+     */
+    omit?: OnboardingRequestOmit<ExtArgs> | null
+    /**
+     * Filter which OnboardingRequest to delete.
+     */
+    where: OnboardingRequestWhereUniqueInput
+  }
+
+  /**
+   * OnboardingRequest deleteMany
+   */
+  export type OnboardingRequestDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which OnboardingRequests to delete
+     */
+    where?: OnboardingRequestWhereInput
+    /**
+     * Limit how many OnboardingRequests to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * OnboardingRequest without action
+   */
+  export type OnboardingRequestDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OnboardingRequest
+     */
+    select?: OnboardingRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OnboardingRequest
+     */
+    omit?: OnboardingRequestOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -16302,6 +17406,18 @@ export namespace Prisma {
   };
 
   export type CommentScalarFieldEnum = (typeof CommentScalarFieldEnum)[keyof typeof CommentScalarFieldEnum]
+
+
+  export const OnboardingRequestScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    email: 'email',
+    phone: 'phone',
+    message: 'message',
+    createdAt: 'createdAt'
+  };
+
+  export type OnboardingRequestScalarFieldEnum = (typeof OnboardingRequestScalarFieldEnum)[keyof typeof OnboardingRequestScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -17470,6 +18586,63 @@ export namespace Prisma {
     announcementId?: StringWithAggregatesFilter<"Comment"> | string
   }
 
+  export type OnboardingRequestWhereInput = {
+    AND?: OnboardingRequestWhereInput | OnboardingRequestWhereInput[]
+    OR?: OnboardingRequestWhereInput[]
+    NOT?: OnboardingRequestWhereInput | OnboardingRequestWhereInput[]
+    id?: StringFilter<"OnboardingRequest"> | string
+    name?: StringFilter<"OnboardingRequest"> | string
+    email?: StringFilter<"OnboardingRequest"> | string
+    phone?: StringNullableFilter<"OnboardingRequest"> | string | null
+    message?: StringNullableFilter<"OnboardingRequest"> | string | null
+    createdAt?: DateTimeFilter<"OnboardingRequest"> | Date | string
+  }
+
+  export type OnboardingRequestOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    email?: SortOrder
+    phone?: SortOrderInput | SortOrder
+    message?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type OnboardingRequestWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: OnboardingRequestWhereInput | OnboardingRequestWhereInput[]
+    OR?: OnboardingRequestWhereInput[]
+    NOT?: OnboardingRequestWhereInput | OnboardingRequestWhereInput[]
+    name?: StringFilter<"OnboardingRequest"> | string
+    email?: StringFilter<"OnboardingRequest"> | string
+    phone?: StringNullableFilter<"OnboardingRequest"> | string | null
+    message?: StringNullableFilter<"OnboardingRequest"> | string | null
+    createdAt?: DateTimeFilter<"OnboardingRequest"> | Date | string
+  }, "id">
+
+  export type OnboardingRequestOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    email?: SortOrder
+    phone?: SortOrderInput | SortOrder
+    message?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: OnboardingRequestCountOrderByAggregateInput
+    _max?: OnboardingRequestMaxOrderByAggregateInput
+    _min?: OnboardingRequestMinOrderByAggregateInput
+  }
+
+  export type OnboardingRequestScalarWhereWithAggregatesInput = {
+    AND?: OnboardingRequestScalarWhereWithAggregatesInput | OnboardingRequestScalarWhereWithAggregatesInput[]
+    OR?: OnboardingRequestScalarWhereWithAggregatesInput[]
+    NOT?: OnboardingRequestScalarWhereWithAggregatesInput | OnboardingRequestScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"OnboardingRequest"> | string
+    name?: StringWithAggregatesFilter<"OnboardingRequest"> | string
+    email?: StringWithAggregatesFilter<"OnboardingRequest"> | string
+    phone?: StringNullableWithAggregatesFilter<"OnboardingRequest"> | string | null
+    message?: StringNullableWithAggregatesFilter<"OnboardingRequest"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"OnboardingRequest"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     email: string
@@ -18527,6 +19700,69 @@ export namespace Prisma {
     announcementId?: StringFieldUpdateOperationsInput | string
   }
 
+  export type OnboardingRequestCreateInput = {
+    id?: string
+    name: string
+    email: string
+    phone?: string | null
+    message?: string | null
+    createdAt?: Date | string
+  }
+
+  export type OnboardingRequestUncheckedCreateInput = {
+    id?: string
+    name: string
+    email: string
+    phone?: string | null
+    message?: string | null
+    createdAt?: Date | string
+  }
+
+  export type OnboardingRequestUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OnboardingRequestUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OnboardingRequestCreateManyInput = {
+    id?: string
+    name: string
+    email: string
+    phone?: string | null
+    message?: string | null
+    createdAt?: Date | string
+  }
+
+  export type OnboardingRequestUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OnboardingRequestUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -19548,6 +20784,33 @@ export namespace Prisma {
     createdAt?: SortOrder
     authorId?: SortOrder
     announcementId?: SortOrder
+  }
+
+  export type OnboardingRequestCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    email?: SortOrder
+    phone?: SortOrder
+    message?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type OnboardingRequestMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    email?: SortOrder
+    phone?: SortOrder
+    message?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type OnboardingRequestMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    email?: SortOrder
+    phone?: SortOrder
+    message?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type TenantCreateNestedOneWithoutUserInput = {

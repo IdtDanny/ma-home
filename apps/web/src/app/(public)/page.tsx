@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import OnboardingForm from "@/components/public/OnboardingForm";
 import {
   Home,
   CreditCard,
@@ -303,11 +304,12 @@ export default function LandingPage() {
             </p>
             <div className="mt-8">
               <Link href="/login">
-                <Button size="lg" variant="secondary" className="text-base px-10 py-6 bg-white text-primary-700 hover:bg-gray-100">
+                <Button size="lg" variant="secondary" className="text-base px-10 py-6 bg-white dark:bg-gray-700 text-primary-700 hover:bg-gray-100">
                   Get Started Free
                   <ChevronRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
+              <OnboardingForm />
             </div>
           </motion.div>
         </div>
