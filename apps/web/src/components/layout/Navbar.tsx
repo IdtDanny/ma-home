@@ -30,6 +30,7 @@ const adminLinks = [
   { href: "/admin/announcements", label: "Announcements" },
   { href: "/admin/messages", label: "Messages" },
   { href: "/admin/contracts", label: "Contracts" },
+  { href: "/admin/profile", label: "Profile" },
 ];
 
 const tenantLinks = [
@@ -158,11 +159,27 @@ export default function Navbar() {
           <ThemeToggle />
 
           <DropdownMenu>
+            
             <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="relative h-9 w-9 rounded-full p-0">
+                {session?.user?.image ? (
+                  <img src={session.user.image} alt="Avatar" className="h-full w-full rounded-full object-cover" />
+                ) : (
+                  <div className="h-full w-full rounded-full bg-primary-100 dark:bg-gray-700 flex items-center justify-center">
+                    <span className="text-sm font-bold text-primary-700 dark:text-gray-200">
+                      {session?.user?.name?.charAt(0).toUpperCase() || "U"}
+                    </span>
+                  </div>
+                )}
+              </Button>
+            </DropdownMenuTrigger>
+            
+            {/* <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="relative h-9 w-9 rounded-full bg-primary-100">
                 <User className="h-5 w-5 text-primary-700" />
               </Button>
-            </DropdownMenuTrigger>
+            </DropdownMenuTrigger> */}
+
             <DropdownMenuContent align="end" className="w-48">
               <div className="px-4 py-2 text-sm text-gray-500">
                 {session.user.name}

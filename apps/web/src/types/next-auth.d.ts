@@ -11,6 +11,7 @@ declare module "next-auth" {
       /** The user's role (ADMIN or TENANT) */
       id: string;
       role: string;
+      image?: string | null;
     } & DefaultSession["user"];
   }
 
@@ -26,25 +27,3 @@ declare module "next-auth/jwt" {
     role?: string;
   }
 }
-
-// import NextAuth from "next-auth";
-// import { DefaultSession } from "next-auth";
-
-// declare module "next-auth" {
-//   interface Session {
-//     user: {
-//       id: string;
-//       role: "SUPER_ADMIN" | "LANDLORD" | "TENANT";
-//     } & DefaultSession["user"];
-//   }
-
-//   interface User {
-//     role?: "SUPER_ADMIN" | "LANDLORD" | "TENANT";
-//   }
-// }
-
-// declare module "next-auth/jwt" {
-//   interface JWT {
-//     role?: "SUPER_ADMIN" | "LANDLORD" | "TENANT";
-//   }
-// }

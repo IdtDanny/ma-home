@@ -39,6 +39,7 @@ model User {
   name         String
   role         Role     @default(TENANT)
   phone        String?
+  image        String?
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
