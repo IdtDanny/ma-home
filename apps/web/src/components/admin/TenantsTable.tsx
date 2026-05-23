@@ -594,6 +594,7 @@ import {
   Search,
   ChevronLeft,
   ChevronRight,
+  SearchAlert,
 } from "lucide-react";
 import * as XLSX from "xlsx";
 import toast from "react-hot-toast";
@@ -1028,8 +1029,7 @@ export default function TenantsTable({
               size="sm"
               className="dark:border-gray-700 dark:text-gray-200"
             >
-              <Download className="mr-2 h-4 w-4" />
-              Export
+              <Download className="mr-2 h-4 w-4" />Export
             </Button>
           </div>
         </CardHeader>

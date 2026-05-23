@@ -11,7 +11,11 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
-import BillsTable from "@/components/admin/BillsTable";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Search, ChevronLeft, ChevronRight } from "lucide-react";
+import BillsTable from "./BillsTable";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 interface Bill {
   id: string;
@@ -56,11 +60,16 @@ export default function BillsView({
   currentStatus,
   currentType,
   counts,
-  basePath = "/super-admin/bills",
+  basePath = "/admin/bills",
 }: BillsViewProps) {
   const router = useRouter();
+  const isMobile = useMediaQuery("(max-width: 767px)");
+  const pageSize = isMobile ? 5 : 20;
+
   const [status, setStatus] = useState(currentStatus);
   const [type, setType] = useState(currentType);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
 
   const updateFilters = (newStatus?: string, newType?: string) => {
     const params = new URLSearchParams();
@@ -68,33 +77,78 @@ export default function BillsView({
     if (newType && newType !== "ALL") params.set("type", newType);
     const query = params.toString();
     router.push(`${basePath}${query ? `?${query}` : ""}`);
-    // router.push(`/admin/bills${query ? `?${query}` : ""}`);
   };
+
+  // Filter by search query
+  const filteredBills = bills.filter((bill) => {
+    if (!searchQuery.trim()) return true;
+    const q = searchQuery.toLowerCase();
+    return (
+      bill.tenant.user.name.toLowerCase().includes(q) ||
+      bill.type.toLowerCase().includes(q) ||
+      bill.period.toLowerCase().includes(q)
+    );
+  });
+
+  const totalPages = Math.ceil(filteredBills.length / pageSize);
+  const paginatedBills = filteredBills.slice(
+    (currentPage - 1) * pageSize,
+    currentPage * pageSize
+  );
+
+  const handleSearchChange = (value: string) => {
+    setSearchQuery(value);
+    setCurrentPage(1);
+  };
+
+  const Pagination = () => (
+    <div className="flex items-center justify-between pt-4">
+      <p className="text-sm text-gray-500 dark:text-gray-400">
+        {filteredBills.length === 0
+          ? "0 results"
+          : `Showing ${(currentPage - 1) * pageSize + 1}–${Math.min(
+              currentPage * pageSize,
+              filteredBills.length
+            )} of ${filteredBills.length}`}
+      </p>
+      <div className="flex gap-1">
+        <Button
+          variant="outline"
+          size="icon"
+          onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+          disabled={currentPage === 1}
+        >
+          <ChevronLeft className="h-4 w-4" />
+        </Button>
+        {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+          <Button
+            key={page}
+            variant={page === currentPage ? "default" : "outline"}
+            size="sm"
+            onClick={() => setCurrentPage(page)}
+            className="hidden md:inline-flex"
+          >
+            {page}
+          </Button>
+        ))}
+        <Button
+          variant="outline"
+          size="icon"
+          onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+          disabled={currentPage === totalPages || totalPages === 0}
+        >
+          <ChevronRight className="h-4 w-4" />
+        </Button>
+      </div>
+    </div>
+  );
 
   return (
     <div className="space-y-4">
-      {/* Filters */}
+      {/* Filters + Search */}
       <div className="flex flex-col sm:flex-row sm:items-center gap-4">
-        {/* Status filter */}
-        <div className="flex-1">
-          {/* Desktop tabs */}
-          <Tabs
-            value={status}
-            onValueChange={(v) => {
-              setStatus(v);
-              updateFilters(v, type);
-            }}
-            className="hidden md:block"
-          >
-            <TabsList className="grid w-full grid-cols-5">
-              {statusOptions.map((opt) => (
-                <TabsTrigger key={opt.value} value={opt.value}>
-                  {opt.label} ({counts[opt.value] || 0})
-                </TabsTrigger>
-              ))}
-            </TabsList>
-          </Tabs>
-          {/* Mobile select */}
+        <div className="flex-1 flex flex-col sm:flex-row gap-4">
+          {/* Status filter */}
           <Select
             value={status}
             onValueChange={(v) => {
@@ -102,7 +156,7 @@ export default function BillsView({
               updateFilters(v, type);
             }}
           >
-            <SelectTrigger className="w-full md:hidden">
+            <SelectTrigger className="w-full sm:w-48">
               <SelectValue placeholder="Filter by status" />
             </SelectTrigger>
             <SelectContent>
@@ -113,11 +167,8 @@ export default function BillsView({
               ))}
             </SelectContent>
           </Select>
-        </div>
 
-        {/* Type filter */}
-        <div className="w-full sm:w-48">
-          <Label className="block mb-1 text-xs sm:hidden">Type</Label>
+          {/* Type filter */}
           <Select
             value={type}
             onValueChange={(v) => {
@@ -125,7 +176,7 @@ export default function BillsView({
               updateFilters(status, v);
             }}
           >
-            <SelectTrigger>
+            <SelectTrigger className="w-full sm:w-48">
               <SelectValue placeholder="All Types" />
             </SelectTrigger>
             <SelectContent>
@@ -137,10 +188,22 @@ export default function BillsView({
             </SelectContent>
           </Select>
         </div>
+
+        {/* Search */}
+        <div className="relative w-full sm:w-64">
+          <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-400" />
+          <Input
+            placeholder="Search tenant, type, period…"
+            value={searchQuery}
+            onChange={(e) => handleSearchChange(e.target.value)}
+            className="pl-9 w-full"
+          />
+        </div>
       </div>
 
-      {/* Bills table */}
-      <BillsTable bills={bills} />
+      {/* Bills table with pagination */}
+      <BillsTable bills={paginatedBills} />
+      <Pagination />
     </div>
   );
 }
