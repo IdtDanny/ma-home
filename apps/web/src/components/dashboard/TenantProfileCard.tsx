@@ -96,7 +96,8 @@ export default function TenantProfileCard({ tenant }: TenantProfileProps) {
     >
       <Card className="dark:bg-gray-900 dark:border-gray-800 overflow-hidden">
         {/* Profile Header */}
-        <div className="bg-gradient-to-r from-primary-600 to-primary-700 p-6 sm:p-8 text-white">
+        {/* <div className="bg-gradient-to-r from-gray-600 to-gray-700 p-6 sm:p-8 text-white"> */}
+        <div className="p-6 sm:p-8 text-gray-800 dark:text-gray-200">
           <div className="flex flex-col sm:flex-row sm:items-center gap-4">
             <AvatarUpload
               currentImage={tenant.user.image || null}
@@ -106,17 +107,17 @@ export default function TenantProfileCard({ tenant }: TenantProfileProps) {
               <h1 className="text-2xl sm:text-3xl font-bold">
                 {tenant.user.name}
               </h1>
-              <p className="text-primary-100 text-sm">{tenant.user.email}</p>
+              <p className="text-gray-500 dark:text-gray-300 text-sm">{tenant.user.email}</p>
               <div className="flex flex-wrap gap-2 mt-2">
                 <Badge
                   variant="outline"
-                  className="border-primary-200 text-primary-100"
+                  className="border-gray-500 dark:border-gray-300 text-gray-500 dark:text-gray-300"
                 >
                   {tenant.isActive ? "Active Tenant" : "Inactive"}
                 </Badge>
                 <Badge
                   variant="outline"
-                  className="border-primary-200 text-primary-100"
+                  className="border-gray-500 dark:border-gray-300 text-gray-500 dark:text-gray-300"
                 >
                   {tenant.unit.property.name}
                 </Badge>
@@ -127,7 +128,7 @@ export default function TenantProfileCard({ tenant }: TenantProfileProps) {
                 <Button
                   variant="secondary"
                   size="sm"
-                  className="bg-white text-primary-700 hover:bg-gray-100"
+                  className="bg-gray-700 dark:bg-gray-300 text-gray-200 dark:text-gray-700 p-5 hover:bg-gray-600"
                 >
                   <Pencil className="mr-2 h-4 w-4" /> Edit Profile
                 </Button>
@@ -184,7 +185,7 @@ export default function TenantProfileCard({ tenant }: TenantProfileProps) {
           {/* Key Information Grid */}
           <div>
             <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-              <User className="h-5 w-5 text-primary-600" />
+              <User className="h-5 w-5 text-gray-600 dark:text-gray-300" />
               Personal Details
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -218,7 +219,7 @@ export default function TenantProfileCard({ tenant }: TenantProfileProps) {
           {/* Property Details */}
           <div>
             <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-              <Home className="h-5 w-5 text-primary-600" />
+              <Home className="h-5 w-5 text-gray-600 dark:text-gray-300" />
               Rental Information
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -248,7 +249,7 @@ export default function TenantProfileCard({ tenant }: TenantProfileProps) {
           {/* Recent Bills */}
           <div>
             <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-              <FileText className="h-5 w-5 text-primary-600" />
+              <FileText className="h-5 w-5 text-gray-600 dark:text-gray-300" />
               Recent Bills
             </h2>
             {tenant.bills.length === 0 ? (
@@ -309,8 +310,8 @@ function InfoCard({
 }) {
   return (
     <div className="flex items-start gap-3 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-      <div className="p-2 bg-primary-100 dark:bg-primary-900 rounded-full">
-        <Icon className="h-4 w-4 text-primary-600 dark:text-primary-400" />
+      <div className="p-2 bg-gray-100 dark:bg-gray-900 rounded-full">
+        <Icon className="h-4 w-4 text-gray-600 dark:text-gray-400" />
       </div>
       <div>
         <p className="text-xs text-gray-500 dark:text-gray-400 uppercase">

@@ -109,6 +109,12 @@ export default async function AdminDashboard() {
     },
   ];
 
+  function compactCurrency(value: number): string {
+    if (value >= 1_000_000) return `${(value / 1_000_000).toFixed(1)}M RWF`;
+    if (value >= 1_000) return `${(value / 1_000).toFixed(1)}K RWF`;
+    return value.toString();
+  }
+
   return (
     <div className="space-y-8">
       <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-100">
@@ -116,7 +122,7 @@ export default async function AdminDashboard() {
       </h1>
 
       {/* ── Top stats row ─────────────────────────────── */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      {/* <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard
           title="Collected"
           value={totalCollected._sum.amount || 0}
@@ -140,6 +146,35 @@ export default async function AdminDashboard() {
         <StatCard
           title="Properties"
           value={propertyCount}
+          icon="🏠"
+          color="bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-400"
+        />
+      </div> */}
+
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
+        <StatCard
+          title="Collected"
+          value={compactCurrency(totalCollected._sum.amount || 0)}
+          icon="💰"
+          color="bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-400"
+        />
+        <Link href="/admin/bills?status=PENDING">
+          <StatCard
+            title="Pending"
+            value={compactCurrency(pendingBills._sum.amount || 0)}
+            icon="⏳"
+            color="bg-yellow-100 dark:bg-yellow-900 text-yellow-600 dark:text-yellow-400"
+          />
+        </Link>
+        <StatCard
+          title="Tenants"
+          value={tenantCount.toString()}
+          icon="👥"
+          color="bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400"
+        />
+        <StatCard
+          title="Properties"
+          value={propertyCount.toString()}
           icon="🏠"
           color="bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-400"
         />
@@ -168,7 +203,8 @@ export default async function AdminDashboard() {
                         {stat.type}
                       </p>
                       <p className="font-semibold text-base sm:text-lg">
-                        {stat._sum.amount?.toLocaleString() || 0} RWF
+                        {/* {stat._sum.amount?.toLocaleString() || 0} RWF */}
+                        {compactCurrency(stat._sum.amount || 0)}
                       </p>
                       <p className="text-xs text-gray-400">
                         {stat._count} unpaid

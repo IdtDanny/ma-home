@@ -17,11 +17,11 @@ export default function AvatarUpload({ currentImage, onUploadComplete }: AvatarU
   return (
     <div className="flex flex-col items-center gap-3">
       {/* Avatar preview / fallback */}
-      <div className="relative h-24 w-24 rounded-full overflow-hidden bg-primary-100 dark:bg-gray-700 flex items-center justify-center">
+      <div className="relative h-24 w-24 rounded-full overflow-hidden bg-gray-100 dark:bg-gray-700 flex items-center justify-center">
         {image ? (
           <img src={image} alt="Avatar" className="h-full w-full object-cover" />
         ) : (
-          <span className="text-2xl font-bold text-primary-700 dark:text-gray-200">
+          <span className="text-2xl font-bold text-gray-700 dark:text-gray-200">
             {/* You can pass a letter prop, but here we'll show a generic icon */}
             <UserIcon className="h-10 w-10" />
           </span>
@@ -43,7 +43,7 @@ export default function AvatarUpload({ currentImage, onUploadComplete }: AvatarU
           toast.error("Upload failed");
         }}
         onUploadBegin={() => setUploading(true)}
-        className="ut-button:bg-primary-600 ut-button:text-white ut-button:rounded-md ut-button:px-3 ut-button:py-1.5 ut-button:text-sm"
+        className="ut-button:bg-gray-600 ut-button:text-white ut-button:rounded-md ut-button:px-3 ut-button:py-1.5 ut-button:text-sm"
       />
       {uploading && <p className="text-xs text-gray-500">Uploading…</p>}
     </div>
