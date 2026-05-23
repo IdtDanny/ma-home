@@ -1,3 +1,558 @@
+// "use client";
+
+// import { useState } from "react";
+// import { motion, AnimatePresence } from "framer-motion";
+// import { useRouter } from "next/navigation";
+// import { Button } from "@/components/ui/button";
+// import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+// import { Input } from "@/components/ui/input";
+// import { Label } from "@/components/ui/label";
+// import {
+//   Dialog,
+//   DialogContent,
+//   DialogHeader,
+//   DialogTitle,
+// } from "@/components/ui/dialog";
+// import {
+//   Select,
+//   SelectContent,
+//   SelectItem,
+//   SelectTrigger,
+//   SelectValue,
+// } from "@/components/ui/select";
+// import {
+//   Table,
+//   TableBody,
+//   TableCell,
+//   TableHead,
+//   TableHeader,
+//   TableRow,
+// } from "@/components/ui/table";
+// import {
+//   Pencil,
+//   Trash2,
+//   Eye,
+//   PlusCircle,
+//   Download,
+//   FileText,
+//   Users,
+// } from "lucide-react";
+// import * as XLSX from "xlsx";
+// import toast from "react-hot-toast";
+// import type { TenantWithRelations } from "@/types/index";
+// import ClearanceForm from "@/components/admin/ClearanceForm";
+
+// const statusConfig: Record<string, { label: string; color: string }> = {
+//   PENDING_TENANT_SIGNATURE: {
+//     label: "Pending Tenant",
+//     color: "bg-yellow-100 text-yellow-700 dark:bg-yellow-900 dark:text-yellow-300",
+//   },
+//   PENDING_LANDLORD_SIGNATURE: {
+//     label: "Pending Landlord",
+//     color: "bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300",
+//   },
+//   ACTIVE: {
+//     label: "Active",
+//     color: "bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300",
+//   },
+//   EXPIRED: {
+//     label: "Expired",
+//     color: "bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400",
+//   },
+//   TERMINATED: {
+//     label: "Terminated",
+//     color: "bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-300",
+//   },
+// };
+
+// export default function TenantsTable({
+//   tenants,
+//   contractBasePath = "/admin/contracts"
+// }: {
+//   tenants: TenantWithRelations[];
+//   contractBasePath?: string;
+// }) {
+//   const router = useRouter();
+//   const [tenantList, setTenantList] = useState(tenants);
+//   const [editingTenant, setEditingTenant] = useState<TenantWithRelations | null>(null);
+//   const [viewingTenant, setViewingTenant] = useState<TenantWithRelations | null>(null);
+//   const [billTenantId, setBillTenantId] = useState<string | null>(null);
+//   const [deletingTenant, setDeletingTenant] = useState<TenantWithRelations | null>(null);
+//   const [clearanceFormOpen, setClearanceFormOpen] = useState(false);
+//   const [billForm, setBillForm] = useState({
+//     type: "RENT",
+//     amount: "",
+//     period: "",
+//     dueDate: "",
+//   });
+//   const [editForm, setEditForm] = useState({
+//     name: "",
+//     email: "",
+//     phone: "",
+//     rentAmount: "",
+//   });
+
+//   // ── Contract ────────────────────────────────────────────
+//   const [contractTenantId, setContractTenantId] = useState<string | null>(null);
+//   const [contractForm, setContractForm] = useState<{
+//     startDate: string;
+//     endDate: string;
+//     monthlyRent: string;
+//     deposit: string;
+//     utilities: Record<string, string>;   // 👈 allow any string key
+//   }>({
+//     startDate: "",
+//     endDate: "",
+//     monthlyRent: "",
+//     deposit: "",
+//     utilities: {
+//       electricity: "tenant",
+//       water: "landlord",
+//       internet: "tenant",
+//     },
+//   });
+
+//   const openContractForm = (tenant: TenantWithRelations) => {
+//     setContractTenantId(tenant.id);
+//     setContractForm({
+//       startDate: new Date().toISOString().split("T")[0],
+//       endDate: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000)
+//         .toISOString()
+//         .split("T")[0],
+//       monthlyRent: String(tenant.rentAmount),
+//       deposit: "",
+//       utilities: { electricity: "tenant", water: "landlord", internet: "tenant" },
+//     });
+//   };
+
+//   const handleContractSubmit = async (e: React.FormEvent) => {
+//     e.preventDefault();
+//     if (!contractTenantId) return;
+//     const res = await fetch("/api/contracts", {
+//       method: "POST",
+//       headers: { "Content-Type": "application/json" },
+//       body: JSON.stringify({
+//         tenantId: contractTenantId,
+//         startDate: contractForm.startDate,
+//         endDate: contractForm.endDate,
+//         monthlyRent: parseFloat(contractForm.monthlyRent),
+//         deposit: contractForm.deposit ? parseFloat(contractForm.deposit) : undefined,
+//         utilities: contractForm.utilities,
+//       }),
+//     });
+//     if (res.ok) {
+//       toast.success("Contract created and sent for signature.");
+//       setContractTenantId(null);
+//       router.refresh();
+//     } else {
+//       toast.error("Failed to create contract.");
+//     }
+//   };
+
+//   // ── Delete ──────────────────────────────────────────────
+//   const handleDelete = async (id: string) => {
+//     if (!confirm("Are you sure you want to delete this tenant?")) return;
+//     const res = await fetch(`/api/tenants/${id}`, { method: "DELETE" });
+//     if (res.ok) {
+//       setTenantList((prev) => prev.filter((t) => t.id !== id));
+//       toast.success("Tenant deleted.");
+//     } else {
+//       toast.error("Failed to delete tenant.");
+//     }
+//   };
+
+//   // ── Edit ────────────────────────────────────────────────
+//   const openEdit = (tenant: TenantWithRelations) => {
+//     setEditingTenant(tenant);
+//     setEditForm({
+//       name: tenant.user.name,
+//       email: tenant.user.email,
+//       phone: tenant.user.phone || "",
+//       rentAmount: String(tenant.rentAmount),
+//     });
+//   };
+
+//   const handleEditSubmit = async (e: React.FormEvent) => {
+//     e.preventDefault();
+//     if (!editingTenant) return;
+//     const res = await fetch(`/api/tenants/${editingTenant.id}`, {
+//       method: "PUT",
+//       headers: { "Content-Type": "application/json" },
+//       body: JSON.stringify(editForm),
+//     });
+//     if (res.ok) {
+//       setTenantList((prev) =>
+//         prev.map((t) =>
+//           t.id === editingTenant.id
+//             ? {
+//                 ...t,
+//                 user: {
+//                   ...t.user,
+//                   name: editForm.name,
+//                   email: editForm.email,
+//                   phone: editForm.phone,
+//                 },
+//                 rentAmount: parseFloat(editForm.rentAmount),
+//               }
+//             : t
+//         )
+//       );
+//       toast.success("Tenant updated.");
+//       setEditingTenant(null);
+//     } else {
+//       toast.error("Failed to update tenant.");
+//     }
+//   };
+
+//   // ── View Profile ────────────────────────────────────────
+//   const openView = (tenant: TenantWithRelations) => {
+//     setViewingTenant(tenant);
+//   };
+
+//   // ── Add Bill ────────────────────────────────────────────
+//   const openBillForm = (tenantId: string) => {
+//     setBillTenantId(tenantId);
+//     const now = new Date();
+//     const period = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
+//     const dueDate = new Date(now.getFullYear(), now.getMonth(), 10)
+//       .toISOString()
+//       .split("T")[0];
+//     setBillForm({ type: "RENT", amount: "", period, dueDate });
+//   };
+
+//   const handleAddBill = async (e: React.FormEvent) => {
+//     e.preventDefault();
+//     if (!billTenantId) return;
+//     const res = await fetch("/api/bills", {
+//       method: "POST",
+//       headers: { "Content-Type": "application/json" },
+//       body: JSON.stringify({
+//         tenantId: billTenantId,
+//         type: billForm.type,
+//         amount: parseFloat(billForm.amount),
+//         period: billForm.period,
+//         dueDate: new Date(billForm.dueDate),
+//       }),
+//     });
+//     if (res.ok) {
+//       toast.success("Bill added successfully.");
+//       setBillTenantId(null);
+//       router.refresh();
+//     } else {
+//       toast.error("Failed to add bill.");
+//     }
+//   };
+
+//   // ── Occupants ───────────────────────────────────────────
+//   const [occupantTenant, setOccupantTenant] = useState<TenantWithRelations | null>(null);
+//   const [newOccupant, setNewOccupant] = useState({ name: "", phone: "", relation: "" });
+
+//   const openOccupantsDialog = (tenant: TenantWithRelations) => {
+//     setOccupantTenant(tenant);
+//     setNewOccupant({ name: "", phone: "", relation: "" });
+//   };
+
+//   const handleAddOccupant = async (e: React.FormEvent) => {
+//     e.preventDefault();
+//     if (!occupantTenant) return;
+//     const res = await fetch("/api/occupants", {
+//       method: "POST",
+//       headers: { "Content-Type": "application/json" },
+//       body: JSON.stringify({
+//         tenantId: occupantTenant.id,
+//         ...newOccupant,
+//       }),
+//     });
+//     if (res.ok) {
+//       const data = await res.json();
+//       setOccupantTenant((prev) =>
+//         prev ? { ...prev, occupants: [...prev.occupants, data.occupant] } : prev
+//       );
+//       setTenantList((prev) =>
+//         prev.map((t) =>
+//           t.id === occupantTenant.id
+//             ? { ...t, occupants: [...t.occupants, data.occupant] }
+//             : t
+//         )
+//       );
+//       setNewOccupant({ name: "", phone: "", relation: "" });
+//       toast.success("Occupant added.");
+//     } else {
+//       toast.error("Failed to add occupant.");
+//     }
+//   };
+
+//   const handleDeleteOccupant = async (occupantId: string) => {
+//     if (!occupantTenant) return;
+//     const res = await fetch(`/api/occupants/${occupantId}`, { method: "DELETE" });
+//     if (res.ok) {
+//       setOccupantTenant((prev) =>
+//         prev
+//           ? {
+//               ...prev,
+//               occupants: prev.occupants.filter((o) => o.id !== occupantId),
+//             }
+//           : prev
+//       );
+//       setTenantList((prev) =>
+//         prev.map((t) =>
+//           t.id === occupantTenant.id
+//             ? {
+//                 ...t,
+//                 occupants: t.occupants.filter((o) => o.id !== occupantId),
+//               }
+//             : t
+//         )
+//       );
+//       toast.success("Occupant removed.");
+//     }
+//   };
+
+//   // ── Export to Excel ─────────────────────────────────────
+//   const exportToExcel = () => {
+//     const data = tenantList.map((t) => ({
+//       Name: t.user.name,
+//       Email: t.user.email,
+//       Phone: t.user.phone || "",
+//       Property: t.unit.property.name,
+//       Unit: t.unit.name,
+//       "Monthly Rent (RWF)": t.rentAmount,
+//       Status: t.isActive ? "Active" : "Inactive",
+//       "Move-in Date": new Date(t.startDate).toLocaleDateString(),
+//     }));
+//     const worksheet = XLSX.utils.json_to_sheet(data);
+//     const workbook = XLSX.utils.book_new();
+//     XLSX.utils.book_append_sheet(workbook, worksheet, "Tenants");
+//     XLSX.writeFile(workbook, "tenants.xlsx");
+//     toast.success("Export downloaded.");
+//   };
+
+//   // ── Actions Helper (now receives hasContract to decide button) ──
+//   const actionButtons = (tenant: TenantWithRelations, hasContract: boolean) => (
+//     <div className="flex gap-1 justify-end">
+//       <Button variant="ghost" size="icon" onClick={() => openView(tenant)} title="View Profile">
+//         <Eye className="h-4 w-4" />
+//       </Button>
+//       {hasContract ? (
+//         <Button
+//           variant="ghost"
+//           size="icon"
+//           onClick={() => router.push(`${contractBasePath}?tenantId=${tenant.id}`)}
+//           title="View Contract"
+//         >
+//           <FileText className="h-4 w-4 text-blue-600" />
+//         </Button>
+//       ) : (
+//         <Button
+//           variant="ghost"
+//           size="icon"
+//           onClick={() => openContractForm(tenant)}
+//           title="Assign Contract"
+//         >
+//           <PlusCircle className="h-4 w-4" />
+//         </Button>
+//       )}
+//       <Button variant="ghost" size="icon" onClick={() => openEdit(tenant)} title="Edit">
+//         <Pencil className="h-4 w-4" />
+//       </Button>
+//       <Button variant="ghost" size="icon" onClick={() => openBillForm(tenant.id)} title="Add Bill">
+//         <PlusCircle className="h-4 w-4" />
+//       </Button>
+//       <Button
+//         variant="ghost"
+//         size="icon"
+//         onClick={() => {
+//           setDeletingTenant(tenant);
+//           setClearanceFormOpen(true);
+//         }}
+//         title="Delete"
+//       >
+//         <Trash2 className="h-4 w-4 text-red-500" />
+//       </Button>
+//     </div>
+//   );
+
+//   return (
+//     <>
+//       <Card className="dark:bg-gray-900 dark:border-gray-800">
+//         <CardHeader className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+//           <CardTitle className="text-gray-800 dark:text-gray-100">
+//             All Tenants
+//           </CardTitle>
+//           <Button onClick={exportToExcel} variant="outline" size="sm" className="dark:border-gray-700 dark:text-gray-200">
+//             <Download className="mr-2 h-4 w-4" />
+//             Export Excel
+//           </Button>
+//         </CardHeader>
+//         <CardContent>
+//           {/* ── Mobile: Cards ── */}
+//           <div className="md:hidden space-y-4">
+//             {tenantList.length === 0 ? (
+//               <p className="text-center text-gray-500 dark:text-gray-400 py-8">
+//                 No tenants found.
+//               </p>
+//             ) : (
+//               tenantList.map((tenant) => {
+//                 const latestContract = tenant.contracts?.[0];
+//                 const contractStatus = latestContract?.status ?? null;
+//                 const hasContract = !!latestContract;
+
+//                 return (
+//                   <motion.div
+//                     key={tenant.id}
+//                     initial={{ opacity: 0, y: 10 }}
+//                     animate={{ opacity: 1, y: 0 }}
+//                     exit={{ opacity: 0 }}
+//                     className="bg-white dark:bg-gray-800 rounded-xl border dark:border-gray-700 p-4"
+//                   >
+//                     <div className="flex justify-between items-start">
+//                       <div>
+//                         <h3 className="font-semibold text-gray-900 dark:text-gray-100">
+//                           {tenant.user.name}
+//                         </h3>
+//                         <p className="text-xs text-gray-500 dark:text-gray-400">
+//                           {tenant.user.email}
+//                         </p>
+//                         <p className="text-sm text-gray-500 dark:text-gray-400">
+//                           {tenant.unit.property.name} – {tenant.unit.name}
+//                         </p>
+//                       </div>
+
+//                       <div className="flex items-center gap-2 mt-1">
+//                         <span className="text-xs text-gray-500">Contract:</span>
+//                         {contractStatus ? (
+//                           <span
+//                             className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
+//                               statusConfig[contractStatus]?.color ?? ""
+//                             }`}
+//                           >
+//                             {statusConfig[contractStatus]?.label ?? contractStatus}
+//                           </span>
+//                         ) : (
+//                           <span className="text-xs text-gray-400">No Contract</span>
+//                         )}
+//                       </div>
+//                     </div>
+
+//                     <div className="mt-2 grid grid-cols-2 gap-2 text-sm">
+//                       <div>
+//                         <span className="text-xs text-gray-500 dark:text-gray-400">ID:</span>{" "}
+//                         {tenant.nationalId || "—"}
+//                       </div>
+//                       <div>
+//                         <span className="text-xs text-gray-500 dark:text-gray-400">Occupants:</span>{" "}
+//                         <Button
+//                           variant="link"
+//                           className="p-0 h-auto"
+//                           onClick={() => openOccupantsDialog(tenant)}
+//                         >
+//                           {tenant.occupants.length}
+//                         </Button>
+//                       </div>
+//                     </div>
+
+//                     <div className="mt-3 flex justify-between items-center">
+//                       <span className="font-medium text-gray-800 dark:text-gray-200">
+//                         {tenant.rentAmount.toLocaleString()} RWF
+//                       </span>
+//                       {actionButtons(tenant, hasContract)}
+//                     </div>
+//                   </motion.div>
+//                 );
+//               })
+//             )}
+//           </div>
+
+//           {/* ── Desktop: Table ── */}
+//           <div className="hidden md:block overflow-auto">
+//             {tenantList.length === 0 ? (
+//               <p className="text-center text-gray-500 dark:text-gray-400 py-8">
+//                 No tenants found.
+//               </p>
+//             ) : (
+//               <Table>
+//                 <TableHeader>
+//                   <TableRow>
+//                     <TableHead>Name</TableHead>
+//                     <TableHead>Email</TableHead>
+//                     <TableHead>Unit</TableHead>
+//                     <TableHead>ID / Passport</TableHead>
+//                     <TableHead>Occupants</TableHead>
+//                     <TableHead>Rent</TableHead>
+//                     <TableHead>Status</TableHead>
+//                     <TableHead className="text-right">Actions</TableHead>
+//                   </TableRow>
+//                 </TableHeader>
+//                 <TableBody>
+//                   <AnimatePresence>
+//                     {tenantList.map((tenant) => {
+//                       const latestContract = tenant.contracts?.[0];
+//                       const contractStatus = latestContract?.status ?? null;
+//                       const hasContract = !!latestContract;
+
+//                       return (
+//                         <motion.tr
+//                           key={tenant.id}
+//                           initial={{ opacity: 0, y: 10 }}
+//                           animate={{ opacity: 1, y: 0 }}
+//                           exit={{ opacity: 0 }}
+//                           className="border-b dark:border-gray-800"
+//                         >
+//                           <TableCell className="font-medium text-gray-800 dark:text-gray-200">
+//                             {tenant.user.name}
+//                           </TableCell>
+//                           <TableCell className="text-gray-600 dark:text-gray-400">
+//                             {tenant.user.email}
+//                           </TableCell>
+//                           <TableCell className="text-gray-600 dark:text-gray-400">
+//                             {tenant.unit.property.name} – {tenant.unit.name}
+//                           </TableCell>
+//                           <TableCell className="text-gray-600 dark:text-gray-400 text-xs">
+//                             {tenant.nationalId || "—"}
+//                           </TableCell>
+//                           <TableCell>
+//                             <div className="flex items-center gap-2">
+//                               <span className="text-sm">{tenant.occupants.length}</span>
+//                               <Button
+//                                 variant="ghost"
+//                                 size="icon"
+//                                 onClick={() => openOccupantsDialog(tenant)}
+//                                 title="Manage Occupants"
+//                               >
+//                                 <Users className="h-4 w-4" />
+//                               </Button>
+//                             </div>
+//                           </TableCell>
+//                           <TableCell>
+//                             {tenant.rentAmount.toLocaleString()} RWF
+//                           </TableCell>
+//                           <TableCell>
+//                             {contractStatus ? (
+//                               <span
+//                                 className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
+//                                   statusConfig[contractStatus]?.color ?? ""
+//                                 }`}
+//                               >
+//                                 {statusConfig[contractStatus]?.label ?? contractStatus}
+//                               </span>
+//                             ) : (
+//                               <span className="text-xs text-gray-400">No Contract</span>
+//                             )}
+//                           </TableCell>
+//                           <TableCell className="text-right">
+//                             {actionButtons(tenant, hasContract)}
+//                           </TableCell>
+//                         </motion.tr>
+//                       );
+//                     })}
+//                   </AnimatePresence>
+//                 </TableBody>
+//               </Table>
+//             )}
+//           </div>
+//         </CardContent>
+//       </Card>
+
 "use client";
 
 import { useState } from "react";
@@ -36,11 +591,15 @@ import {
   Download,
   FileText,
   Users,
+  Search,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import * as XLSX from "xlsx";
 import toast from "react-hot-toast";
 import type { TenantWithRelations } from "@/types/index";
 import ClearanceForm from "@/components/admin/ClearanceForm";
+import { useMediaQuery } from "@/hooks/useMediaQuery"; // 👈 new hook
 
 const statusConfig: Record<string, { label: string; color: string }> = {
   PENDING_TENANT_SIGNATURE: {
@@ -67,12 +626,20 @@ const statusConfig: Record<string, { label: string; color: string }> = {
 
 export default function TenantsTable({
   tenants,
-  contractBasePath = "/admin/contracts"
+  contractBasePath = "/admin/contracts",
 }: {
   tenants: TenantWithRelations[];
   contractBasePath?: string;
 }) {
   const router = useRouter();
+  const isMobile = useMediaQuery("(max-width: 767px)"); // 👈 hook usage
+  const pageSize = isMobile ? 5 : 20; // 👈 adaptive page size
+
+  // ── Search & Pagination State ───────────────────────
+  const [searchQuery, setSearchQuery] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+
+  // ── All other state (unchanged) ─────────────────────
   const [tenantList, setTenantList] = useState(tenants);
   const [editingTenant, setEditingTenant] = useState<TenantWithRelations | null>(null);
   const [viewingTenant, setViewingTenant] = useState<TenantWithRelations | null>(null);
@@ -99,7 +666,7 @@ export default function TenantsTable({
     endDate: string;
     monthlyRent: string;
     deposit: string;
-    utilities: Record<string, string>;   // 👈 allow any string key
+    utilities: Record<string, string>;
   }>({
     startDate: "",
     endDate: "",
@@ -308,9 +875,9 @@ export default function TenantsTable({
     }
   };
 
-  // ── Export to Excel ─────────────────────────────────────
+  // ── Export to Excel (exports filtered list) ──────────
   const exportToExcel = () => {
-    const data = tenantList.map((t) => ({
+    const data = filteredTenants.map((t) => ({
       Name: t.user.name,
       Email: t.user.email,
       Phone: t.user.phone || "",
@@ -327,7 +894,72 @@ export default function TenantsTable({
     toast.success("Export downloaded.");
   };
 
-  // ── Actions Helper (now receives hasContract to decide button) ──
+  // ── Filter & Paginate ─────────────────────────────────
+  const filteredTenants = tenants.filter((t) => {
+    if (!searchQuery.trim()) return true;
+    const q = searchQuery.toLowerCase();
+    return (
+      t.user.name.toLowerCase().includes(q) ||
+      t.user.email.toLowerCase().includes(q) ||
+      (t.nationalId && t.nationalId.toLowerCase().includes(q))
+    );
+  });
+
+  const totalPages = Math.ceil(filteredTenants.length / pageSize);
+  const paginatedTenants = filteredTenants.slice(
+    (currentPage - 1) * pageSize,
+    currentPage * pageSize
+  );
+
+  const handleSearchChange = (value: string) => {
+    setSearchQuery(value);
+    setCurrentPage(1);
+  };
+
+  // ── Pagination Component ─────────────────────────────
+  const Pagination = () => (
+    <div className="flex items-center justify-between pt-4">
+      <p className="text-sm text-gray-500 dark:text-gray-400">
+        {filteredTenants.length === 0
+          ? "0 results"
+          : `Showing ${(currentPage - 1) * pageSize + 1}–${Math.min(
+              currentPage * pageSize,
+              filteredTenants.length
+            )} of ${filteredTenants.length}`}
+      </p>
+      <div className="flex gap-1">
+        <Button
+          variant="outline"
+          size="icon"
+          onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+          disabled={currentPage === 1}
+        >
+          <ChevronLeft className="h-4 w-4" />
+        </Button>
+        {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+          <Button
+            key={page}
+            variant={page === currentPage ? "default" : "outline"}
+            size="sm"
+            onClick={() => setCurrentPage(page)}
+            className="hidden md:inline-flex"
+          >
+            {page}
+          </Button>
+        ))}
+        <Button
+          variant="outline"
+          size="icon"
+          onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+          disabled={currentPage === totalPages || totalPages === 0}
+        >
+          <ChevronRight className="h-4 w-4" />
+        </Button>
+      </div>
+    </div>
+  );
+
+  // ── Actions Helper (unchanged) ───────────────────────
   const actionButtons = (tenant: TenantWithRelations, hasContract: boolean) => (
     <div className="flex gap-1 justify-end">
       <Button variant="ghost" size="icon" onClick={() => openView(tenant)} title="View Profile">
@@ -379,20 +1011,38 @@ export default function TenantsTable({
           <CardTitle className="text-gray-800 dark:text-gray-100">
             All Tenants
           </CardTitle>
-          <Button onClick={exportToExcel} variant="outline" size="sm" className="dark:border-gray-700 dark:text-gray-200">
-            <Download className="mr-2 h-4 w-4" />
-            Export Excel
-          </Button>
+          <div className="flex items-center gap-2 w-full sm:w-auto">
+            {/* Search Input */}
+            <div className="relative flex-1 sm:flex-initial">
+              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500 dark:text-gray-300" />
+              <Input
+                placeholder="Search name, email or ID/Passport"
+                value={searchQuery}
+                onChange={(e) => handleSearchChange(e.target.value)}
+                className="pl-9 w-full sm:w-64"
+              />
+            </div>
+            <Button
+              onClick={exportToExcel}
+              variant="outline"
+              size="sm"
+              className="dark:border-gray-700 dark:text-gray-200"
+            >
+              <Download className="mr-2 h-4 w-4" />
+              Export
+            </Button>
+          </div>
         </CardHeader>
+        
         <CardContent>
           {/* ── Mobile: Cards ── */}
           <div className="md:hidden space-y-4">
-            {tenantList.length === 0 ? (
+            {paginatedTenants.length === 0 ? (
               <p className="text-center text-gray-500 dark:text-gray-400 py-8">
                 No tenants found.
               </p>
             ) : (
-              tenantList.map((tenant) => {
+              paginatedTenants.map((tenant) => {
                 const latestContract = tenant.contracts?.[0];
                 const contractStatus = latestContract?.status ?? null;
                 const hasContract = !!latestContract;
@@ -410,16 +1060,16 @@ export default function TenantsTable({
                         <h3 className="font-semibold text-gray-900 dark:text-gray-100">
                           {tenant.user.name}
                         </h3>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                        <p className="text-xs text-gray-300 dark:text-gray-300">
                           {tenant.user.email}
                         </p>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
                           {tenant.unit.property.name} – {tenant.unit.name}
                         </p>
                       </div>
 
                       <div className="flex items-center gap-2 mt-1">
-                        <span className="text-xs text-gray-500">Contract:</span>
+                        {/* <span className="text-xs text-gray-500">Contract:</span> */}
                         {contractStatus ? (
                           <span
                             className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
@@ -434,18 +1084,18 @@ export default function TenantsTable({
                       </div>
                     </div>
 
-                    <div className="mt-2 grid grid-cols-2 gap-2 text-sm">
-                      <div>
-                        <span className="text-xs text-gray-500 dark:text-gray-400">ID:</span>{" "}
+                    <div className="text-xs">
+                      <div className="flex items-center gap-2 mt-2">
+                        <span className="text-gray-500 dark:text-gray-400">ID:</span>{" "}
                         {tenant.nationalId || "—"}
                       </div>
-                      <div>
-                        <span className="text-xs text-gray-500 dark:text-gray-400">Occupants:</span>{" "}
+                      <div className="flex items-center gap-2">
+                        <span className="text-gray-500 dark:text-gray-400">Occupants:</span>{" "}
                         <Button
                           variant="link"
                           className="p-0 h-auto"
                           onClick={() => openOccupantsDialog(tenant)}
-                        >
+                          >
                           {tenant.occupants.length}
                         </Button>
                       </div>
@@ -455,103 +1105,116 @@ export default function TenantsTable({
                       <span className="font-medium text-gray-800 dark:text-gray-200">
                         {tenant.rentAmount.toLocaleString()} RWF
                       </span>
+                    </div>
+                    <div className="mt-3 justify-between items-center">
                       {actionButtons(tenant, hasContract)}
                     </div>
                   </motion.div>
                 );
               })
             )}
+            <Pagination />
           </div>
 
           {/* ── Desktop: Table ── */}
           <div className="hidden md:block overflow-auto">
-            {tenantList.length === 0 ? (
+            {filteredTenants.length === 0 ? (
               <p className="text-center text-gray-500 dark:text-gray-400 py-8">
                 No tenants found.
               </p>
             ) : (
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Name</TableHead>
-                    <TableHead>Email</TableHead>
-                    <TableHead>Unit</TableHead>
-                    <TableHead>ID / Passport</TableHead>
-                    <TableHead>Occupants</TableHead>
-                    <TableHead>Rent</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead className="text-right">Actions</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  <AnimatePresence>
-                    {tenantList.map((tenant) => {
-                      const latestContract = tenant.contracts?.[0];
-                      const contractStatus = latestContract?.status ?? null;
-                      const hasContract = !!latestContract;
+              <>
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Name</TableHead>
+                      <TableHead>Email</TableHead>
+                      <TableHead>Unit</TableHead>
+                      <TableHead>ID / Passport</TableHead>
+                      <TableHead>Occupants</TableHead>
+                      <TableHead>Rent</TableHead>
+                      <TableHead>Status</TableHead>
+                      <TableHead className="text-right">Actions</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <AnimatePresence>
+                      {paginatedTenants.map((tenant) => {
+                        const latestContract = tenant.contracts?.[0];
+                        const contractStatus = latestContract?.status ?? null;
+                        const hasContract = !!latestContract;
 
-                      return (
-                        <motion.tr
-                          key={tenant.id}
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0 }}
-                          className="border-b dark:border-gray-800"
-                        >
-                          <TableCell className="font-medium text-gray-800 dark:text-gray-200">
-                            {tenant.user.name}
-                          </TableCell>
-                          <TableCell className="text-gray-600 dark:text-gray-400">
-                            {tenant.user.email}
-                          </TableCell>
-                          <TableCell className="text-gray-600 dark:text-gray-400">
-                            {tenant.unit.property.name} – {tenant.unit.name}
-                          </TableCell>
-                          <TableCell className="text-gray-600 dark:text-gray-400 text-xs">
-                            {tenant.nationalId || "—"}
-                          </TableCell>
-                          <TableCell>
-                            <div className="flex items-center gap-2">
-                              <span className="text-sm">{tenant.occupants.length}</span>
-                              <Button
-                                variant="ghost"
-                                size="icon"
-                                onClick={() => openOccupantsDialog(tenant)}
-                                title="Manage Occupants"
-                              >
-                                <Users className="h-4 w-4" />
-                              </Button>
-                            </div>
-                          </TableCell>
-                          <TableCell>
-                            {tenant.rentAmount.toLocaleString()} RWF
-                          </TableCell>
-                          <TableCell>
-                            {contractStatus ? (
-                              <span
-                                className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
-                                  statusConfig[contractStatus]?.color ?? ""
-                                }`}
-                              >
-                                {statusConfig[contractStatus]?.label ?? contractStatus}
-                              </span>
-                            ) : (
-                              <span className="text-xs text-gray-400">No Contract</span>
-                            )}
-                          </TableCell>
-                          <TableCell className="text-right">
-                            {actionButtons(tenant, hasContract)}
-                          </TableCell>
-                        </motion.tr>
-                      );
-                    })}
-                  </AnimatePresence>
-                </TableBody>
-              </Table>
+                        return (
+                          <motion.tr
+                            key={tenant.id}
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0 }}
+                            className="border-b dark:border-gray-800"
+                          >
+                            <TableCell className="font-medium text-gray-800 dark:text-gray-200">
+                              {tenant.user.name}
+                            </TableCell>
+                            <TableCell className="text-gray-600 dark:text-gray-400">
+                              {tenant.user.email}
+                            </TableCell>
+                            <TableCell className="text-gray-600 dark:text-gray-400">
+                              {tenant.unit.property.name} – {tenant.unit.name}
+                            </TableCell>
+                            <TableCell className="text-gray-600 dark:text-gray-400 text-xs">
+                              {tenant.nationalId || "—"}
+                            </TableCell>
+                            <TableCell>
+                              <div className="flex items-center gap-2">
+                                <span className="text-sm">{tenant.occupants.length}</span>
+                                <Button
+                                  variant="ghost"
+                                  size="icon"
+                                  onClick={() => openOccupantsDialog(tenant)}
+                                  title="Manage Occupants"
+                                >
+                                  <Users className="h-4 w-4" />
+                                </Button>
+                              </div>
+                            </TableCell>
+                            <TableCell>
+                              {tenant.rentAmount.toLocaleString()} RWF
+                            </TableCell>
+                            <TableCell>
+                              {contractStatus ? (
+                                <span
+                                  className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
+                                    statusConfig[contractStatus]?.color ?? ""
+                                  }`}
+                                >
+                                  {statusConfig[contractStatus]?.label ?? contractStatus}
+                                </span>
+                              ) : (
+                                <span className="text-xs text-gray-400">No Contract</span>
+                              )}
+                            </TableCell>
+                            <TableCell className="text-right">
+                              {actionButtons(tenant, hasContract)}
+                            </TableCell>
+                          </motion.tr>
+                        );
+                      })}
+                    </AnimatePresence>
+                  </TableBody>
+                </Table>
+                <Pagination />
+              </>
             )}
           </div>
         </CardContent>
       </Card>
+
+      {/* All dialogs remain exactly the same as in your provided code */}
+      {/* Edit Dialog, View Profile Dialog, Add Bill Dialog, Create Contract Dialog, Occupants Dialog, Clearance Dialog */}
+      {/* ... (they are unchanged) ... */}
+    {/* </>
+  );
+} */}
 
       {/* ── Edit Dialog ── */}
       <Dialog open={!!editingTenant} onOpenChange={(open) => !open && setEditingTenant(null)}>
